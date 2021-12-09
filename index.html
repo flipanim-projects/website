@@ -6,12 +6,18 @@
   </head>
   <body>
     <nav>
+     <div style="display:flex">
       <h1>FlipAnim</h1>
+      <a class="linktitle">Browse</a>
+      <a class="linktitle">Search</a>
+      <a class="linktitle">Followed</a>
+     </div> 
       <div class="profile">
-        <h2>Guest</h2>
-        <div>
-          l
-          s
+        <img onclick="this.nextElementSibling.classList.toggle('open')" src="https://i.pinimg.com/474x/4c/8b/44/4c8b4445ae236fa7bfa037ee129b1851.jpg">
+        <div class="profile-options">
+          <div class="profile-option">Profile</div>
+          <div class="profile-option">Settings</div>
+          <div class="profile-option">Log out</div>
         </div>
       </div>
     </nav>
@@ -22,7 +28,6 @@
           <h1>Title</h1>
         </div>
       </div>
-      <div class="sidebar"></div>
     </main>
   </body>
 </html>
