@@ -1,16 +1,17 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family:  Public Sans, Inter, -apple-system, system-ui, sans-serif
+  font-family: Indie Flower
 }
 
 body {
-  background: #000020;
+  background-color: #000020;
   color: #eee;
   margin: 0;
   position: relative;
   display: flex;
   flex-direction: column;
+  background-image: url('https://flipanim.com/gfx/noise.png')
 }
 
 nav {
@@ -56,7 +57,7 @@ main {
 
 .profile-options {
   position: absolute;
-  border: 1px solid rgba(164, 171, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   top: 100%;
   left: -120px;
   z-index:2;
@@ -93,7 +94,12 @@ main {
 
 }
 
-
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .anim {
   width: 300px;
   height: 300px;
@@ -102,6 +108,12 @@ main {
   padding: 10px;
   border-radius: 20px;
   margin: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.anim:hover {
+  border: 1px solid rgba(255,255,255,0.9);
+  background: #ffffff35;
 }
 
 nav h1, nav .linktitle {
@@ -117,4 +129,8 @@ nav h1:hover, nav .linktitle:hover{
   background: rgba(255,255,255,0.178);
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.278);
+}
+.anim h2 {
+  font-size: 17px;
+  font-weight: 400;
 }
