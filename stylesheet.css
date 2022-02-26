@@ -3,10 +3,18 @@
   margin: 0;
   font-family: Indie Flower
 }
-
+:root {
+  --body-background: #000020;
+  --body-text: #eee;
+  --card-background: #ffffff28;
+  --card-background-intense: #ffffff38;
+  --card-blur: blur(7px);
+  --border: 1px solid rgba(255,255,255,0.2);
+  --border-hover: 1px solid rgba(255,255,255,0.9);
+}
 body {
   background-color: #000020;
-  color: #eee;
+  color: var(--body-text);
   margin: 0;
   position: relative;
   display: flex;
@@ -15,7 +23,7 @@ body {
 }
 
 nav {
-  background: #ffffff28;
+  background: var(--card-background);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   padding: 10px;
@@ -44,14 +52,16 @@ main {
   position: relative;
   margin-right: 20px;
 }
+
 .profile img {
-  height:50px;
+  height: 50px;
   border-radius: 50%;
   border: 1px solid rgba(164, 171, 255, 0.4);
 }
+
 .profile img:hover {
-  cursor:pointer;
-  transform:translateY(-1px);
+  cursor: pointer;
+  transform: translateY(-1px);
   box-shadow: 0 0px 10px rgba(255, 255, 255, 0.278);
 }
 
@@ -60,15 +70,15 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.2);
   top: 100%;
   left: -120px;
-  z-index:2;
+  z-index: 2;
   padding: 10px;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   height: fit-content;
   transform: translateY(10px);
   border-radius: 20px;
-  pointer-events:none;
-  opacity:0;
+  pointer-events: none;
+  opacity: 0;
   transition: 0.3s;
   background: rgba(27, 29, 61, 0.849);
 }
@@ -76,15 +86,13 @@ main {
 .profile-options .profile-option {
   margin: 3px 0px;
   cursor: pointer;
+  border-radius: 30px;
   transition: 0.2s;
-  border: 1px solid rgba(255, 255, 255, 0);
   padding: 8px 40px 8px 25px;
 }
 
 .profile-options .profile-option:hover {
   background: rgba(167, 183, 255, 0.2);
-  border-radius: 30px;
-  border: 1px solid rgba(164, 171, 255, 0.4);
 }
 
 .profile-options.open {
@@ -100,37 +108,123 @@ main {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+nav h1,
+nav .linktitle {
+  font-size: 20px;
+  margin: 0 5px;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: 0.1s;
+  border-radius: 30px;
+}
+
+nav h1:hover,
+nav .linktitle:hover {
+  background: rgba(255, 255, 255, 0.178);
+}
+
+.anim h2 {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.anim img {
+  height: 100%;
+  width: 100%;
+}
+
+.anim-text {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 10px 30px;
+  border-top-left-radius: 20px;
+  ;
+  transition: 0.2s;
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-left: 1px solid rgba(255, 255, 255, 0);
+}
+
 .anim {
   width: 300px;
   height: 300px;
   background: #ffffff25;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   margin: 20px;
   transition: 0.2s;
+  overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
+
 .anim:hover {
-  border: 1px solid rgba(255,255,255,0.9);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   background: #ffffff35;
 }
 
-nav h1, nav .linktitle {
-  font-size: 20px;
-  margin: 0 5px;
-  padding: 5px 20px;
-  border: 1px solid rgba(255,255,255,0);
-  cursor:pointer;
-  transition: 0.1s;
+.anim:hover .anim-text {
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+  border-left: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-nav h1:hover, nav .linktitle:hover{
-  background: rgba(255,255,255,0.178);
-  border-radius: 30px;
-  border: 1px solid rgba(255,255,255,0.278);
+.modal-container {
+  position: fixed;
+  top: 0;left: 0;right: 0;bottom: 0;
+  z-index: 4;
+  opacity:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  pointer-events: none;
+  transition: 0.4s;
 }
-.anim h2 {
-  font-size: 17px;
-  font-weight: 400;
+
+.modal-container.overlay {
+  backdrop-filter: blur(3px);
+  opacity:1;
+  pointer-events:all;
+}
+
+.modal {
+  border: var(--border);
+  background: var(--card-background);
+  padding: 20px;
+  animation: modal 0.4s;
+  border-radius: 20px;
+  transform:scale(0.5);
+  transition: 0.4s;
+}
+.modal.showing {
+  transform:scale(1)
+}
+@keyframes modal {
+  from{transform:scale(0.5)}
+}
+
+button {
+  padding: 8px 18px;
+  background: var(--card-background);
+  color: white;
+  min-width: 90px;
+  margin-right: 10px;
+  border:0;
+  border-radius:14px;
+  cursor: pointer;
+}
+
+button.proceed-dangerous {
+  background: rgba(255, 0, 0, 0.448);
+}
+
+button:hover {
+  background: var(--card-background-intense)
+}
+button.proceed-dangerous:hover {
+  background: rgba(255, 0, 0, 0.648);
 }
