@@ -3,7 +3,7 @@
 
 <head>
   <title>FlipAnim | Home</title>
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="./css/stylesheet.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -21,22 +21,30 @@
       <a class="linktitle">Followed</a>
     </div>
     <div class="profile">
-      <img onclick="this.nextElementSibling.classList.toggle('open')"
+      <img onclick="document.querySelector('.profile-options').classList.toggle('open')"
         src="https://i.pinimg.com/474x/4c/8b/44/4c8b4445ae236fa7bfa037ee129b1851.jpg">
-      <div class="profile-options">
-        <div class="profile-option">Profile</div>
-        <div class="profile-option">Settings</div>
-        <div class="profile-option" id="logOut">Log out</div>
-      </div>
+      
     </div>
   </nav>
   <main>
+    <div class="profile-options">
+      <div class="profile-option">Profile</div>
+      <div class="profile-option">Settings</div>
+      <div class="profile-option" id="logOut">Log out</div>
+    </div>
     <div class="main">
       <div class="anim">
         <img
           src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif">
         <div class="anim-text">
           <h1>j</h1>
+          <h2>by Pineapple-Rind</h2>
+        </div>
+      </div>
+      <div class="anim">
+        <img src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/im7g9y9g.gif">
+        <div class="anim-text">
+          <h1>Discord</h1>
           <h2>by Pineapple-Rind</h2>
         </div>
       </div>
