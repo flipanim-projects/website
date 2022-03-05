@@ -15,7 +15,7 @@ const Users = {
             text: 'flipanim',
             id: 'ADMIN'
         }, stats: {
-            likes: function () { },
+            likes: function () { this.anims.reduce() },
             views: function () { },
         }, anims: [
             {
@@ -27,6 +27,12 @@ const Users = {
                 },
                 author: 'ADMIN'
             }
+        ], notifications: [
+            {
+                title: 'Welcome to FlipAnim!',
+                description: 'Placeholder text.',
+                read: false
+            }
         ],
         status: {
             name: "Support has arrived!",
@@ -34,7 +40,9 @@ const Users = {
         },
         following: [],
         followers: [],
-        password: '' // Hash function (SHA-256, for security)
+        password: '', // Hash function (SHA-256, for security)
+        bio: `Flipanim's moderator and creator. Feel free to ping for help!`,
+        admin: true
     }]
 }
-console.log(users[0].anims[0].author)
+
