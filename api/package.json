@@ -1,0 +1,14 @@
+{
+  "name": "flipanim-api",
+  "version": "1.0.0",
+  "description": "api for flipani",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "author": "pr",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
