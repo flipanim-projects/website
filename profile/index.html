@@ -14,15 +14,15 @@
 <body>
     <nav>
         <div style="display:flex">
-            <h1><img src="https://flipanim.com/gfx/logo_fb.png" height="25px"
-                    style="vertical-align: bottom;margin-right:5px;">FlipAnim</h1>
+            <h1><img src="../imgs/flipanimv2.png" height="35px"
+                    style="vertical-align: bottom;margin-right:5px;"></h1>
             <a class="linktitle">Browse</a>
             <a class="linktitle">Search</a>
             <a class="linktitle">Followed</a>
         </div>
         <div class="profile">
             <img onclick="document.querySelector('.profile-options').classList.toggle('open')"
-                src="https://i.pinimg.com/474x/4c/8b/44/4c8b4445ae236fa7bfa037ee129b1851.jpg">
+                src="../imgs/profile.png">
 
         </div>
     </nav>
@@ -32,26 +32,26 @@
             <div class="profile-option">Settings</div>
             <div class="profile-option" id="logOut">Log out</div>
         </div>
-        <div class="main">
-            <div class="anim">
-                <img
-                    src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif">
-                <div class="anim-text">
-                    <h1>j</h1>
-                    <h2>by Pineapple-Rind</h2>
+        <div class="main" id="profile-main">
+            <div class="profile-basic-info">
+                <img src="../imgs/profile.png" class="profile-image">
+                <h1 class="profile-name skeleton">Loading</h1>
+                <p class="profile-creation skeleton">Loading</p>
+                <div class="flex">
+                    <div class="profile-follow ers">Loading</div>
+                    <div class="profile-follow ing">Loading</div>
                 </div>
             </div>
-            <div class="anim">
-                <img
-                    src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/im7g9y9g.gif">
-                <div class="anim-text">
-                    <h1>Discord</h1>
-                    <h2>by Pineapple-Rind</h2>
-                </div>
+            <div class="profile-status-info">
+                <h2>Status</h2>
+                <div class="text-box profile-status"><span class="profile-status-type"></span></div>
+                <br>
+                <h2>Bio</h2>
+                <div class="text-box profile-bio">No bio</div>
             </div>
         </div>
     </main>
-    <script src="index.js"></script>
+    <script src="../index.js"></script>
     <script src="profile.js"></script>
 
 </body>
