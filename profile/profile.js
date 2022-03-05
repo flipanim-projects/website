@@ -1,52 +1,46 @@
 let query = document.location.search.replace('?', '')
 document.querySelector('title').innerHTML = query
 
-fetch('api/users?user=admin').then(
+fetch('http://0.0.0.0:3000/api/v1/users?'+query).then(
     resp => resp.json()
         .then(fin => {
-            Users.data = fin; loadProfile();
+            user = fin; loadProfile();
         })
 )
 
-const Users = {
-    fetch: function (id) {
-        return this.data.findIndex(obj => {
-            return obj.name.id === id
-        })
-    },
-    at: function (ind) { return this.data[ind] },
-    remove: function (ind) {
-        return this.data.splice(ind, 1)
-    },
-    data: []
+let user = {
+    
 }
 
 const $ = function (id) { return document.querySelector(id) }
 function loadProfile(data) {
+    function html(el,text){
+        el.innerHTML = text
+        return el.classList.remove('skeleton')
+    }
     const statuses = {
         "0": 'Invisible',
         "1": 'Online',
         "2": 'Idle',
         "3": 'Do Not Disturb',
     }
-   
-    let user = Users.at(Users.fetch(query.replace('user=', '')))
+
     if (user === undefined) return $('.profile-basic-info').innerHTML = '<h1>User not found</h1>'
 
-    $('.profile-name').innerHTML = '@' + user.name.text
+    html($('.profile-name'),'@' + user.name.text)
     if (user.admin === true) {
         let admin = document.createElement('DIV')
         admin.classList.add('admin')
         $('.profile-name').appendChild(admin)
     }
-    $('.profile-creation').innerHTML = 'Created ' + user.creation.text
-    $('.profile-follow.ers').innerHTML = user.followers.length + ' followers'
-    $('.profile-follow.ing').innerHTML = 'Following ' + user.following.length
+    html($('.profile-creation'),'Created ' + user.creation.text)
+    html($('.profile-follow.ers'),user.followers.length + ' followers')
+    html($('.profile-follow.ing'),'Following ' + user.following.length)
+    html($('.profile-bio'),user.bio)
+   // html($('.profile-status-type'),statuses[user.status.type])
 
-    $('.profile-bio').innerHTML = user.bio
-    $('.profile-status-type').innerHTML = statuses[user.status.type]
+    html($('.profile-status'),'<span class="profile-status-type">'+statuses[user.status.type]+'</span> | ' + user.status.name || ' ')
     $('.profile-status-type').classList.add(statuses[user.status.type])
-    $('.profile-status').innerHTML += ' | ' + user.status.name || ' '
 
     loadAnims(user.anims,user)
 }

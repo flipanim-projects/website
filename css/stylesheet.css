@@ -6,6 +6,8 @@
 
 :root {
   --body-background: #000020;
+  --body-background-lighter: #08082e;
+  --body-background-lightest: #1e2547;
   --body-text: #eee;
   --card-background: #ffffff28;
   --card-background-intense: #ffffff48;
@@ -269,6 +271,7 @@ Profile
 .profile-image {
   border-radius: 20px;
   width: clamp(200px, 50vw, 400px);
+  height:  clamp(200px, 50vw, 400px);
 }
 
 .profile-name {
@@ -329,4 +332,25 @@ hr {
   width: 70%;
   opacity: 0.3;
   margin:20px;
+}
+
+/*******************
+Skeleton
+********************/
+.skeleton{position:relative;}
+.skeleton::before {
+  content:'';
+  background:linear-gradient(to right, var(--body-background-lighter), var(--body-background-lighter),var(--body-background-lightest), var(--body-background-lighter),var(--body-background-lighter));
+  background-size: 500%;
+  top:0;
+  left:0;
+  border-radius: 4px;
+  z-index:2;
+  right:0;
+  bottom:0;
+  position:absolute;
+  animation: skeleton 1s linear infinite;
+}
+@keyframes skeleton {
+  100% {background-position:100%}
 }
