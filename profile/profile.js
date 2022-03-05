@@ -1,10 +1,10 @@
 let query = document.location.search.replace('?', '')
 document.querySelector('title').innerHTML = query
 
-fetch('/data/users.json').then(
+fetch('api/users?user=admin').then(
     resp => resp.json()
         .then(fin => {
-            Users.data = fin; loadProfile()
+            Users.data = fin; loadProfile();
         })
 )
 
