@@ -7,12 +7,12 @@ var express = require("express"),
 function listen(a,e) {return}
 
 function showComments(req, res) {
-	let file = fs.readFileSync("data/comments.json", "utf-8");
+	let file = fs.readFileSync("./data/comments.json", "utf-8");
 	res.send(JSON.parse(file))
 }
 function showUsers(req, res) {
     console.log('received request')
-    let file = JSON.parse(fs.readFileSync("data/users.json", "utf-8"));
+    let file = JSON.parse(fs.readFileSync("./data/users.json", "utf-8"));
     console.log('parsed file')
     if (!req.query) {
         res.status(400)
