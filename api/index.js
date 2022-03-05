@@ -31,5 +31,6 @@ function showUsers(req, res) {
         res.send(file[user])
     }
 }
+app.use(express.static('public'));
 app.route('/api/v1/comments').get(showComments)
 app.route('/api/v1/users').get(showUsers);
