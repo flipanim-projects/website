@@ -1,0 +1,68 @@
+[
+    {
+      "name": {
+        "text": "flipanim",
+        "id": "admin"
+      },
+      "stats": {},
+      "anims": [
+        {
+          "name": "Welcome to New FlipAnim",
+          "id": "FIRSTANIM",
+          "stats": {
+            "likes": 1,
+            "views": 2
+          },
+          "author": "ADMIN"
+        }
+      ],
+      "notifications": [
+        {
+          "title": "Welcome to FlipAnim!",
+          "description": "Placeholder text.",
+          "read": false
+        }
+      ],
+      "status": {
+        "name": "Support has arrived!",
+        "type": 1
+      },
+      "following": [],
+      "followers": [],
+      "password": "",
+      "bio": "Flipanim's moderator and creator. Feel free to ping for help!",
+      "admin": true,
+      "creation": {
+        "unix": 1646485900,
+        "text": "2022-03-05"
+      }
+    },
+    {
+      "name": {
+        "text": "pineapplerind",
+        "id": "pineapplerind"
+      },
+      "stats": {},
+      "anims": [],
+      "notifications": [
+        {
+          "title": "Welcome to FlipAnim!",
+          "description": "Placeholder text.",
+          "read": false
+        }
+      ],
+      "status": {
+        "name": "coding",
+        "type": 1
+      },
+      "following": [],
+      "followers": [],
+      "password": "",
+      "bio": "Flipanim v2's architect",
+      "admin": true,
+      "creation": {
+        "unix": 1646486784,
+        "text": "2022-03-05"
+      }
+    }
+  ]
