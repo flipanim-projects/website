@@ -8,7 +8,7 @@
       "anims": [
         {
           "name": "Welcome to New FlipAnim",
-          "id": "FIRSTANIM",
+          "id": "97bfb",
           "stats": {
             "likes": 1,
             "views": 2
@@ -16,7 +16,7 @@
           "comments": [{
             "id": "firstcomment"
           }],
-          "author": "ADMIN"
+          "author": "admin"
         }
       ],
       "notifications": [

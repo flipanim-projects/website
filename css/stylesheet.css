@@ -324,3 +324,9 @@ Profile
 .Invisible {color: #ffffffaa}
 .Do\ Not\ Disturb {color:red}
 .Idle {color: orange}
+
+hr {
+  width: 70%;
+  opacity: 0.3;
+  margin:20px;
+}

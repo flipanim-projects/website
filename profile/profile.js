@@ -52,25 +52,6 @@ function loadProfile(data) {
 }
 
 function loadAnims(anims,user) {
-    /**
-     * <div class="anim-text">
-          <h1>j</h1>
-          <h2>by Pineapple-Rind</h2>
-        </div>
-
-        {
-          "name": "Welcome to New FlipAnim",
-          "id": "FIRSTANIM",
-          "stats": {
-            "likes": 1,
-            "views": 2
-          },
-          "comments": [{
-            "id": "firstcomment"
-          }],
-          "author": "ADMIN"
-        }
-     */
     for (let i = 0; i < anims.length; i++) {
         let anim = document.createElement('DIV')
         anim.classList.add('anim')
