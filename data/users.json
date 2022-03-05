@@ -13,6 +13,9 @@
             "likes": 1,
             "views": 2
           },
+          "comments": [{
+            "id": "firstcomment"
+          }],
           "author": "ADMIN"
         }
       ],

@@ -21,7 +21,7 @@ const Users = {
     data: []
 }
 
-
+const $ = function (id) { return document.querySelector(id) }
 function loadProfile(data) {
     const statuses = {
         "0": 'Invisible',
@@ -29,7 +29,7 @@ function loadProfile(data) {
         "2": 'Idle',
         "3": 'Do Not Disturb',
     }
-    const $ = function (id) { return document.querySelector(id) }
+   
     let user = Users.at(Users.fetch(query.replace('user=', '')))
     if (user === undefined) return $('.profile-basic-info').innerHTML = '<h1>User not found</h1>'
 
@@ -47,4 +47,37 @@ function loadProfile(data) {
     $('.profile-status-type').innerHTML = statuses[user.status.type]
     $('.profile-status-type').classList.add(statuses[user.status.type])
     $('.profile-status').innerHTML += ' | ' + user.status.name || ' '
+
+    loadAnims(user.anims,user)
+}
+
+function loadAnims(anims,user) {
+    /**
+     * <div class="anim-text">
+          <h1>j</h1>
+          <h2>by Pineapple-Rind</h2>
+        </div>
+
+        {
+          "name": "Welcome to New FlipAnim",
+          "id": "FIRSTANIM",
+          "stats": {
+            "likes": 1,
+            "views": 2
+          },
+          "comments": [{
+            "id": "firstcomment"
+          }],
+          "author": "ADMIN"
+        }
+     */
+    for (let i = 0; i < anims.length; i++) {
+        let anim = document.createElement('DIV')
+        anim.classList.add('anim')
+        anim.innerHTML += `<div class="anim-text">
+            <h1>${anims[i].name}</h1>
+            <h2>by ${user.name.text}</h2>
+            </div>`
+        $('.profile-anims').appendChild(anim)
+    }
 }
