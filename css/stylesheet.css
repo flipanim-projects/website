@@ -21,7 +21,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  background-image: url('https://flipanim.com/gfx/noise.png')
+  background-image: url('imgs/flipanimv2.png')
 }
 
 nav {
