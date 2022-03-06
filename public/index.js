@@ -71,7 +71,7 @@ const FlipAnim = (function () {
     modal.init().show();
   };
   $('#profileLink').onclick = () => {
-    document.location.href = './profile?user=admin'
+    document.location.href = '/profile?user=admin'
   }
   //fetch('http://0.0.0.0:3000/api/v1/session')
 })();

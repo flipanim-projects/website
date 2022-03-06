@@ -1,7 +1,7 @@
 let query = document.location.search.replace('?', '')
-document.querySelector('title').innerHTML = query
+document.querySelector('title').innerHTML = query.split('=')[1]
 
-fetch('http://0.0.0.0:3000/api/v1/users?'+query).then(
+fetch('/api/v1/users?'+query).then(
     resp => resp.json() .then(fin => {
             user = fin; loadProfile(fin);
         }).catch(err => {
@@ -55,6 +55,9 @@ function loadAnims(anims,user) {
     for (let i = 0; i < anims.length; i++) {
         let anim = document.createElement('DIV')
         anim.classList.add('anim')
+        anim.onclick = () => {
+            window.location.href = '../anim/?id='+anims[i].id
+        }
         anim.innerHTML += `<div class="anim-text">
             <h1>${anims[i].name}</h1>
             <h2>by ${user.name.text}</h2>
