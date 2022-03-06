@@ -1,7 +1,7 @@
 {
   "name": "flipanim-api",
   "version": "1.0.0",
-  "description": "api for flipanim",
+  "description": "Api for FlipAnim",
   "main": "index.js",
   "scripts": {
     "dev": "node index.js"
