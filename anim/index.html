@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FlipAnim | Home</title>
+    <link rel="stylesheet" href="../css/stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div style="display:flex">
+            <h1><img src="../imgs/flipanimv2.png" height="35px"
+                    style="vertical-align: bottom;margin-right:5px;"></h1>
+            <a class="linktitle">Browse</a>
+            <a class="linktitle">Search</a>
+            <a class="linktitle">Followed</a>
+        </div>
+        <div class="profile">
+            <img onclick="document.querySelector('.profile-options').classList.toggle('open')"
+                src="../imgs/profile.png">
+
+        </div>
+    </nav>
+    <main>
+        <div class="profile-options">
+            <p disabled style="pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5">Logged in as <span>@FlipAnim</span></p>
+            <div class="profile-option" id="profileLink">Profile</div>
+            <div class="profile-option">Settings</div>
+            <div class="profile-option" id="logOut">Log out</div>
+        </div>
+        <div class="main anim-main">
+            <h1 class="anim-title">Loading</h1>
+            <div class="anim-image skeleton"></div>
+            <hr>
+            <div class="anim-stats">
+                <div class="anim-likes"><b>0</b> likes</div>
+                <div class="anim-views"><b>0</b> views</div>
+            </div>
+        </div>
+    </main>
+    <script src="../index.js"></script>
+    <script src="anim.js"></script>
+
+</body>
+
+</html>

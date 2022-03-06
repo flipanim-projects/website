@@ -26,9 +26,11 @@ body {
   display: flex;
   flex-direction: column;
 }
-h1,.linktitle {
+
+h1, .linktitle {
   font-family: Indie Flower
 }
+
 nav {
   background: var(--dcard-background-intense);
   backdrop-filter: var(--card-blur);
@@ -118,6 +120,10 @@ main {
   flex-wrap: wrap;
 }
 
+.main.create {
+  flex-direction: column;
+}
+
 nav h1,
 nav .linktitle {
   font-size: 20px;
@@ -153,14 +159,14 @@ nav .linktitle:hover {
   position: absolute;
   bottom: 0;
   right: 0;
-  left:0;
+  left: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding:10px;
+  padding: 10px;
   transition: 0.2s;
   border-top: 1px solid rgba(255, 255, 255, 0);
 }
@@ -187,7 +193,10 @@ nav .linktitle:hover {
   border-top: 1px solid rgba(255, 255, 255, 0.9);
   background: rgba(0, 0, 0, 0.9);
 }
-.anim-text h1 {font-size:25px}
+
+.anim-text h1 {
+  font-size: 25px
+}
 
 .modal-container {
   position: fixed;
@@ -271,7 +280,7 @@ Profile
 .profile-image {
   border-radius: 20px;
   width: clamp(200px, 50vw, 400px);
-  height:  clamp(200px, 50vw, 400px);
+  height: clamp(200px, 50vw, 400px);
 }
 
 .profile-name {
@@ -312,45 +321,112 @@ Profile
 }
 
 .profile-status-info {
-  margin-left:40px;
+  margin-left: 40px;
 }
+
 .text-box {
-  margin:5px;
-  border-radius:10px;
-  padding:10px;
-  background:var(--card-background);
+  margin: 5px;
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--card-background);
 }
+
 .profile-status-type {
-  font-weight:700;
+  font-weight: 700;
 }
-.Online {color: lime};
-.Invisible {color: #ffffffaa}
-.Do\ Not\ Disturb {color:red}
-.Idle {color: orange}
+
+.Online {
+  color: lime
+}
+
+;
+
+.Invisible {
+  color: #ffffffaa
+}
+
+.Do\ Not\ Disturb {
+  color: red
+}
+
+.Idle {
+  color: orange
+}
 
 hr {
   width: 70%;
   opacity: 0.3;
-  margin:20px;
+  margin: 20px;
 }
 
 /*******************
 Skeleton
 ********************/
-.skeleton{position:relative;}
+.skeleton {
+  position: relative;
+}
+
 .skeleton::before {
-  content:'';
-  background:linear-gradient(to right, var(--body-background-lighter), var(--body-background-lighter),var(--body-background-lightest), var(--body-background-lighter),var(--body-background-lighter));
+  content: '';
+  background: linear-gradient(to right, var(--body-background-lighter), var(--body-background-lighter), var(--body-background-lightest), var(--body-background-lighter), var(--body-background-lighter));
   background-size: 500%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   border-radius: 4px;
-  z-index:2;
-  right:0;
-  bottom:0;
-  position:absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  position: absolute;
   animation: skeleton 1s linear infinite;
 }
+
 @keyframes skeleton {
-  100% {background-position:100%}
+  100% {
+    background-position: 100%
+  }
+}
+
+/*******************8
+Crat Account
+**********************/
+
+input {
+  background: var(--card-background);
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 10px;
+  display: block;
+  margin: 10px;
+  transition: 0.4s;
+  color: white
+}
+
+input:focus {
+  background-color: var(--card-background-intense);
+  transform: scale(1.05);
+}
+
+input[type=submit] {
+  color: white;
+  background: rgba(0, 255, 0, 0.448);
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background: rgba(0, 255, 0, 0.648);
+}
+
+/*****************
+Anim Page
+*****************/
+.main.anim-main {
+  flex-direction: column;
+}
+.anim-image {
+  width: clamp(300px, 50vw, 500px);
+  height: clamp(300px, 50vw, 500px)
+}
+.main.anim-main hr {
+  width: 50vw;
+  max-width: 500px
 }

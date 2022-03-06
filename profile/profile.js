@@ -33,6 +33,7 @@ function loadProfile(data) {
         admin.classList.add('admin')
         $('.profile-name').appendChild(admin)
     }
+    $(".profile-image").classList.remove('skeleton')
     html($('.profile-creation'),'Created ' + user.creation.text)
     html($('.profile-follow.ers'),user.followers.length + ' followers')
     html($('.profile-follow.ing'),'Following ' + user.following.length)
