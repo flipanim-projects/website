@@ -1,0 +1,21 @@
+[{
+    "name": "Welcome to FlipAnim",
+    "id": "154fee",
+    "stats": {
+        "likes": 1,
+        "views": 2
+    },
+    "comments": [
+        {
+            "id": "8a44dc"
+        }
+    ],
+    "author": {
+        "text": "FlipAnim",
+        "id": "admin"
+    }, 
+    "creation": {
+        "unix": 1646575315,
+        "text": "2022-03-06"
+    }
+}]
