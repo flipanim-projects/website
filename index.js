@@ -6,6 +6,7 @@ var express = require("express"),
     server = app.listen(process.env.PORT || 3000, listen),
     router = express.Router();
 var api = require('./api.js')
+console.log(api)
 function listen() {
     return console.log('Server is listening');
 }
@@ -28,10 +29,10 @@ app.use(
 );
 
 app.use(express.static("public")); // Page itself
-app.route("/api/v1/users").get(api.functions.showUsers); // For individual user requests!
-app.route("/api/v1/users").post(api.functions.createUser); // For creation of users
-app.route("/api/v1/anims/popular").get(api.functions.getAnims.popular); // Get popular anims
-app.route("/api/v1/anims/new").get(api.functions.getAnims.new); // Get popular anims
-app.route("/api/v1/anims").get(api.functions.getAnims.byId); // Get anim by id
-app.route('/api/v1/anims/:animId/comments').get(api.functions.getAnimComments)
-app.route("/api/v1/login").post(api.functions.login);
+app.route("/api/v1/users").get(api.showUsers); // For individual user requests!
+app.route("/api/v1/users").post(api.createUser); // For creation of users
+app.route("/api/v1/anims/popular").get(api.getAnims.popular); // Get popular anims
+app.route("/api/v1/anims/new").get(api.getAnims.new); // Get popular anims
+app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
+app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
+app.route("/api/v1/login").post(api.login);

@@ -66,7 +66,7 @@ var sha256 = function r(t) {
   return a;
 };
 
-module.exports.functions = {
+module.exports = {
   showComments: function (req, res) {
     let file = fs.readFileSync("data/comments.json", "utf-8");
     res.send(JSON.parse(file));

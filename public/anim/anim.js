@@ -1,6 +1,6 @@
 const $ = function (id) { return document.querySelector(id) }
 let query = document.location.search.replace('?', '').split('=')[1]
-document.querySelector('title').innerHTML = query
+
 
 let anim
 fetch('/api/v1/anims/?id=' + query).then(
@@ -18,6 +18,7 @@ function loadAnim(data) {
         return el.classList.remove('skeleton')
     }
     html($('.anim-title'), data.name)
+    document.querySelector('title').innerHTML = data.name+' | FlipAnim'
     html($('.anim-likes'), `<b>${data.stats.likes}</b> like${data.stats.likes === 1 ? '' : 's'}`)
     html($('.anim-views'), `<b>${data.stats.views}</b> view${data.stats.views === 1 ? '' : 's'}`)
     html($('.anim-author'), `by <b>${data.author.text}</b>`)
