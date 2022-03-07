@@ -1,1 +1,107 @@
-[{"name":{"text":"FlipAnim","id":"admin"},"avatar":false,"stats":{},"anims":[{"name":"Welcome to FlipAnim","id":"154fee","stats":{"likes":1,"views":2},"comments":[{"id":"8a44dc"}],"author":{"text":"FlipAnim","id":"admin"}}],"notifications":[{"title":"Welcome to FlipAnim!","description":"Placeholder text.","read":false}],"status":{"name":"Support has arrived!","type":1},"following":[],"followers":[],"password":"","bio":"Flipanim's moderator and creator. Feel free to ping for help!","admin":true,"creation":{"unix":1646485900,"text":"2022-03-05"}},{"name":{"text":"pineapplerind","id":"ec6a05"},"avatar":"false","stats":{},"anims":[],"notifications":[{"title":"Welcome to FlipAnim!","description":"Placeholder text.","read":false}],"status":{"name":"coding","type":1},"following":[],"followers":[],"password":"","bio":"Flipanim v2's architect","admin":true,"creation":{"unix":1646486784,"text":"2022-03-05"}},{"name":{"text":"hahahaha","id":"a31b8_"},"email":"","avatar":"false","stats":{},"anims":[],"notifications":[{"title":"Welcome to FlipAnim!","description":"Placeholder text.","read":false}],"status":{"name":"","type":0},"following":[],"followers":[],"password":"00c4285274fcc5d6fba2ee58daf0d8c2b9b825b68d35d65d0e90a9bb333a51b5","bio":"","creation":{"unix":1646600183.999,"text":"2022-03-06"}}]
+[
+    {
+        "name": {
+            "text": "FlipAnim",
+            "id": "admin"
+        },
+        "avatar": false,
+        "stats": {},
+        "anims": [
+            {
+                "name": "Welcome to FlipAnim",
+                "id": "154fee",
+                "stats": {
+                    "likes": 1,
+                    "views": 2
+                },
+                "comments": [
+                    {
+                        "id": "8a44dc"
+                    }
+                ],
+                "author": {
+                    "text": "FlipAnim",
+                    "id": "admin"
+                }
+            }
+        ],
+        "notifications": [
+            {
+                "title": "Welcome to FlipAnim!",
+                "description": "Placeholder text.",
+                "read": false
+            }
+        ],
+        "status": {
+            "name": "Support has arrived!",
+            "type": 1
+        },
+        "following": [],
+        "followers": [],
+        "password": "",
+        "bio": "Flipanim's moderator and creator. Feel free to ping for help!",
+        "admin": true,
+        "creation": {
+            "unix": 1646485900,
+            "text": "2022-03-05"
+        }
+    },
+    {
+        "name": {
+            "text": "pineapplerind",
+            "id": "ec6a05"
+        },
+        "avatar": "false",
+        "stats": {},
+        "anims": [],
+        "notifications": [
+            {
+                "title": "Welcome to FlipAnim!",
+                "description": "Placeholder text.",
+                "read": false
+            }
+        ],
+        "status": {
+            "name": "coding",
+            "type": 1
+        },
+        "following": [],
+        "followers": [],
+        "password": "",
+        "bio": "Flipanim v2's architect",
+        "admin": true,
+        "creation": {
+            "unix": 1646486784,
+            "text": "2022-03-05"
+        }
+    },
+    {
+        "name": {
+            "text": "hahahaha",
+            "id": "a31b8_"
+        },
+        "email": "",
+        "avatar": "false",
+        "stats": {},
+        "anims": [],
+        "notifications": [
+            {
+                "title": "Welcome to FlipAnim!",
+                "description": "Placeholder text.",
+                "read": false
+            }
+        ],
+        "status": {
+            "name": "",
+            "type": 0
+        },
+        "following": [],
+        "followers": [],
+        "password": "00c4285274fcc5d6fba2ee58daf0d8c2b9b825b68d35d65d0e90a9bb333a51b5",
+        "bio": "",
+        "creation": {
+            "unix": 1646600183.999,
+            "text": "2022-03-06"
+        }
+    }
+]

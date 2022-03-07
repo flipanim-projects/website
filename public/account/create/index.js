@@ -1,3 +1,11 @@
+const $ = function (id) {
+  return document.querySelector(id);
+};
+let query = document.location.search.replace('?', '').split('=')[1]
+if (query === '1') {
+  $('#error').innerHTML = 'Invalid captcha'
+}
+
 let usernameRequirements = [
   function (str) {
     if (!str) return 'Username cannot be empty';
@@ -29,9 +37,7 @@ function checkUsername(username) {
   }
   return false;
 }
-const $ = function (id) {
-  return document.querySelector(id);
-};
+
 $("#username").oninput = (e) => {
   let check = checkUsername(e.target.value);
   console.log(check)

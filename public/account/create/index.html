@@ -33,7 +33,8 @@
             <div class="profile-option" id="logOut">Log out</div>
         </div>
         <div class="main create">
-            <h1>Create an Account</h1><br>
+            <h1>Create an Account</h1>
+            <div id="error" style="color: red;"></div>
             <form action="/api/v1/users" class="create" method="POST">
                 <div id="username-container">
                     <input type="text" id="username" name="username" placeholder="Username...">
