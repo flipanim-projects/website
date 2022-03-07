@@ -314,6 +314,9 @@ Profile
   justify-content: center;
 }
 
+.flex-col {
+  flex-direction: column;
+}
 .profile-follow {
   padding: 7px 15px;
   border-radius: 10px;
@@ -465,4 +468,33 @@ Tooltip
 
 .tooltip-hidden[tooltip]::after {
   opacity: 0;
+}
+
+/**********************
+Comments
+**********************/
+.anim-comment-container {
+  width:100%;
+}
+.anim-comment {
+  padding: 10px;
+  border-radius:10px;
+  background:var(--card-background);
+  display: flex;
+  width: calc(100% - 40px);
+  margin:20px;
+}
+
+.anim-comment img {
+  height:60px;
+  border-radius:10px;
+}
+
+.anim-comment .flex {
+  align-items:unset;
+  margin-left:10px;
+}
+.anim-comment .anim-comment-header {
+  font-weight:bold;
+  margin-bottom:5px;
 }

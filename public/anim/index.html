@@ -36,11 +36,20 @@
         <div class="main anim-main">
             <h1 class="anim-title">Loading</h1>
             <div class="anim-image skeleton"></div>
-            <hr>
-            <div class="anim-stats">
-                <div class="anim-likes"><b>0</b> likes</div>
-                <div class="anim-views"><b>0</b> views</div>
+            <br>
+            <div class="anim-metadata flex" style="justify-content: space-between; width: 100%; padding: 0 20px;">
+                <div class="anim-stats">
+                    <div class="anim-likes"><b>0</b> likes</div>
+                    <div class="anim-views"><b>0</b> views</div>
+                </div>
+                <div>
+                    <span class="anim-creation" style="opacity: 0.6"></span><br>
+                    <span class="anim-author skeleton">Loading</span>
+                </div>
             </div>
+            <hr>
+            <h2>Comments <span class="anim-comment-count"></span></h2>
+            <div class="anim-comment-container"></div>
         </div>
     </main>
     <script src="../index.js"></script>

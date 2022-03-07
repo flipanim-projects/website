@@ -7,7 +7,13 @@
     },
     "comments": [
         {
-            "id": "8a44dc"
+            "id": "8a44dc",
+            "content": "First comment. Ever",
+            "author": {
+                "text": "FlipAnim",
+                "id": "admin"
+            },
+            "reply": "false"
         }
     ],
     "author": {
