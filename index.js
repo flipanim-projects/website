@@ -1,5 +1,6 @@
 var express = require("express"),
     session = require("express-session"),
+    FileStore = require('session-file-store')(session),
     app = express(),
     cors = require("cors"),
     bodyParser = require("body-parser"),
@@ -13,9 +14,12 @@ function listen() {
 function genSessionSecret() {
     return Math.floor(Math.random() * 100 ** 7).toString(16);
 }
+let gened = genSessionSecret()
+console.log(gened)
 app.use(
     session({
-        secret: genSessionSecret(),
+        store: new FileStore(),
+        secret: gened,
         resave: true,
         saveUninitialized: true,
     })

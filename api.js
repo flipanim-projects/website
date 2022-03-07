@@ -97,7 +97,6 @@ module.exports = {
       for (let n = 0; n < 6; n++) e += t[Math.floor(Math.random() * t.length)];
       return e;
     }
-    console.log(req.headers);
     let date = new Date();
     let user = {
       name: {
@@ -228,6 +227,7 @@ module.exports = {
       return;
     }
   }, getAnimComments: function (req, res) {
+    console.log(req.session,req.sessionID)
     let animId = req.path.slice(req.path.indexOf('anims/') + 'anims/'.length).replace('/comments', '')
     let file = JSON.parse(fs.readFileSync("data/anims.json", "utf-8"));
     let anim =
