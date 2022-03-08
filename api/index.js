@@ -5,12 +5,12 @@ let got, FormData
 import('got').then(data => got = data.got), import('formdata-node').then(data => FormData = data.FormData)
 const passport = require('passport');
 
-setTimeout(function () { console.log(got, FormData) }, 2000)
 /***********
  * Models       
  **********/
 var Anim = require('../models/Anim'),
-  User = require('../models/User')
+  User = require('../models/User');
+
 
 module.exports = {
   showComments: function (req, res) {
@@ -154,8 +154,41 @@ module.exports = {
         })
       })
     },
+  }, postAnim: async function (req, res) {
+    if (!req.isAuthenticated()) return res.send('No auth')
+    function idGen() {
+      let t = "abcdef1234567890-_",
+        e = "";
+      for (let n = 0; n < 6; n++) e += t[Math.floor(Math.random() * t.length)];
+      return e;
+    }
+
+    
+    let animName = req.body.name,
+      animAuthor = req.body.author,
+      animAuthorId = req.body.id,
+      animId = idGen()
+    let auser
+    console.log(animAuthorId)
+    await User.findOne({
+        'name.id': animAuthorId
+    }).then(resp => {
+      auser = resp
+      console.log(auser)
+    })
+    if (!auser) return res.send('Invalid user')
+    let animTemplate = {
+      "name": animName,
+      "id": animId,
+      "stats": { "likes": 0, "views": 0 },
+      "comments": [],
+      "author": { "text": animAuthor, "id": animAuthorId },
+      "creation": { "unix": Date.now() / 1000, "text": new Date().toISOString() }
+    }
+    let anim = new Anim(animTemplate)
+    anim.save()
+    res.redirect('/anim/?id=' + animId)
   }, getAnimComments: function (req, res) {
-    console.log(req.session, req.sessionID)
     let animId = req.path.slice(req.path.indexOf('anims/') + 'anims/'.length).replace('/comments', '')
     let file = JSON.parse(fs.readFileSync("data/anims.json", "utf-8"));
     let anim =

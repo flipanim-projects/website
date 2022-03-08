@@ -9,7 +9,7 @@ var express = require("express"),
     FileStore = require('session-file-store')(session),
     server = app.listen(process.env.PORT || 3000, listen),
     router = express.Router()
-const res = require("express/lib/response");
+
 var api = require('./api/index.js'),
     User = require('./models/User'),
     sha256 = require('./api/sha256')
@@ -62,6 +62,7 @@ passport.use(new LocalStrategy(
         await User.findOne({
             username: username
         }).then(user => {
+            if (!user) return done(null, false, { message: 'Invalid credentials.\n' })
             if (username === user.name.text && sha256(password) === user.password) {
                 console.log('Local strategy returned true')
                 return done(null, user)
@@ -100,5 +101,6 @@ app.route("/api/v1/users").post(api.createUser); // For creation of users
 app.route("/api/v1/anims/popular").get(api.getAnims.popular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.getAnims.new); // Get popular anims
 app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
+app.route("/api/v1/anims").post(api.postAnim); // Get anim by id
 app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.login);
