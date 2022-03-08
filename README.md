@@ -10,4 +10,5 @@ New FlipAnim Redesign
 | /anims/popular  | GET    | Get popular anims    |
 | /anims/new      | GET    | Get new anims        |
 | /anims/<animId> | GET    | Get info for an anim |
-| /login          | POST   | COMING SOON          |
+| /anims          | POST   | Upload an anim       |
+| /login          | POST   | Log into an account  |
