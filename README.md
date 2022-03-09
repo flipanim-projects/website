@@ -12,3 +12,10 @@ New FlipAnim Redesign
 | /anims/<animId> | GET    | Get info for an anim |
 | /anims          | POST   | Upload an anim       |
 | /login          | POST   | Log into an account  |
+
+## Directory
+`/old` old website (without react)
+`/api` express app for api
+`/public` assets such as images
+`/src` main react app
+`/node_modules` imagine explaining this
