@@ -110,6 +110,34 @@ app.route("/api/v1/login").post(api.login);
 /*********************
  * STATIC PAGES with pug!
  ********************/
- app.get('/', (req, res) => {
-    res.render('index', { title: 'Hey' })
+app.get('/', async (req, res) => {
+    if (req.isAuthenticated()) {
+        await User.findById(req.session.passport.user).then(user => {
+            res.render('index', { title: 'FlipAnim | Home', loggedIn: user })
+        }).catch(() => {
+            res.render('index', { title: 'FlipAnim | Home' })
+        })
+    } else {
+        res.render('index', { title: 'FlipAnim | Home' })
+    }
+})
+
+app.get('/account/login', async (req, res) => {
+    if (req.session.passport) {
+        await User.findById(req.session.passport.user).then(user => {
+            if (!user)  res.render('account/login', { title: 'FlipAnim | Log in' })
+            else res.render('account/alreadyin', { title: 'FlipAnim', loggedIn: user })
+        }).catch(() => {
+            res.render('account/login', { title: 'FlipAnim | Log in' })
+        })
+    } else if (!req.session.passport) {
+        res.render('account/login', { title: 'FlipAnim | Log in' })
+    }
+})
+
+app.get('/profile', async (req, res) => {
+    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
+        res.render('profile/index', { title: 'FlipAnim | Log in', loggedIn: user })
+    })
+    else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
 })

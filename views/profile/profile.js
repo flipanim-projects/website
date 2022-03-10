@@ -1,13 +1,18 @@
 let query = document.location.search.replace('?', '')
+if (query.includes('%')) query = query.split('&')[0]
 document.querySelector('title').innerHTML = query.split('=')[1]
 
+
 fetch('/api/v1/users?'+query).then(
-    resp => resp.json() .then(fin => {
+    resp => {
+        console.log(resp.body)
+        resp.json().then(fin => {
             user = fin; loadProfile(fin);
         }).catch(err => {
             profileNotFound()
             console.error(err)
         })
+    }
 )
 
 let user = {}

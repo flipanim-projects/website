@@ -18,11 +18,24 @@ module.exports = {
     res.send(JSON.parse(file));
   },
   showUser: async function (req, res) {
+    if (!req.query) return res.status(400).json({
+      status: 400,
+      message: '400 Bad Request',
+    });
     try {
-      let user = await User.findOne({
-        id: req.params.id
+      await User.findOne({
+        'name.id': req.query.user
       }).then(user => {
-        res.send(user)
+        if (!user) res.status(404).json({
+          status: 404,
+          message: '404 User Not Found',
+        });
+        else res.send(user)
+      }).catch(err => {
+        res.status(400).json({
+          status: 400,
+          message: err.message,
+        });
       })
     } catch (err) {
       res.status(400).json({
@@ -44,7 +57,6 @@ module.exports = {
       const form = new FormData()
       form.set('secret', '0xC5B6Bd0750C259aa60648bd42Fd44C6974172b31')
       form.set('response', hcaptcha)
-      console.log(JSON.stringify(form))
       await got.post('https://hcaptcha.com/siteverify', {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         form: {
@@ -70,7 +82,7 @@ module.exports = {
         "name": { "text": req.body.username, "id": idGen() }, "avatar": false, "stats": {}, "anims": [], "notifications": [{ "title": "Welcome to FlipAnim!", "description": "Placeholder text.", "read": false }], "status": { "name": false, "type": 0 }, "following": [], "followers": [], "password": sha256(req.body.password), "bio": "", "creation": { "unix": Date.now() / 1000, "text": date.toISOString() }
       }
       let check = await User.findOne({
-        username: userOpts.name.text
+        'name.text': userOpts.name.text
       }).then(fin => {
         if (fin) {
           res.status(409).json({
@@ -81,7 +93,7 @@ module.exports = {
         } else {
           let user = new User(userOpts)
           user.save()
-          res.redirect('/profile?user=' + userOpts.name.text + '&justCreated=true')
+          res.redirect('/profile?user=' + userOpts.name.id + '&justCreated=true')
         }
       })
     }
@@ -155,7 +167,10 @@ module.exports = {
       })
     },
   }, postAnim: async function (req, res) {
-    if (!req.isAuthenticated()) return res.send('No auth')
+    if (!req.isAuthenticated()) return res.status(401).json({
+      status: '401',
+      message: '401 Unauthorized'
+    })
     function idGen() {
       let t = "abcdef1234567890-_",
         e = "";
@@ -169,12 +184,10 @@ module.exports = {
       animAuthorId = req.body.id,
       animId = idGen()
     let auser
-    console.log(animAuthorId)
     await User.findOne({
         'name.id': animAuthorId
     }).then(resp => {
       auser = resp
-      console.log(auser)
     })
     if (!auser) return res.send('Invalid user')
     let animTemplate = {

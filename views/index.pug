@@ -12,15 +12,21 @@ body
       a.linktitle Browse
       a.linktitle Search
       a.linktitle Followed
-    div.profile
-      img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
+    if loggedIn
+      div.profile
+        img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
+    else 
+      .login-buttons 
+        button(onclick="window.location.href='/account/login'") Log in 
+        button(onclick="window.location.href='/account/create'") Create account
   main
-    div.profile-options
-      p(disabled style="pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5") Logged in as 
+    if loggedIn
+      div.profile-options
+        p(disabled style="pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5") Logged in as 
         span @FlipAnim
-      div.profile-option#profileLink Profile
-      div.profile-option#profileLink Settings
-      div.profile-option#profileLink Logout
+        div.profile-option#profileLink Profile
+        div.profile-option#profileLink Settings
+        div.profile-option#profileLink Logout
     div.main
       div.anim
         img(src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif")
