@@ -1,13 +1,32 @@
 var express = require("express"),
     session = require("express-session"),
-    FileStore = require('session-file-store')(session),
     app = express(),
+    path = require('path'),
     cors = require("cors"),
     bodyParser = require("body-parser"),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    FileStore = require('session-file-store')(session),
     server = app.listen(process.env.PORT || 3000, listen),
-    router = express.Router();
-var api = require('./api.js')
-console.log(api)
+    router = express.Router(),
+    pug = require('pug')
+
+var api = require('./functions/index.js'),
+    User = require('./models/User'),
+    sha256 = require('./functions/sha256')
+
+const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
+
+// Connect to data server
+mongoose.connect(dbUrl, {
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
+    useUnifiedTopology: true,
+}, (err) => {
+    if (err) console.log(err);
+});
+
 function listen() {
     return console.log('Server is listening');
 }
@@ -15,7 +34,6 @@ function genSessionSecret() {
     return Math.floor(Math.random() * 100 ** 7).toString(16);
 }
 let gened = genSessionSecret()
-console.log(gened)
 app.use(
     session({
         store: new FileStore(),
@@ -24,6 +42,9 @@ app.use(
         saveUninitialized: true,
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -31,12 +52,86 @@ app.use(
         extended: true,
     })
 );
+app.use(express.static(path.join(__dirname, 'views')));
+app.set('view engine', 'pug')
+passport.use(new LocalStrategy(
+    { usernameField: 'username' },
+    async (username, password, done,) => {
+        console.log('Inside local strategy callback')
+        // here is where you make a call to the database
+        // to find the user based on their username or email address
+        // for now, we'll just pretend we found that it was users[0]
+        await User.findOne({
+            username: username
+        }).then(user => {
+            if (!user) return done(null, false, { message: 'Invalid credentials.\n' })
+            if (username === user.name.text && sha256(password) === user.password) {
+                console.log('Local strategy returned true')
+                return done(null, user)
+            } else {
+                console.log('Incorrect')
+                return done(null, false, { message: 'Invalid credentials.\n' })
+            }
+        }).catch(err => {
+            console.error(err)
+        })
 
-app.use(express.static("public")); // Page itself
-app.route("/api/v1/users").get(api.showUsers); // For individual user requests!
+    }
+));
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+passport.deserializeUser(async (id, done) => {
+    await User.findOne({
+        id: id
+    }).then(user => {
+        done(null, user);
+    }).catch(err => {
+        console.error(err)
+    })
+});
+//app.use(express.static("public")); // Page itself
+app.route("/api/v1/users").get(api.showUser); // For individual user requests!
 app.route("/api/v1/users").post(api.createUser); // For creation of users
 app.route("/api/v1/anims/popular").get(api.getAnims.popular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.getAnims.new); // Get popular anims
 app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
+app.route("/api/v1/anims").post(api.postAnim); // Get anim by id
 app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.login);
+app.route("/api/v1/logout").post(api.logout);
+
+/*********************
+ * STATIC PAGES with pug!
+ ********************/
+app.get('/', async (req, res) => {
+    if (req.isAuthenticated()) {
+        await User.findById(req.session.passport.user).then(user => {
+            res.render('index', { title: 'FlipAnim | Home', loggedIn: user })
+        }).catch(() => {
+            res.render('index', { title: 'FlipAnim | Home' })
+        })
+    } else {
+        res.render('index', { title: 'FlipAnim | Home' })
+    }
+})
+
+app.get('/account/login', async (req, res) => {
+    if (req.session.passport) {
+        await User.findById(req.session.passport.user).then(user => {
+            if (!user)  res.render('account/login', { title: 'FlipAnim | Log in' })
+            else res.render('account/alreadyin', { title: 'FlipAnim', loggedIn: user })
+        }).catch(() => {
+            res.render('account/login', { title: 'FlipAnim | Log in' })
+        })
+    } else if (!req.session.passport) {
+        res.render('account/login', { title: 'FlipAnim | Log in' })
+    }
+})
+
+app.get('/profile', async (req, res) => {
+    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
+        res.render('profile/index', { title: 'FlipAnim | Log in', loggedIn: user })
+    })
+    else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
+})
