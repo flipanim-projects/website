@@ -34,7 +34,6 @@ function genSessionSecret() {
     return Math.floor(Math.random() * 100 ** 7).toString(16);
 }
 let gened = genSessionSecret()
-console.log(gened)
 app.use(
     session({
         store: new FileStore(),
