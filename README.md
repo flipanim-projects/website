@@ -14,8 +14,8 @@ New FlipAnim Redesign
 | /login          | POST   | Log into an account  |
 
 ## Directory
-`/old` old website (without react)
-`/api` express app for api
-`/public` assets such as images
-`/src` main react app
-`/node_modules` imagine explaining this
+`/old` old website (without react) <br>
+`/api` express app for api<br>
+`/public` assets such as images<br>
+`/src` main react app<br>
+`/node_modules` imagine explaining this<br>
