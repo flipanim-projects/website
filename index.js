@@ -64,6 +64,7 @@ passport.use(new LocalStrategy(
         await User.findOne({
             'name.text': username
         }).then(user => {
+            console.log(`Attempting to log in with user `+username+'. Returned '+user)
             if (!user) return done(null, false, { message: 'Invalid credentials.\n' })
             if (username === user.name.text && sha256(password) === user.password) {
                 console.log('Local strategy returned true')
