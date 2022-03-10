@@ -142,7 +142,13 @@ app.get('/account/create', async (req, res) => {
 })
 app.get('/profile', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
-        res.render('profile/index', { title: 'FlipAnim | Log in', loggedIn: user })
+        res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
     })
     else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
+})
+app.get('/editor', async (req, res) => {
+    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
+        res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: user })
+    })
+    else res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: false })
 })

@@ -35,7 +35,7 @@ h1,
 nav {
   background: var(--dcard-background-intense);
   backdrop-filter: var(--card-blur);
-  box-shadow:0 5px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: var(--card-blur);
   padding: 10px;
   width: 100vw;
@@ -515,4 +515,36 @@ Comments
 .anim-comment .anim-comment-header {
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+/*****************
+Editor
+******************/
+.editor aside {
+  margin: 10px;
+  height: 100%;
+  padding: 5px;
+  border-radius: 20px;
+  background: var(--card-background);
+}
+
+.editor-active canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.editor-active {
+  background: var(--card-background)
+}
+
+.tool {}
+
+.tool-wrap {
+  background: var(--card-background); 
+  padding: 4px;
+  margin: 4px;
+  border-radius: 10px;
+}
+aside div.flex {
+  max-width: 120px;
 }
