@@ -5,9 +5,9 @@
 }
 
 :root {
-  --body-background: #000020;
-  --body-background-lighter: #0c0c30;
-  --body-background-lightest: #242a44;
+  --body-background: #0b0b41;
+  --body-background-lighter: #16163d;
+  --body-background-lightest: #323850;
   --body-text: #eee;
   --card-background: #ffffff28;
   --card-background-intense: #ffffff48;
@@ -35,6 +35,7 @@ h1,
 nav {
   background: var(--dcard-background-intense);
   backdrop-filter: var(--card-blur);
+  box-shadow:0 5px 40px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: var(--card-blur);
   padding: 10px;
   width: 100vw;

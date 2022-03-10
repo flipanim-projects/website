@@ -78,16 +78,10 @@ passport.use(new LocalStrategy(
 
     }
 ));
-
-// tell passport how to serialize the user
 passport.serializeUser((user, done) => {
-    console.log('Inside serializeUser callback. User id is save to the session file store here')
     done(null, user.id);
 });
-
 passport.deserializeUser(async (id, done) => {
-    console.log('Inside deserializeUser callback')
-    console.log(`The user id passport saved in the session file store is: ${id}`)
     await User.findOne({
         id: id
     }).then(user => {
@@ -96,7 +90,6 @@ passport.deserializeUser(async (id, done) => {
         console.error(err)
     })
 });
-
 //app.use(express.static("public")); // Page itself
 app.route("/api/v1/users").get(api.showUser); // For individual user requests!
 app.route("/api/v1/users").post(api.createUser); // For creation of users
@@ -106,6 +99,7 @@ app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
 app.route("/api/v1/anims").post(api.postAnim); // Get anim by id
 app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.login);
+app.route("/api/v1/logout").post(api.logout);
 
 /*********************
  * STATIC PAGES with pug!

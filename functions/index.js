@@ -223,6 +223,9 @@ module.exports = {
         return res.send('You were authenticated & logged in!\n');
       })
     })(req, res, next);
-  },// request.isAuthenticated() is the function to determine
-  //authentication
+  }, logout: async function (req, res) {
+    req.session = null
+    console.log('logout')
+    res.send('Logged out')
+  }
 }

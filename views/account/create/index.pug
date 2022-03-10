@@ -1,7 +1,7 @@
 doctype html
 head
   title FlipAnim | Home
-  link(rel='stylesheet', href='../css/stylesheet.css')
+  link(rel='stylesheet', href='../../css/stylesheet.css')
   link(rel='preconnect', href='https://fonts.googleapis.com')
   link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
   link(href='https://fonts.googleapis.com/css2?family=Indie+Flower&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
@@ -10,15 +10,15 @@ if loggedIn
 nav
   div(style='display:flex')
     h1
-      img(src='../imgs/flipanimv2.png', height='35px', style='vertical-align: bottom;margin-right:5px;')
+      img(src='/imgs/flipanimv2.png', height='35px', style='vertical-align: bottom;margin-right:5px;')
     a.linktitle Browse
     a.linktitle Search
     a.linktitle Followed
   if loggedIn
     div.profile
-      img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
-  else 
-    .login-buttons 
+    img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
+    else 
+      .login-buttons 
       button(onclick="window.location.href='/account/login'") Log in 
       button(onclick="window.location.href='/account/create'") Create account
 main
@@ -29,26 +29,16 @@ main
       #profileLink.profile-option Profile
       .profile-option Settings
       #logOut.profile-option Log out
-  .main.anim-main
-    h1.anim-title Loading
-    .anim-image.skeleton
-    br
-    .anim-metadata.flex(style='justify-content: space-between; width: 100%; padding: 0 20px;')
-      .anim-stats
-        .anim-likes
-          b 0
-          |  likes
-        .anim-views
-          b 0
-          |  views
-      div
-        span.anim-creation(style='opacity: 0.6')
-        br
-        span.anim-author.skeleton Loading
-    hr
-    h2
-      | Comments 
-      span.anim-comment-count
-    .anim-comment-container
-script(src='../index.js')
-script(src='anim.js')
+  .main.create
+    h1 Create an Account
+    #error(style='color: red;')
+    form.create(action='/api/v1/users', method='POST')
+      #username-container
+        input#username(type='text', name='username', placeholder='Username...')
+      input#password(type='password', name='password', placeholder='Password...')
+      .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
+      script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
+      br
+      input(type='submit', value='Submit')
+script(src='../../index.js')
+script(src='index.js')
