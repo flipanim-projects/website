@@ -107,9 +107,10 @@ app.route("/api/v1/logout").post(api.logout);
 app.get('/', async (req, res) => {
     if (req.isAuthenticated()) {
         await User.findById(req.session.passport.user).then(user => {
-            res.render('index', { title: 'FlipAnim | Home', loggedIn: user })
+            res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })
         }).catch(() => {
-            res.render('index', { title: 'FlipAnim | Home' })
+            //res.render('error/index')
+            res.render('browse/index', { title: 'FlipAnim | Home' })
         })
     } else {
         res.render('index', { title: 'FlipAnim | Home' })

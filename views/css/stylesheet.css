@@ -5,9 +5,9 @@
 }
 
 :root {
-  --body-background: #0b0b41;
-  --body-background-lighter: #16163d;
-  --body-background-lightest: #323850;
+  --body-background: #111133;
+  --body-background-lighter: #2a2a55;
+  --body-background-lightest: #484e64;
   --body-text: #eee;
   --card-background: #ffffff28;
   --card-background-intense: #ffffff48;
@@ -19,7 +19,7 @@
 }
 
 body {
-  background-color: #000020;
+  background-color: var(--body-background);
   color: var(--body-text);
   margin: 0;
   position: relative;
@@ -33,7 +33,7 @@ h1,
 }
 
 nav {
-  background: var(--dcard-background-intense);
+  background: var(--card-background);
   backdrop-filter: var(--card-blur);
   box-shadow: 0 5px 40px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: var(--card-blur);

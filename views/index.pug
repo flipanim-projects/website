@@ -1,3 +1,4 @@
+
 html
   head
     title= title
@@ -25,24 +26,12 @@ body
     if loggedIn
       div.profile-options
         p(disabled='', style='pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5')
-            | Logged in as @#{loggedIn.name.text}
-            #profileLink.profile-option Profile
-            .profile-option Settings
-            #logOut.profile-option Log out
+          | Logged in as @#{loggedIn.name.text}
+          #profileLink.profile-option Profile
+          .profile-option Settings
+          #logOut.profile-option Log out
     div.main
-      div.anim
-        img(src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif")
-        div.anim-text
-          h1 j
-          h2 by Pineapple-Rind
-      div.anim
-        img(src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif")
-        div.anim-text
-          h1 j
-          h2 by Pineapple-Rind
-      div.anim
-        img(src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif")
-        div.anim-text
-          h1 j
-          h2 by Pineapple-Rind
+      //- +anim("https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/ngti52x9.gif",
+      //-   "j", "by Pineapple-Rind")
+
   script(src="index.js")

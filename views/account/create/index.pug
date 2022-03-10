@@ -17,8 +17,8 @@ nav
   if loggedIn
     div.profile
     img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
-    else 
-      .login-buttons 
+  else 
+    .login-buttons 
       button(onclick="window.location.href='/account/login'") Log in 
       button(onclick="window.location.href='/account/create'") Create account
 main
