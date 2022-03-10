@@ -1,6 +1,6 @@
 # new-flipanim
 
-New FlipAnim Redesign
+FlipAnim V2 Official Repository
 
 ## API Endpoints
 | URL             | Method | Description          |
