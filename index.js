@@ -1,6 +1,7 @@
 var express = require("express"),
     session = require("express-session"),
     app = express(),
+    path = require('path'),
     cors = require("cors"),
     bodyParser = require("body-parser"),
     mongoose = require('mongoose'),
@@ -52,7 +53,8 @@ app.use(
         extended: true,
     })
 );
-
+app.use(express.static(path.join(__dirname, 'views')));
+app.set('view engine', 'pug')
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
     async (username, password, done,) => {
@@ -105,3 +107,10 @@ app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
 app.route("/api/v1/anims").post(api.postAnim); // Get anim by id
 app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.login);
+
+/*********************
+ * STATIC PAGES with pug!
+ ********************/
+ app.get('/', (req, res) => {
+    res.render('index', { title: 'Hey' })
+})
