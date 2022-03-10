@@ -38,7 +38,7 @@ app.use(
     session({
         store: new FileStore(),
         secret: gened,
-        resave: true,
+        resave: false,
         saveUninitialized: true,
     })
 );
@@ -57,15 +57,11 @@ app.set('view engine', 'pug')
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
     async (username, password, done,) => {
-        console.log('Inside local strategy callback')
-        // here is where you make a call to the database
-        // to find the user based on their username or email address
-        // for now, we'll just pretend we found that it was users[0]
         await User.findOne({
             'name.text': username
         }).then(user => {
             console.log(`Attempting to log in with user `+username+'. Returned '+user)
-            if (!user) return done(null, false, { message: 'Invalid credentials.\n' })
+            if (!user) return done(null, false, { message: 'Invalid username or password\n' })
             if (username === user.name.text && sha256(password) === user.password) {
                 console.log('Local strategy returned true')
                 return done(null, user)
@@ -106,6 +102,7 @@ app.route("/api/v1/logout").post(api.logout);
  * STATIC PAGES with pug!
  ********************/
 app.get('/', async (req, res) => {
+    console.log(req.session)
     if (req.isAuthenticated()) {
         await User.findById(req.session.passport.user).then(user => {
             res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })

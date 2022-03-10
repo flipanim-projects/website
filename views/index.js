@@ -63,11 +63,12 @@ const FlipAnim = (function () {
           text: "Yes",
           type: "proceed-dangerous",
           action: function () {
-            alert('a')
-            // fetch('http://localhost:3000/api/v1/logout', {
-            //   method: 'POST',
-            //   redirect: 'follow'
-            // })
+            fetch('http://localhost:3000/api/v1/logout', {
+              method: 'POST',
+              redirect: 'follow'
+            }).then(() => {
+              window.location.href = '/'
+            })
             
           },
         },

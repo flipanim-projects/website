@@ -220,12 +220,18 @@ module.exports = {
       if (err) { return next(err); }
       if (!user) { return res.redirect('/login'); }
       req.login(user, (err) => {
-        return res.send('You were authenticated & logged in!\n');
+        return res.redirect('/')
       })
     })(req, res, next);
   }, logout: async function (req, res) {
-    req.session = null
+    req.session.destroy(err => {
+      if (err) {
+        console.log(err)
+        res.status(400).send('Unable to log out')
+      } else {
+        res.send('Logout successful')
+      }
+    });
     console.log('logout')
-    res.send('Logged out')
   }
 }
