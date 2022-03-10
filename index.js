@@ -62,7 +62,7 @@ passport.use(new LocalStrategy(
         // to find the user based on their username or email address
         // for now, we'll just pretend we found that it was users[0]
         await User.findOne({
-            username: username
+            'name.text': username
         }).then(user => {
             if (!user) return done(null, false, { message: 'Invalid credentials.\n' })
             if (username === user.name.text && sha256(password) === user.password) {
