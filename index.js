@@ -128,10 +128,27 @@ app.get('/account/login', async (req, res) => {
         res.render('account/login', { title: 'FlipAnim | Log in' })
     }
 })
-
+app.get('/account/create', async (req, res) => {
+    if (req.session.passport) {
+        await User.findById(req.session.passport.user).then(user => {
+            if (!user)  res.render('account/create', { title: 'FlipAnim | Create account' })
+            else res.render('account/alreadyin', { title: 'FlipAnim', loggedIn: user })
+        }).catch(() => {
+            res.render('account/create', { title: 'FlipAnim | Create account' })
+        })
+    } else if (!req.session.passport) {
+        res.render('account/create', { title: 'FlipAnim | Create account' })
+    }
+})
 app.get('/profile', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
-        res.render('profile/index', { title: 'FlipAnim | Log in', loggedIn: user })
+        res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
     })
     else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
+})
+app.get('/editor', async (req, res) => {
+    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
+        res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: user })
+    })
+    else res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: false })
 })
