@@ -4,6 +4,7 @@ let Schema = mongoose.Schema
 let userSchema = new Schema(
     {
         "name": {
+            "display": String,
             "text": String,
             "id": String
         },
@@ -52,6 +53,7 @@ let userSchema = new Schema(
         "password": String,
         "bio": String,
         "admin": Boolean,
+        "preferredTheme": String,
         "creation": {
             "unix": Number,
             "text": String

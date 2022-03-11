@@ -1,7 +1,7 @@
 let query = document.location.search.replace('?', '')
 if (query.includes('%')) query = query.split('&')[0]
 document.querySelector('title').innerHTML = query.split('=')[1]
-
+if (!query) query = 'user='+document.querySelector('#userID').value
 
 fetch('/api/v1/users?'+query).then(
     resp => {

@@ -4,7 +4,7 @@
   font-family: Quicksand, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
-:root {
+body {
   --body-background: #111133;
   --body-background-lighter: #2a2a55;
   --body-background-lightest: #484e64;
@@ -13,6 +13,21 @@
   --card-background-intense: #ffffff48;
   --card-background-selected: #7b84ff28;
   --card-background-selected-intense: #7b84ff48;
+  --card-blur: blur(17px);
+  --dcard-background: #00000028;
+  --dcard-background-intense: #00000048;
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+  --border-hover: 1px solid rgba(255, 255, 255, 0.9);
+}
+body.classic {
+  --body-background: #2cce6f;
+  --body-background-lighter: #4bf592;
+  --body-background-lightest: #b9ffb7;
+  --body-text: rgb(37, 37, 37);
+  --card-background: #ffffff28;
+  --card-background-intense: #ffffff48;
+  --card-background-selected: #ffa57b28;
+  --card-background-selected-intense: #ffa57b48;
   --card-blur: blur(17px);
   --dcard-background: #00000028;
   --dcard-background-intense: #00000048;
@@ -115,7 +130,7 @@ main {
 }
 
 .profile-options .profile-option:hover {
-  background: rgba(167, 183, 255, 0.2);
+  background: var(--card-background);
 }
 
 .profile-options.open {
@@ -134,6 +149,7 @@ main {
 
 .main.create {
   flex-direction: column;
+  width: fit-content
 }
 
 nav h1,
@@ -261,14 +277,14 @@ nav .linktitle:hover {
 }
 
 button {
-  padding: 8px 18px;
+  padding: 10px 20px;
   background: var(--card-background);
-
   color: white;
   min-width: 90px;
   margin-right: 10px;
   border: 0;
-  border-radius: 14px;
+  transition: 0.2s;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -428,6 +444,9 @@ input {
   transition: 0.4s;
   color: white
 }
+body.classic input {
+  background: var(--dcard-background)
+}
 
 input:focus {
   background-color: var(--card-background-intense);
@@ -564,4 +583,63 @@ aside div.flex {
 
 aside div.flex:last-child {
   border: 0
+}
+
+/*******************
+Settings
+*******************/
+.theme-setting {
+  margin: 5px;
+  padding: 20px;
+  -webkit-appearance: none;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  opacity: 0.7;
+  border: 3px solid transparent;
+  background: var(--body-background)
+}
+.theme-setting.classic {
+  background: #2cce6f
+}
+.theme-setting:checked {
+  border: 3px solid white;
+}
+.theme-setting.classic:checked {
+  background: #2cce6f
+}
+.theme-setting:focus {
+  background: inherit;
+}
+.theme-setting::after {
+  content: '';
+  position: absolute;
+  top:0;
+  transition: 0.2s;
+  left:0;
+  z-index:-1;
+  opacity: 0;
+  bottom:0;
+  right:0;
+  display: flex;
+  text-shadow: 0 0 10px black;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-setting:hover::after {
+  opacity: 1;
+}
+.theme-setting.dark:checked::after {
+  content: 'Dark theme';
+  font-weight: 600;
+  opacity:1;
+}
+.theme-setting.classic:checked::after {
+  content: 'Classic theme';
+  font-weight: 600;
+  opacity:1;
 }

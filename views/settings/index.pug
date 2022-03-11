@@ -1,0 +1,45 @@
+mixin usersetting(name,id,value)
+    br
+    p= name 
+    input(type='text', name=id, placeholder=value ? value : 'No '+name, value=value)
+html
+    head
+        title= title
+        link(rel="stylesheet" href="../css/stylesheet.css")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet")
+body
+    if loggedIn
+        input#userID(type="text" value=loggedIn.name.id style="pointer-events: none; display: none")
+    nav
+        div.flex
+            img(src="https://flipanim.com/gfx/logo_fb.png" height="25px" style="vertical-align: bottom;margin-right:5px;" alt="FlipAnim")
+            a.linktitle Browse
+            a.linktitle Search
+            a.linktitle Followed
+        if loggedIn
+            div.profile
+                img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
+        else 
+            .login-buttons 
+                button(onclick="window.location.href='/account/login'") Log in 
+                button(onclick="window.location.href='/account/create'") Create account
+    main 
+        .main.create
+            h1 Settings for @#{loggedIn.name.text}
+            br
+            form.create(action="/api/v1/users/"+loggedIn.name.id method="PUT") 
+                +usersetting('Username', 'username', loggedIn.name.text)
+                +usersetting('Display Name', 'displayName', loggedIn.name.display)
+                +usersetting('Bio','bio',loggedIn.bio)
+                br
+                p Theme
+                div.flex
+                    input.theme-setting.dark(type="radio" name="theme")
+                    input.theme-setting.classic(type="radio" name="theme")
+                .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
+                script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
+                .flex 
+                    button(style="width: 100%") Cancel
+                    input(type='submit', value='Save')

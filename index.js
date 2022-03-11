@@ -37,9 +37,9 @@ let gened = genSessionSecret()
 app.use(
     session({
         store: new FileStore(),
-        secret: gened,
+        secret: 'sess',
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
     })
 );
 app.use(passport.initialize());
@@ -90,6 +90,7 @@ passport.deserializeUser(async (id, done) => {
 //app.use(express.static("public")); // Page itself
 app.route("/api/v1/users").get(api.showUser); // For individual user requests!
 app.route("/api/v1/users").post(api.createUser); // For creation of users
+app.route("/api/v1/users").put(api.editUser); // For creation of users
 app.route("/api/v1/anims/popular").get(api.getAnims.popular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.getAnims.new); // Get popular anims
 app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
@@ -150,4 +151,15 @@ app.get('/editor', async (req, res) => {
         res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: user })
     })
     else res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: false })
+})
+app.get('/error', async (req, res) => {
+    res.render('error/500', { title: 'FlipAnim | Error', loggedIn: false })
+})
+
+app.get('/settings', async (req, res) => {
+    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
+        if (!user) res.render('account/login', { title: 'FlipAnim | Log in', loggedIn: false })
+        res.render('settings/index', { title: 'FlipAnim | Settings', loggedIn: user })
+    })
+    else res.redirect('/account/login')
 })

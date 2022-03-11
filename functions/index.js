@@ -13,10 +13,6 @@ var Anim = require('../models/Anim'),
 
 
 module.exports = {
-  showComments: function (req, res) {
-    let file = fs.readFileSync("data/comments.json", "utf-8");
-    res.send(JSON.parse(file));
-  },
   showUser: async function (req, res) {
     if (!req.query) return res.status(400).json({
       status: 400,
@@ -79,7 +75,7 @@ module.exports = {
       let date = new Date();
       let userOpts =
       {
-        "name": { "text": req.body.username, "id": idGen() }, "avatar": false, "stats": {}, "anims": [], "notifications": [{ "title": "Welcome to FlipAnim!", "description": "Placeholder text.", "read": false }], "status": { "name": false, "type": 0 }, "following": [], "followers": [], "password": sha256(req.body.password), "bio": "", "creation": { "unix": Date.now() / 1000, "text": date.toISOString() }
+        "name": { "text": req.body.username, "display": req.body.display, "id": idGen() }, "avatar": false, "stats": {}, "anims": [], "notifications": [{ "title": "Welcome to FlipAnim!", "description": "Placeholder text.", "read": false }], "status": { "name": false, "type": 0 }, "following": [], "followers": [], "preferredTheme": "dark", "password": sha256(req.body.password), "bio": "", "creation": { "unix": Date.now() / 1000, "text": date.toISOString() }
       }
       let check = await User.findOne({
         'name.text': userOpts.name.text
@@ -97,6 +93,81 @@ module.exports = {
         }
       })
     }
+  }, editUser: async function (req, res) {
+    function invalidCaptcha(res) {
+      res.redirect('./settings?error=1')
+      return
+    }
+    let hcaptcha = req.body['h-captcha-response']
+    if (!hcaptcha) {
+      invalidCaptcha(res)
+      return;
+    } else {
+      const form = new FormData()
+      form.set('secret', '0xC5B6Bd0750C259aa60648bd42Fd44C6974172b31')
+      form.set('response', hcaptcha)
+      await got.post('https://hcaptcha.com/siteverify', {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        form: {
+          secret: "0xC5B6Bd0750C259aa60648bd42Fd44C6974172b31",
+          response: hcaptcha
+        }
+      }).json().then(resp => {
+        if (resp.success === false) return invalidCaptcha(res)
+        else authUser()
+      })
+      let fields = checkFields()
+      /**If the user is trying to change username
+       * or password, make sure they authenticate
+       */
+      if (fields.includes['username']) authUser()
+      else if (fields.includes['password']) authUser()
+      else editUser()
+      let toupdate
+      async function authUser() {
+        function noPass() {
+          res.status(401).json({
+            status: 401,
+            message: '401 Unauthorized: You need to enter current password to update your user'
+          });
+        }
+        if (!req.body['currentPassword']) {
+          noPass();
+        }
+        await User.findOne({
+          '_id': req.session.passport.user
+        }).then(user => {
+          if (!user) return noPass()
+          if (username === user.name.text && sha256(password) === user.password) {
+            toupdate = user
+            return editUser()
+          }
+          else return noPass
+        }).catch(err => {
+          console.error(err)
+        })
+      }
+      async function editUser() {
+        let oldusername = toupdate.name.text
+        if (req.body['bio']) toupdate.bio = req.body['bio']
+        if (req.body['status']) toupdate.status = req.status['status']
+        if (req.body['displayName']) toupdate.name.display = req.body['displayName']
+        await User.findOneAndUpdate({ 'name.text': oldusername }, toupdate).then(arg => {
+          console.log(arg)
+        })
+      }
+      async function checkFields() {
+        let allowed = ['name','password','avatarID','bio','status']
+        let has = []
+        for (const param of req.body) {
+          if (!allowed.includes(req.body[param])) return false
+          else if (allowed.includes(req.body[param])) has.push(param)
+        }
+        return has
+      }
+    }
+
+
   }, getAnims: {
     popular: async function (req, res) {
       let result = [];
@@ -178,14 +249,14 @@ module.exports = {
       return e;
     }
 
-    
+
     let animName = req.body.name,
       animAuthor = req.body.author,
       animAuthorId = req.body.id,
       animId = idGen()
     let auser
     await User.findOne({
-        'name.id': animAuthorId
+      'name.id': animAuthorId
     }).then(resp => {
       auser = resp
     })
