@@ -5,40 +5,41 @@
 }
 
 body {
+  /* Globals */
   --body-background: #111133;
   --body-background-lighter: #2a2a55;
   --body-background-lightest: #484e64;
   --body-text: #eee;
+  /* Regular Cards */
   --card-background: #ffffff28;
   --card-background-intense: #ffffff48;
   --card-background-selected: #7b84ff28;
   --card-background-selected-intense: #7b84ff48;
   --card-blur: blur(17px);
+  /* Dark Cards */
   --dcard-background: #00000028;
   --dcard-background-intense: #00000048;
+  /* Nav Background */
+  --nav-background: var(--card-background);
+  /* Borders */
   --border: 1px solid rgba(255, 255, 255, 0.2);
   --border-hover: 1px solid rgba(255, 255, 255, 0.9);
 }
+/* Classic Mode */
 body.classic {
   --body-background: #2cce6f;
-  --body-background-lighter: #4bf592;
-  --body-background-lightest: #b9ffb7;
+  --body-background-lighter: #219e55;
+  --body-background-lightest: #168042;
   --body-text: rgb(37, 37, 37);
-  --card-background: #ffffff28;
-  --card-background-intense: #ffffff48;
-  --card-background-selected: #ffa57b28;
-  --card-background-selected-intense: #ffa57b48;
-  --card-blur: blur(17px);
-  --dcard-background: #00000028;
-  --dcard-background-intense: #00000048;
-  --border: 1px solid rgba(255, 255, 255, 0.2);
-  --border-hover: 1px solid rgba(255, 255, 255, 0.9);
+    /* Nav Background */
+    --nav-background: rgb(0, 162, 255);
 }
 
 body {
   background-color: var(--body-background);
   color: var(--body-text);
   margin: 0;
+  background-image: url('https://flipanim.com/gfx/noise.png');
   position: relative;
   display: flex;
   flex-direction: column;
@@ -50,7 +51,7 @@ h1,
 }
 
 nav {
-  background: var(--card-background);
+  background: var(--nav-background);
   backdrop-filter: var(--card-blur);
   box-shadow: 0 5px 40px rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: var(--card-blur);
@@ -61,11 +62,39 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  padding-left: 30px;
+  padding-left: 20px;
   right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+nav h1,
+nav .linktitle {
+  margin: 0 10px 0px 0px;
+  display: block;
+  max-height: min-content;
+  padding: 10px 20px;
+  font-family: -apple-system, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  transition: 0.1s;
+  border-radius: 10px;
+}
+
+.nav-logo {
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
+nav .linktitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav h1:hover,
+nav .linktitle:hover {
+  background: rgba(255, 255, 255, 0.178);
 }
 
 main {
@@ -150,32 +179,6 @@ main {
 .main.create {
   flex-direction: column;
   width: fit-content
-}
-
-nav h1,
-nav .linktitle {
-  font-size: 20px;
-  margin: 0 5px;
-  padding: 5px 20px;
-  cursor: pointer;
-  transition: 0.1s;
-  border-radius: 30px;
-}
-
-.nav-logo {
-  vertical-align: bottom;
-  margin-right: 5px;
-}
-
-nav .linktitle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-nav h1:hover,
-nav .linktitle:hover {
-  background: rgba(255, 255, 255, 0.178);
 }
 
 .anim h2 {
@@ -430,9 +433,11 @@ Create Account
 .main.create {
   padding: 20px;
   border-radius: 20px;
-  background: var(--body-background-lighter)
+  background: var(--body-background-lighter);
 }
-
+.main.create h1 {
+  color: white
+}
 input {
   background: var(--card-background);
   padding: 10px 20px;
@@ -443,6 +448,10 @@ input {
   margin: 10px 0;
   transition: 0.4s;
   color: white
+}
+.main.create ::-webkit-input-placeholder {
+  color: white;
+  opacity: 0.5;
 }
 body.classic input {
   background: var(--dcard-background)

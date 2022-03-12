@@ -4,7 +4,7 @@
   "description": "The FlipAnim Website",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ignore sessions/ -e js,pug index.js"
+    "dev": "nodemon --ignore sessions/ -e js,ts,pug index.js"
   },
   "author": "pr",
   "license": "MIT",

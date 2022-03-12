@@ -1,35 +1,8 @@
 doctype html
-head
-  title FlipAnim | Home
-  link(rel='stylesheet', href='../css/stylesheet.css')
-  link(rel='preconnect', href='https://fonts.googleapis.com')
-  link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
-  link(href='https://fonts.googleapis.com/css2?family=Indie+Flower&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
-if loggedIn
-  input#userID(type="text" value=loggedIn.name.id style="pointer-events: none; display: none")
-nav
-  div(style='display:flex')
-    h1
-      img(src='../imgs/flipanimv2.png', height='35px', style='vertical-align: bottom;margin-right:5px;')
-    a.linktitle Browse
-    a.linktitle Search
-    a.linktitle Followed
-  if loggedIn
-    div.profile
-      img(onclick="document.querySelector('.profile-options').classList.toggle('open')" src="imgs/profile.png")
-  else 
-    .login-buttons 
-      button(onclick="window.location.href='/account/login'") Log in 
-      button(onclick="window.location.href='/account/create'") Create account
+include ../../components/head
+include ../../components/nav
 main
-  if loggedIn 
-    .profile-options
-      p(disabled='', style='pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5')
-      | Logged in as @#{loggedIn.name.text}
-      #profileLink.profile-option Profile
-      .profile-option Settings
-      #logOut.profile-option Log out
   .main 
     h1 this is where the browse page should be
-script(src='../index.js')
+script(src='/views/index.js')
 script(src='anim.js')

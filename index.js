@@ -12,9 +12,9 @@ var express = require("express"),
     router = express.Router(),
     pug = require('pug')
 
-var api = require('./functions/index.js'),
+var api = require('./api/index'),
     User = require('./models/User'),
-    sha256 = require('./functions/sha256')
+    sha256 = require('./api/sha256')
 
 const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
 
@@ -52,7 +52,8 @@ app.use(
         extended: true,
     })
 );
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname + "/")));
+
 app.set('view engine', 'pug')
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
@@ -87,58 +88,41 @@ passport.deserializeUser(async (id, done) => {
         console.error(err)
     })
 });
-//app.use(express.static("public")); // Page itself
-app.route("/api/v1/users").get(api.showUser); // For individual user requests!
-app.route("/api/v1/users").post(api.createUser); // For creation of users
-app.route("/api/v1/users").put(api.editUser); // For creation of users
-app.route("/api/v1/anims/popular").get(api.getAnims.popular); // Get popular anims
-app.route("/api/v1/anims/new").get(api.getAnims.new); // Get popular anims
-app.route("/api/v1/anims").get(api.getAnims.byId); // Get anim by id
-app.route("/api/v1/anims").post(api.postAnim); // Get anim by id
-app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
-app.route("/api/v1/login").post(api.login);
-app.route("/api/v1/logout").post(api.logout);
+app.route("/api/v1/users").get(api.user.get); // For individual user requests!
+app.route("/api/v1/users").post(api.user.create); // For creation of users
+app.route("/api/v1/users").put(api.user.edit); // For creation of users
+app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
+app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
+app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
+app.route("/api/v1/anims").post(api.anim.post); // Get anim by id
+// app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
+app.route("/api/v1/login").post(api.session.login);
+app.route("/api/v1/logout").post(api.session.logout);
+
 
 /*********************
  * STATIC PAGES with pug!
  ********************/
 app.get('/', async (req, res) => {
-    console.log(req.session)
-    if (req.isAuthenticated()) {
-        await User.findById(req.session.passport.user).then(user => {
+    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
             res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })
-        }).catch(() => {
-            //res.render('error/index')
-            res.render('browse/index', { title: 'FlipAnim | Home' })
         })
-    } else {
-        res.render('index', { title: 'FlipAnim | Home' })
-    }
+    else res.render('index', { title: 'FlipAnim | Home' })
 })
 
 app.get('/account/login', async (req, res) => {
-    if (req.session.passport) {
-        await User.findById(req.session.passport.user).then(user => {
+    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
             if (!user)  res.render('account/login', { title: 'FlipAnim | Log in' })
-            else res.render('account/alreadyin', { title: 'FlipAnim', loggedIn: user })
-        }).catch(() => {
-            res.render('account/login', { title: 'FlipAnim | Log in' })
+            else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
         })
-    } else if (!req.session.passport) {
-        res.render('account/login', { title: 'FlipAnim | Log in' })
-    }
+    else if (!req.session.passport) res.render('account/login', { title: 'FlipAnim | Log in' })
 })
 app.get('/account/create', async (req, res) => {
-    if (req.session.passport) {
-        await User.findById(req.session.passport.user).then(user => {
-            if (!user)  res.render('account/create', { title: 'FlipAnim | Create account' })
-            else res.render('account/alreadyin', { title: 'FlipAnim', loggedIn: user })
-        }).catch(() => {
-            res.render('account/create', { title: 'FlipAnim | Create account' })
-        })
-    } else if (!req.session.passport) {
-        res.render('account/create', { title: 'FlipAnim | Create account' })
-    }
+    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
+        if (!user)  res.render('account/create', { title: 'FlipAnim | Create an account' })
+        else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
+    })
+else if (!req.session.passport) res.render('account/create', { title: 'FlipAnim | Create an account' })
 })
 app.get('/profile', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
@@ -152,10 +136,6 @@ app.get('/editor', async (req, res) => {
     })
     else res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: false })
 })
-app.get('/error', async (req, res) => {
-    res.render('error/500', { title: 'FlipAnim | Error', loggedIn: false })
-})
-
 app.get('/settings', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
         if (!user) res.render('account/login', { title: 'FlipAnim | Log in', loggedIn: false })
@@ -163,3 +143,11 @@ app.get('/settings', async (req, res) => {
     })
     else res.redirect('/account/login')
 })
+app.get('/error', async (req, res) => {
+    res.render('error/500', { title: 'FlipAnim | Error', loggedIn: false })
+})
+
+/// 404 page
+app.use((req, res,next)=>{
+    res.status(404).render('error/404');
+ });

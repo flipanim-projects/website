@@ -79,6 +79,7 @@ const FlipAnim = (function () {
   $('#profileLink').onclick = () => {
     document.location.href = '/profile?user='+document.getElementById('userID').value
   }
+  $('#settings').onclick = () => { document.location.href = '/settings' }
   if (document.location.search.replace('?', '').split('=')[0] === 'justLoggedOut') {
     //TODO
   }
