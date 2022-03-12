@@ -26,13 +26,13 @@ body {
   --border-hover: 1px solid rgba(255, 255, 255, 0.9);
 }
 /* Classic Mode */
-body.classic {
+body {
   --body-background: #2cce6f;
   --body-background-lighter: #219e55;
   --body-background-lightest: #168042;
   --body-text: rgb(37, 37, 37);
     /* Nav Background */
-    --nav-background: rgb(0, 162, 255);
+    --nav-background: rgb(60, 113, 187);
 }
 
 body {
