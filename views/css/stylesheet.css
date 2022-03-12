@@ -39,7 +39,7 @@ body {
     --nav-position: absolute;
 }
 
-body {
+body.classic {
   background-color: var(--body-background);
   color: var(--body-text);
   margin: 0;
