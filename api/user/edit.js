@@ -1,5 +1,5 @@
 const sha256 = require('../sha256')
-async function editUser(req, res) {
+async function edit(req, res) {
     function invalidCaptcha(res) {
         res.redirect('./settings?error=1')
         return
@@ -49,26 +49,34 @@ async function editUser(req, res) {
                 '_id': req.session.passport.user
             }).then(user => {
                 if (!user) return noPass()
-                if (req.isAuthenticated() && sha256(password) === user.password) {
+                if (sha256(password) === user.password) {
                     toupdate = user
-                    return editUser()
+                    return editUserAuth()
                 }
                 else return noPass
             }).catch(err => {
                 console.error(err)
             })
         }
-        async function editUser() {
-            let oldusername = toupdate.name.text
+        async function editUser(id) {
             if (req.body['bio']) toupdate.bio = req.body['bio']
             if (req.body['status']) toupdate.status = req.status['status']
             if (req.body['displayName']) toupdate.name.display = req.body['displayName']
-            await User.findOneAndUpdate({ 'name.text': oldusername }, toupdate).then(arg => {
+            await User.findOneAndUpdate({ 'name.id': id }, toupdate).then(arg => {
                 console.log(arg)
             })
         }
+        async function editUserAuth() {
+            if (!req.query.id) res.status(400).json({
+                status: 400,
+                message: "No User"
+            })
+            if (fields.includes('newPassword')) toupdate.password = req.body['newPassword']
+            if (fields.includes('username')) toupdate.name.text = req.body['username']
+            editUser(req.query.id)
+        }
         function checkFields() {
-            let allowed = ['name', 'password', 'avatarID', 'bio', 'status']
+            let allowed = ['name', 'password', 'newPassword', 'avatarID', 'bio', 'status']
             let has = []
             for (const param of req.body) {
                 if (!allowed.includes(req.body[param])) return false
@@ -78,4 +86,4 @@ async function editUser(req, res) {
         }
     }
 }
-module.exports = editUser
+module.exports = edit

@@ -28,7 +28,7 @@ body {
   --border-hover: 1px solid rgba(255, 255, 255, 0.9);
 }
 /* Classic Mode */
-body {
+body.classic {
   --body-background: #2cce6f;
   --body-background-lighter: #219e55;
   --body-background-lightest: #168042;
@@ -39,7 +39,7 @@ body {
     --nav-position: absolute;
 }
 
-body.classic {
+body {
   background-color: var(--body-background);
   color: var(--body-text);
   margin: 0;

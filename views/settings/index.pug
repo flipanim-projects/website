@@ -11,7 +11,7 @@ body
             h1(style="color:red") Page not functional (yet)
             h1 Settings for @#{loggedIn.name.text}
             br
-            form.create() <!--form.create(action="/api/v1/users/"+loggedIn.name.id method="PUT") --> 
+            div.create(action="/api/v1/users/"+loggedIn.name.id method="PUT") 
                 +usersetting('Username', 'username', loggedIn.name.text)
                 +usersetting('Display Name', 'displayName', loggedIn.name.display)
                 +usersetting('Bio','bio',loggedIn.bio)
@@ -24,5 +24,6 @@ body
                 script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
                 .flex 
                     button(style="width: 100%" onclick="window.history.go(-1)") Cancel
-                    input(disabled type='submit', value='Save')
+                    input#subm(type='submit', value='Save')
+script(src="/views/settings/settings.js")
 script(src="/views/index.js") 

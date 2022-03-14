@@ -90,7 +90,7 @@ passport.deserializeUser(async (id, done) => {
 });
 app.route("/api/v1/users").get(api.user.get); // For individual user requests!
 app.route("/api/v1/users").post(api.user.create); // For creation of users
-app.route("/api/v1/users").put(api.user.edit); // For creation of users
+app.route("/api/v1/users/:userId").put(api.user.edit); // For creation of users
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
 app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
@@ -146,8 +146,3 @@ app.get('/settings', async (req, res) => {
 app.get('/error', async (req, res) => {
     res.render('error/500', { title: 'FlipAnim | Error', loggedIn: false })
 })
-
-/// 404 page
-app.use((req, res,next)=>{
-    res.status(404).render('error/404');
- });
