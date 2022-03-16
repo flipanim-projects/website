@@ -61,7 +61,7 @@ passport.use(new LocalStrategy(
         await User.findOne({
             'name.text': username
         }).then(user => {
-            console.log(`Attempting to log in with user `+username+'. Returned '+user)
+            console.log(`Attempting to log in with user ` + username + '. Returned ' + user)
             if (!user) return done(null, false, { message: 'Invalid username or password\n' })
             if (username === user.name.text && sha256(password) === user.password) {
                 console.log('Local strategy returned true')
@@ -90,7 +90,9 @@ passport.deserializeUser(async (id, done) => {
 });
 app.route("/api/v1/users").get(api.user.get); // For individual user requests!
 app.route("/api/v1/users").post(api.user.create); // For creation of users
-app.route("/api/v1/users/:userId").put(api.user.edit); // For creation of users
+app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth); 
+app.route('/api/v1/users/:userId/status').put(api.user.edit.status)
+app.route('/api/v1/users/:userId/information').put(api.user.edit.information)
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
 app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
@@ -105,24 +107,24 @@ app.route("/api/v1/logout").post(api.session.logout);
  ********************/
 app.get('/', async (req, res) => {
     if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-            res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })
-        })
+        res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })
+    })
     else res.render('index', { title: 'FlipAnim | Home' })
 })
 
 app.get('/account/login', async (req, res) => {
     if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-            if (!user)  res.render('account/login', { title: 'FlipAnim | Log in' })
-            else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
-        })
+        if (!user) res.render('account/login', { title: 'FlipAnim | Log in' })
+        else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
+    })
     else if (!req.session.passport) res.render('account/login', { title: 'FlipAnim | Log in' })
 })
 app.get('/account/create', async (req, res) => {
     if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-        if (!user)  res.render('account/create', { title: 'FlipAnim | Create an account' })
+        if (!user) res.render('account/create', { title: 'FlipAnim | Create an account' })
         else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
     })
-else if (!req.session.passport) res.render('account/create', { title: 'FlipAnim | Create an account' })
+    else if (!req.session.passport) res.render('account/create', { title: 'FlipAnim | Create an account' })
 })
 app.get('/profile', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {

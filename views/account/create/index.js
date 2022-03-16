@@ -12,11 +12,11 @@ let usernameRequirements = [
     else return false
   },
   function (str) {
-    if (str.length < 20 && str.length > 5) return false;
-    else return "Username length is not in the range 5-20";
+    if (str.length < 20 && str.length > 3) return false;
+    else return "Username length is not in the range 3-20";
   },
   function (str) {
-    let whitelist = `qwertyuiopasdfghjklzxcvbnm1234567890-_!#^*()'~`;
+    let whitelist = `qwertyuiopasdfghjklzxcvbnm1234567890-_!#^*()'~.`;
     for (let i = 0; i < str.length; i++) {
       let validCharacter = true; 
       for (let j = 0; j < whitelist.length; j++) {
@@ -26,6 +26,10 @@ let usernameRequirements = [
       if (validCharacter !== true)
       return "Invalid character " + validCharacter;
     }  
+    let reserved = ["LatticedDreams", "VideoGameDude", "Corruptandco", "Sharkiiie", "Flippy", "Ilysmfromm", "DanePerson", "Deku-Kun2", "Infinity999", "GearyOGuy", "Starshifter", "Worthings", "Worthlessness", "gafrield", "ViViHelico", "one", "FluffyGraffes", "Bugtoast", "Fazerlazer321", "Ak.", "jay", "Thatwaffle99", "wafels", "Its_Dev3230", "Infienthusiastowo", "catarie", "Queen-PufPuf", "Link", "the-dumb-dino", "Bakedbeano", "Poyo"]
+    for (let i = 0; i < reserved.length; i++) {
+      if (str.toLowerCase().includes(reserved[i].toLowerCase())) return 'Username is reserved'
+    }
     return false;
   },
 ];

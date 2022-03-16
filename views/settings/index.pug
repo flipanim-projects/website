@@ -1,7 +1,7 @@
 mixin usersetting(name,id,value)
     br
     p= name 
-    input(type='text', name=id, placeholder=value ? value : 'No '+name, value=value)
+    input(type='text', name=id, id=id, placeholder=value ? value : 'No '+name, value=value)
 html
     include ../../components/head
 body
@@ -11,8 +11,7 @@ body
             h1(style="color:red") Page not functional (yet)
             h1 Settings for @#{loggedIn.name.text}
             br
-            div.create(action="/api/v1/users/"+loggedIn.name.id method="PUT") 
-                +usersetting('Username', 'username', loggedIn.name.text)
+            div.create 
                 +usersetting('Display Name', 'displayName', loggedIn.name.display)
                 +usersetting('Bio','bio',loggedIn.bio)
                 br
@@ -20,10 +19,15 @@ body
                 div.flex
                     input.theme-setting.dark(type="radio" name="theme")
                     input.theme-setting.classic(type="radio" name="theme")
+                br
+                p Danger zone
+                button#changePass Change Password
                 .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
                 script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
                 .flex 
                     button(style="width: 100%" onclick="window.history.go(-1)") Cancel
                     input#subm(type='submit', value='Save')
+script.
+    var loggedIn = loggedIn
 script(src="/views/settings/settings.js")
 script(src="/views/index.js") 

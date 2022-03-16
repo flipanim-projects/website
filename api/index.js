@@ -8,7 +8,11 @@ const anim = {
   logout: require('./session/logout')
 }, user = {
   create: require('./user/create'),
-  edit: require('./user/edit'),
+  edit: {
+    auth: require('./user/edit/auth'),
+    status: require('./user/edit/status'),
+    information: require('./user/edit/information')
+  },
   get: require('./user/get')
 }
 module.exports = {
