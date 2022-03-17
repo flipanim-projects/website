@@ -27,7 +27,9 @@ body
                 .flex 
                     button(style="width: 100%" onclick="window.history.go(-1)") Cancel
                     input#subm(type='submit', value='Save')
+    div.modal-container
 script.
-    var loggedIn = loggedIn
+    function ObjectId(id) { return id }
+    var loggedIn = !{loggedIn}
+script(src="/views/utils/modal.js") 
 script(src="/views/settings/settings.js")
-script(src="/views/index.js") 

@@ -27,16 +27,17 @@ body {
   --border: 1px solid rgba(255, 255, 255, 0.2);
   --border-hover: 1px solid rgba(255, 255, 255, 0.9);
 }
+
 /* Classic Mode */
 body.classic {
   --body-background: #2cce6f;
   --body-background-lighter: #219e55;
   --body-background-lightest: #168042;
   --body-text: rgb(37, 37, 37);
-    /* Nav Background */
-    --nav-background: rgb(60, 113, 187);
-    --nav-shadow: inset -2px -5px 10px rgba(0, 0, 0, 0.7);
-    --nav-position: absolute;
+  /* Nav Background */
+  --nav-background: rgb(60, 113, 187);
+  --nav-shadow: inset -2px -5px 10px rgba(0, 0, 0, 0.7);
+  --nav-position: absolute;
 }
 
 body {
@@ -282,6 +283,11 @@ main {
     transform: scale(0.9)
   }
 }
+.modal-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 button {
   padding: 10px 20px;
@@ -294,8 +300,11 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
-
-button.proceed-dangerous {
+.modal-buttons button {
+  width: 48%;
+  margin: 0;
+}
+button.dangerous {
   background: rgba(255, 0, 0, 0.448);
 }
 
@@ -303,11 +312,21 @@ button:hover {
   background: var(--card-background-intense)
 }
 
-button.proceed-dangerous:hover {
+button.dangerous:hover {
   background: rgba(255, 0, 0, 0.648);
 }
 
+button.proceed {
+  background: rgba(0, 255, 0, 0.448)
+}
 
+button.proceed:hover {
+  background: rgba(0, 255, 0, 0.648)
+}
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 /*********************
 Profile
 **********************/
@@ -439,9 +458,11 @@ Create Account
   border-radius: 20px;
   background: var(--body-background-lighter);
 }
+
 .main.create h1 {
   color: white
 }
+
 input {
   background: var(--card-background);
   padding: 10px 20px;
@@ -453,10 +474,12 @@ input {
   transition: 0.4s;
   color: white
 }
+
 .main.create ::-webkit-input-placeholder {
   color: white;
   opacity: 0.5;
 }
+
 body.classic input {
   background: var(--dcard-background)
 }
@@ -557,7 +580,7 @@ Editor
 .editor aside {
   margin: 10px;
   height: 100%;
-  
+
   border-radius: 20px;
   background: var(--card-background);
 }
@@ -578,11 +601,13 @@ Editor
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(0, 0, 255, 0);
-  
+
 }
+
 .tool-wrap:hover {
   background: var(--card-background-intense);
 }
+
 .tool-wrap.selected {
   border: 2px solid blue;
   background: var(--card-background-selected)
@@ -613,31 +638,37 @@ Settings
   border: 3px solid transparent;
   background: #000020;
 }
+
 .theme-setting.classic {
   background: #2cce6f
 }
+
 .theme-setting:checked {
   border: 3px solid white;
 }
+
 .theme-setting.dark:checked {
   background: #111130;
 }
+
 .theme-setting.classic:checked {
   background: #2cce6f
 }
+
 .theme-setting:focus {
   background: inherit;
 }
+
 .theme-setting::after {
   content: '';
   position: absolute;
-  top:0;
+  top: 0;
   transition: 0.2s;
-  left:0;
-  z-index:-1;
+  left: 0;
+  z-index: -1;
   opacity: 0;
-  bottom:0;
-  right:0;
+  bottom: 0;
+  right: 0;
   display: flex;
   text-shadow: 0 0 10px black;
   border-radius: 10px;
@@ -648,13 +679,15 @@ Settings
 .theme-setting:hover::after {
   opacity: 1;
 }
+
 .theme-setting.dark:checked::after {
   content: 'Dark theme';
   font-weight: 600;
-  opacity:1;
+  opacity: 1;
 }
+
 .theme-setting.classic:checked::after {
   content: 'Classic theme';
   font-weight: 600;
-  opacity:1;
+  opacity: 1;
 }

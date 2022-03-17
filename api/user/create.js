@@ -1,11 +1,16 @@
 const sha256 = require('../sha256'),
     User = require('../../models/User'),
-    Captcha = require('../utils/captcha')
+    CaptchaHandler = require('../utils/captcha')
 async function createUser(req, res) {
-    new Captcha({
+    new CaptchaHandler({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {
-            res.send()
+            res.status(400).json({
+                status: 400,
+                message: '400 Bad Request: Invalid Captcha'
+            })
+        }, next: function () {
+            sendToAPI()
         }
     })
 
