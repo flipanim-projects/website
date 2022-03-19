@@ -691,3 +691,27 @@ Settings
   font-weight: 600;
   opacity: 1;
 }
+
+/*****************
+Footer
+*****************/
+
+footer {
+  width: 100vw;
+  justify-content: space-evenly !important;
+  align-items: center;
+  padding: 20px;
+  background: var(--card-background);
+}
+footer>div {
+  display: flex;
+  flex-direction: column;
+}
+footer a {
+  color: white;
+  font-weight:300;
+  text-decoration:none;
+}
+footer a:hover {
+  text-decoration:underline;
+}

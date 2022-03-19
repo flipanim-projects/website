@@ -1,7 +1,7 @@
 const User = require('../../../models/User'),
     sha256 = require('../../sha256'),
     CaptchaHandler = require('../../utils/captcha');
-function auth(req, res) {
+async function auth(req, res) {
     if (!req.session.passport.user) return res.status(401).json({
         status: 401,
         message: '401 Unauthorized'

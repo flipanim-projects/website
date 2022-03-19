@@ -1,35 +1,63 @@
+window.modal = undefined
 class Modal {
     constructor(opts) {
-        Object.assign(this,opts)
+        Object.assign(this, opts)
         this.init = function () {
             let modal = document.createElement("DIV"),
                 actions = document.createElement('DIV'),
-                buttons = document.createElement("DIV");
-            
+                buttons = document.createElement("DIV"),
+                extras = document.createElement("DIV");
+
             modal.classList.add("modal");
             actions.classList.add('modal-actions')
             buttons.classList.add("modal-buttons");
-            for (let j = 0; j < this.actions.inputs.length; j++) {
-                let input = document.createElement("INPUT");
-                input.setAttribute('placeholder', this.actions.inputs[j].placeholder)
-                input.setAttribute('name', this.actions.inputs[j].name)
-                input.value = this.actions.inputs[j].value || ''
-                if (this.actions.inputs[j].type) input.setAttribute('type',this.actions.inputs[j].type)
-                input.oninput = () => {
-                    this.form.body[this.actions.inputs[j].name] = input.value
-                    console.log(this.form.body)
+            for (const html in this.content) {
+                if (html == 'inputs') inputs(this.content['inputs'])
+                else if (html == 'buttons') _buttons(this.content['buttons'])
+                else extraHTML(this.content[html])
+            }
+            function inputs(data) {
+                for (let j = 0; j < data.length; j++) {
+                    let input = document.createElement("INPUT");
+                    input.setAttribute('placeholder', data[j].placeholder)
+                    input.setAttribute('name', data[j].name)
+                    input.value = data[j].value || ''
+                    if (data[j].type) input.setAttribute('type', data[j].type)
+                    input.oninput = () => {
+                        this.form.body[data[j].name] = input.value
+                        console.log(this.form.body)
+                    }
+                    actions.appendChild(input)
                 }
-                actions.appendChild(input)
-            } for (let k = 0; k < this.actions.buttons.length; k++) {
-                let button = document.createElement("BUTTON");
-                button.innerHTML = this.actions.buttons[k].text;
-                button.onclick = this.actions.buttons[k].action
-                button.classList.add(this.actions.buttons[k].type);
-                buttons.appendChild(button);
+            }
+            let md = this
+            function _buttons(data) {
+                for (let k = 0; k < data.length; k++) {
+                    let button = document.createElement("BUTTON");
+                    button.innerHTML = data[k].text;
+                    button.onclick = data[k].action || function () { }
+                    if (data[k].type === 'cancel') {
+
+                        button.onclick = e => {
+                            data[k].action ? data[k].action(e) : function () { }()
+                            md.hide()
+                        }
+                    }
+
+                    button.classList.add(data[k].type);
+                    buttons.appendChild(button);
+                }
+            }
+            function extraHTML(data) {
+                for (let i = 0; i < data.length; i++) {
+                    let html = data[i]
+                    extras.innerHTML += html
+                }
             }
             modal.innerHTML = `<h1>${this.title}</h1>
             <p>${this.description || ''}</p>`;
-            modal.appendChild(actions)
+            modal.appendChild(actions);
+            modal.appendChild(extras);
             modal.appendChild(buttons);
 
             if (this.type === 1) {
@@ -47,7 +75,10 @@ class Modal {
             return this;
         };
         this.show = function () {
-            this.modal.classList.add("showing");
+            if (window.modal === this.title) {
+                this.modal.classList.add("showing");
+            }
+            window.modal = this.title
             document.querySelector(".modal-container").classList.add("overlay");
             return this;
         };
@@ -56,9 +87,6 @@ class Modal {
             if (m) modal = m
             modal.classList.remove("showing");
             document.querySelector(".modal-container").classList.remove("overlay");
-            setTimeout(function () {
-                modal.remove();
-            }, 400);
             return this;
         };
     }

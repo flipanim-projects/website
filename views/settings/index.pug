@@ -22,12 +22,12 @@ body
                 br
                 p Danger zone
                 button#changePass Change Password
-                .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
-                script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
+                
                 .flex 
                     button(style="width: 100%" onclick="window.history.go(-1)") Cancel
                     input#subm(type='submit', value='Save')
     div.modal-container
+    include ../../components/foot
 script.
     function ObjectId(id) { return id }
     var loggedIn = !{loggedIn}
