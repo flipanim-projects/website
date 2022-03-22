@@ -10,7 +10,8 @@ var express = require("express"),
     FileStore = require('session-file-store')(session),
     server = app.listen(process.env.PORT || 3000, listen),
     router = express.Router(),
-    pug = require('pug')
+    pug = require('pug'),
+    rateLimit = require('express-rate-limit')
 
 var api = require('./api/index'),
     User = require('./models/User'),
@@ -37,7 +38,7 @@ let gened = genSessionSecret()
 app.use(
     session({
         store: new FileStore(),
-        secret: 'sess',
+        secret: 'DevelopmentSecret (replace during public beta)',
         resave: false,
         saveUninitialized: false,
     })
@@ -88,7 +89,16 @@ passport.deserializeUser(async (id, done) => {
         console.error(err)
     })
 });
-app.route("/api/v1/users").get(api.user.get); // For individual user requests!
+const limitShort = (minutes) => {
+    minutes = 0.5
+    return rateLimit({
+        windowMs: minutes * 60 * 1000,
+        max: 2,
+        standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+        legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    })
+}
+app.route("/api/v1/users").get(api.user.get, limitShort()); // For individual user requests!
 app.route("/api/v1/users").post(api.user.create); // For creation of users
 app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth); 
 app.route('/api/v1/users/:userId/status').put(api.user.edit.status)
@@ -101,7 +111,10 @@ app.route("/api/v1/anims").post(api.anim.post); // Get anim by id
 app.route("/api/v1/login").post(api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
 
-
+app.get('/api/v1', limitShort(), function (req, res) {
+    console.log('asda')
+    res.send('asda')
+})
 /*********************
  * STATIC PAGES with pug!
  ********************/

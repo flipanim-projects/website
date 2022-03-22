@@ -16,6 +16,7 @@ class Modal {
                 else if (html == 'buttons') _buttons(this.content['buttons'])
                 else extraHTML(this.content[html])
             }
+            let md = this
             function inputs(data) {
                 for (let j = 0; j < data.length; j++) {
                     let input = document.createElement("INPUT");
@@ -23,14 +24,13 @@ class Modal {
                     input.setAttribute('name', data[j].name)
                     input.value = data[j].value || ''
                     if (data[j].type) input.setAttribute('type', data[j].type)
+                    
                     input.oninput = () => {
-                        this.form.body[data[j].name] = input.value
-                        console.log(this.form.body)
+                        md.form.body[data[j].name] = input.value
                     }
                     actions.appendChild(input)
                 }
             }
-            let md = this
             function _buttons(data) {
                 for (let k = 0; k < data.length; k++) {
                     let button = document.createElement("BUTTON");
@@ -63,6 +63,12 @@ class Modal {
             if (this.type === 1) {
                 this.form['body'] = {}
                 modal.getElementsByClassName('proceed')[0].onclick = () => {
+                    for (let i = 0; i < md.form.inputs.length; i++) {
+                        let cur = md.form.inputs[i]
+                        let el = document.getElementsByName(cur)[0]
+                        if (!el) continue
+                        md.form['body'][cur] = el.value
+                    }
                     fetch(this.form.action, {
                         method: this.form.method,
                         body: this.form.body

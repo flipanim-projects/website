@@ -26,7 +26,7 @@ function FlipAnimSettings(user) {
         type: 'password'
       }],
       extraHTML: [
-        `<div class="h-captcha" id="captcha" name="captcha" data-callback="window.s.hcaptcha" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>`
+        `<div class="h-captcha" id="captcha" name="captcha" data-callback="s.hcaptcha" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>`
       ],
       buttons: [
         { text: 'Cancel', type: 'cancel' },

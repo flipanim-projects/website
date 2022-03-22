@@ -1,5 +1,6 @@
 const Anim = require('../../models/Anim')
 async function getPopular(req, res) {
+    console.log('Request to get popular anims')
     let result = [];
     await Anim.find({})
         .then(anims => {

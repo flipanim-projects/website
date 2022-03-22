@@ -26,6 +26,11 @@ body {
   /* Borders */
   --border: 1px solid rgba(255, 255, 255, 0.2);
   --border-hover: 1px solid rgba(255, 255, 255, 0.9);
+  /* Footer */
+  --footer-background: var(--body-background-lighter);
+  --footer-margin: 10px;
+  --footer-padding: 20px;
+  --footer-shadow: 0 -5px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Classic Mode */
@@ -40,6 +45,13 @@ body.classic {
   --nav-position: absolute;
 }
 
+body.light {
+  --body-background: #f6f6f6;
+  --body-background-lighter: #dfdfdf;
+  --body-background-lightest: #cacaca;
+  --body-text: rgb(37, 37, 37);
+}
+
 body {
   background-color: var(--body-background);
   color: var(--body-text);
@@ -47,7 +59,9 @@ body {
   background-image: url('https://flipanim.com/gfx/noise.png');
   position: relative;
   display: flex;
+  height: 100vh;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 h1,
@@ -283,6 +297,7 @@ main {
     transform: scale(0.9)
   }
 }
+
 .modal-buttons {
   display: flex;
   align-items: center;
@@ -300,10 +315,12 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
+
 .modal-buttons button {
   width: 48%;
   margin: 0;
 }
+
 button.dangerous {
   background: rgba(255, 0, 0, 0.448);
 }
@@ -323,10 +340,12 @@ button.proceed {
 button.proceed:hover {
   background: rgba(0, 255, 0, 0.648)
 }
+
 button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 /*********************
 Profile
 **********************/
@@ -626,32 +645,19 @@ aside div.flex:last-child {
 /*******************
 Settings
 *******************/
-.theme-setting {
+.theme-setting,.theme-setting:focus {
   margin: 5px;
-  padding: 20px;
+  padding: 20px 0px;
   -webkit-appearance: none;
   display: block;
   position: relative;
   cursor: pointer;
   color: white;
   border-radius: 10px;
-  border: 3px solid transparent;
   background: #000020;
 }
 
 .theme-setting.classic {
-  background: #2cce6f
-}
-
-.theme-setting:checked {
-  border: 3px solid white;
-}
-
-.theme-setting.dark:checked {
-  background: #111130;
-}
-
-.theme-setting.classic:checked {
   background: #2cce6f
 }
 
@@ -660,38 +666,33 @@ Settings
 }
 
 .theme-setting::after {
-  content: '';
+  content: '\2713';
   position: absolute;
   top: 0;
   transition: 0.2s;
   left: 0;
-  z-index: -1;
   opacity: 0;
   bottom: 0;
+  font-size: 40px;
+  font-weight: 500;
+  font-family: Roboto, Quicksand, Inter, Arial, Helvetica, sans-serif;
   right: 0;
+  background:0;
   display: flex;
-  text-shadow: 0 0 10px black;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
 }
 
-.theme-setting:hover::after {
+.theme-setting:checked::after {
   opacity: 1;
 }
-
-.theme-setting.dark:checked::after {
-  content: 'Dark theme';
-  font-weight: 600;
-  opacity: 1;
+.theme-setting:focus {
+  background: #000020;
 }
-
-.theme-setting.classic:checked::after {
-  content: 'Classic theme';
-  font-weight: 600;
-  opacity: 1;
+.theme-setting.classic:focus {
+  background: #2cce6f
 }
-
 /*****************
 Footer
 *****************/
@@ -701,17 +702,22 @@ footer {
   justify-content: space-evenly !important;
   align-items: center;
   padding: 20px;
-  background: var(--card-background);
+  margin-top: 10px;
+  background: var(--body-background-lighter);
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
 }
+
 footer>div {
   display: flex;
   flex-direction: column;
 }
+
 footer a {
-  color: white;
-  font-weight:300;
-  text-decoration:none;
+  color: var(--body-text);
+  font-weight: 300;
+  text-decoration: none;
 }
+
 footer a:hover {
-  text-decoration:underline;
+  text-decoration: underline;
 }

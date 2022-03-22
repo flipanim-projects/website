@@ -5,5 +5,10 @@ main
   .main 
     h1 this is where the browse page should be
 include ../../components/foot
+
+script.
+    function ObjectId(id) { return id }
+    var loggedIn = !{loggedIn}
+    
 script(src='/views/index.js')
 script(src='anim.js')

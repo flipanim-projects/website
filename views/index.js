@@ -1,4 +1,4 @@
-const FlipAnim = (function () {
+const FlipAnim = function (loggedIn) {
 	const $ = function (id) {
 		return document.querySelector(id);
 	};
@@ -40,8 +40,10 @@ const FlipAnim = (function () {
 	$('#settings').onclick = () => {
 		document.location.href = '/settings'
 	}
+	if (loggedIn) document.querySelector('body').classList.add(loggedIn.preferredTheme)
+	
 	if (document.location.search.replace('?', '').split('=')[0] === 'justLoggedOut') {
 		//TODO
 	}
 	//fetch('http://0.0.0.0:3000/api/v1/session')
-})();
+}(loggedIn);
