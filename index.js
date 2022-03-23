@@ -55,7 +55,11 @@ app.use(
 );
 app.use(express.static(path.join(__dirname + "/")));
 
+/**Pug Config*/
 app.set('view engine', 'pug')
+app.set("views", path.join(__dirname, "public"));
+
+
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
     async (username, password, done,) => {
@@ -110,11 +114,6 @@ app.route("/api/v1/anims").post(api.anim.post); // Get anim by id
 // app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
-
-app.get('/api/v1', limitShort(), function (req, res) {
-    console.log('asda')
-    res.send('asda')
-})
 /*********************
  * STATIC PAGES with pug!
  ********************/
@@ -140,9 +139,15 @@ app.get('/account/create', async (req, res) => {
     else if (!req.session.passport) res.render('account/create', { title: 'FlipAnim | Create an account' })
 })
 app.get('/profile', async (req, res) => {
-    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
-        res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
-    })
+    if (req.session.passport) {
+        if (!req.query.id) await User.findById(req.session.passport.user).then(user => {
+            res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
+        }); else {
+            await User.findOne(req.session.passport.user).then(user => {
+                res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
+            });
+        }
+    }
     else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
 })
 app.get('/editor', async (req, res) => {

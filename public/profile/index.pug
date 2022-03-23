@@ -21,8 +21,9 @@ main
             .text-box.profile-status.skeleton
                 span.profile-status-type
             br
-            h2 Bio
-            .text-box.skeleton.profile-bio No bio
+            if (loggedIn.bio) 
+                h2 Bio
+                .text-box.skeleton.profile-bio No bio
     br 
     hr
     h1 Anims
@@ -31,5 +32,6 @@ include ../../components/foot
 script.
     function ObjectId(id) { return id }
     var loggedIn = !{loggedIn}
-script(src='/views/index.js')
-script(src='/views/profile/profile.js')
+    var userProfile
+script(src='/public/index.bundle.js')
+script(src='/public/profile/profile.js')

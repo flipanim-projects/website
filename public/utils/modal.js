@@ -97,3 +97,4 @@ class Modal {
         };
     }
 }
+module.exports = Modal

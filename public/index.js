@@ -1,4 +1,5 @@
 const FlipAnim = function (loggedIn) {
+	const Modal = require('./utils/modal.js')
 	const $ = function (id) {
 		return document.querySelector(id);
 	};
@@ -42,7 +43,7 @@ const FlipAnim = function (loggedIn) {
 	$('#settings').onclick = () => {
 		document.location.href = '/settings'
 	}
-	if (loggedIn) document.querySelector('body').classList.add(loggedIn.preferredTheme)
+	if (loggedIn && loggedIn.preferences.theme) document.querySelector('body').classList.add(loggedIn.preferredTheme)
 	
 	if (document.location.search.replace('?', '').split('=')[0] === 'justLoggedOut') {
 		//TODO

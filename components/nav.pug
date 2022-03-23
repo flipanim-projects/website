@@ -3,13 +3,13 @@ if loggedIn
 
 nav
     div.flex
-        img.linktitle(src="/views/imgs/flipanimv2.png" height="55px" style="vertical-align: bottom;margin-right:5px;" alt="FlipAnim")
+        img.linktitle(src="/public/imgs/flipanimv2.png" height="55px" style="vertical-align: bottom;margin-right:5px;" alt="FlipAnim")
         a.linktitle(onclick="window.location.href = '/'") Browse
         a.linktitle Search
         a.linktitle Followed
     if loggedIn
         div.profile
-            img(src="/views/imgs/profile.png" onclick="document.querySelector('.profile-options').classList.toggle('open')")
+            img(src="/public/imgs/profile.png" onclick="document.querySelector('.profile-options').classList.toggle('open')")
     else 
         .login-buttons 
             button(onclick="window.location.href='/account/login'") Log in 

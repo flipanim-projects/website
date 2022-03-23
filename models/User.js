@@ -52,8 +52,10 @@ let userSchema = new Schema(
         ],
         "password": String,
         "bio": String,
-        "admin": Boolean,
-        "preferredTheme": String,
+        "badges": Array,
+        "preferences": {
+            "theme": String
+        },
         "creation": {
             "unix": Number,
             "text": String
