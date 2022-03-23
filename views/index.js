@@ -6,11 +6,10 @@ const FlipAnim = function (loggedIn) {
 		"beforeend",
 		`<div class="modal-container"></div>`
 	);
-	
-	$("#logOut").onclick = () => {
-		let modal = new Modal({
-			title: "Are you sure you want to log out?",
-			description: "This session will be terminated",
+	let modal = new Modal({
+		title: "Are you sure you want to log out?",
+		description: "This session will be terminated",
+		content: {
 			buttons: [{
 				text: "No",
 				type: "cancel",
@@ -20,9 +19,9 @@ const FlipAnim = function (loggedIn) {
 			},
 			{
 				text: "Yes",
-				type: "proceed-dangerous",
+				type: "dangerous",
 				action: function () {
-					fetch('http://localhost:3000/api/v1/logout', {
+					fetch('/api/v1/logout', {
 						method: 'POST',
 						redirect: 'follow'
 					}).then(() => {
@@ -31,8 +30,11 @@ const FlipAnim = function (loggedIn) {
 				},
 			},
 			],
-		});
-		modal.init().show();
+		}
+	});
+	modal.init()
+	$("#logOut").onclick = () => {
+		modal.show();
 	};
 	$('#profileLink').onclick = () => {
 		document.location.href = '/profile?user=' + document.getElementById('userID').value
