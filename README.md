@@ -3,7 +3,7 @@
 FlipAnim V2 Official Repository
 
 ## Directory
-`/views` actual pages, site is stored here<br>
+`/public` actual pages, site is stored here<br>
 `/components` components used in some pages, such as the navigation bar<br>
 `/models` data structures for mongodb<br>
 `/api` what the api runs when dealing with requests<br>

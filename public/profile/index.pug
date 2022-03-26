@@ -10,7 +10,7 @@ include ../../components/nav
 main
     #profile-main.main
         .profile-basic-info
-            .profile-image.skeleton(style='background:url(/views/imgs/profile.png)')
+            .profile-image.skeleton(style='background-image:url(/public/imgs/profile.png)')
             h1.profile-name.skeleton Loading
             p.profile-creation.skeleton Loading
             .flex
@@ -32,6 +32,5 @@ include ../../components/foot
 script.
     function ObjectId(id) { return id }
     var loggedIn = !{loggedIn}
-    var userProfile
 script(src='/public/index.bundle.js')
 script(src='/public/profile/profile.js')

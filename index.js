@@ -93,24 +93,26 @@ passport.deserializeUser(async (id, done) => {
         console.error(err)
     })
 });
-const limitShort = (minutes) => {
-    minutes = 0.5
+const limitShort = (minutes, max, msg) => {
+    minutes = minutes || 0.5
+    max = max || 2
     return rateLimit({
         windowMs: minutes * 60 * 1000,
-        max: 2,
+        max: max,
+        message: 'You are being rate limited' || msg,
         standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
         legacyHeaders: false, // Disable the `X-RateLimit-*` headers
     })
 }
-app.route("/api/v1/users").get(api.user.get, limitShort()); // For individual user requests!
-app.route("/api/v1/users").post(api.user.create); // For creation of users
-app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth); 
+app.get("/api/v1/users", limitShort(0.2,2,'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
+app.route("/api/v1/users").post(api.user.create, limitShort(30, 1)); // For creation of users
+app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth, limitShort(0.2, 1));
 app.route('/api/v1/users/:userId/status').put(api.user.edit.status)
 app.route('/api/v1/users/:userId/information').put(api.user.edit.information)
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
 app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
-app.route("/api/v1/anims").post(api.anim.post); // Get anim by id
+app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // Get anim by id
 // app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.route("/api/v1/login").post(api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
@@ -140,15 +142,11 @@ app.get('/account/create', async (req, res) => {
 })
 app.get('/profile', async (req, res) => {
     if (req.session.passport) {
-        if (!req.query.id) await User.findById(req.session.passport.user).then(user => {
-            res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
-        }); else {
-            await User.findOne(req.session.passport.user).then(user => {
-                res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user })
-            });
-        }
+        await User.findById(req.session.passport.user).then(async user => {
+            res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user, user: req.query.user })
+        });
     }
-    else res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: false })
+    else res.redirect('/account/login')
 })
 app.get('/editor', async (req, res) => {
     if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
