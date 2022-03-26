@@ -10,7 +10,7 @@ body {
   --body-background-lighter: #2a2a55;
   --body-background-lightest: #484e64;
   --body-text: #eee;
-  /* Regular Cards */
+  /* Elements "floating" above the main page, such as navbar and anims */
   --card-background: #ffffff28;
   --card-background-intense: #ffffff48;
   --card-background-selected: #7b84ff28;
