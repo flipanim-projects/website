@@ -9,6 +9,7 @@ class Modal {
                 extras = document.createElement("DIV");
 
             modal.classList.add("modal");
+            modal.style.display = 'none'
             actions.classList.add('modal-actions')
             buttons.classList.add("modal-buttons");
             for (const html in this.content) {
@@ -23,7 +24,7 @@ class Modal {
                     input.setAttribute('placeholder', data[j].placeholder)
                     input.setAttribute('name', data[j].name)
                     input.value = data[j].value || ''
-                    if (data[j].type) input.setAttribute('type', data[j].type)
+                 if (data[j].type) input.setAttribute('type', data[j].type)
                     
                     input.oninput = () => {
                         md.form.body[data[j].name] = input.value
@@ -73,18 +74,21 @@ class Modal {
                         method: this.form.method,
                         body: this.form.body
                     })
-                    this.hide
+                    this.hide()
                 }
+            }
+            modal.onkeydown = e => {
+                if (e.code === 'Escape') md.hide()
             }
             this.modal = modal;
             document.querySelector(".modal-container").appendChild(modal);
             return this;
         };
         this.show = function () {
-            if (window.modal === this.title) {
-                this.modal.classList.add("showing");
-            }
-            window.modal = this.title
+            console.log(this.modal)
+            this.modal.style.display = 'block'
+            this.modal.classList.add("showing");
+
             document.querySelector(".modal-container").classList.add("overlay");
             return this;
         };
@@ -92,9 +96,11 @@ class Modal {
             let modal = this.modal
             if (m) modal = m
             modal.classList.remove("showing");
+            setTimeout(function () {
+                modal.style.display = 'none'
+            },400)
             document.querySelector(".modal-container").classList.remove("overlay");
             return this;
         };
     }
 }
-module.exports = Modal

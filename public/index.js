@@ -32,8 +32,7 @@ const FlipAnim = function (loggedIn) {
 			},
 			],
 		}
-	});
-	modal.init()
+	}).init()
 	$("#logOut").onclick = () => {
 		modal.show();
 	};

@@ -44,7 +44,7 @@ const FlipAnim = function (loggedIn) {
 	$('#settings').onclick = () => {
 		document.location.href = '/settings'
 	}
-	if (loggedIn) document.querySelector('body').classList.add(loggedIn.preferredTheme)
+	if (loggedIn && loggedIn.preferences.theme) document.querySelector('body').classList.add(loggedIn.preferredTheme)
 	
 	if (document.location.search.replace('?', '').split('=')[0] === 'justLoggedOut') {
 		//TODO
@@ -63,6 +63,7 @@ class Modal {
                 extras = document.createElement("DIV");
 
             modal.classList.add("modal");
+            modal.style.display = 'none'
             actions.classList.add('modal-actions')
             buttons.classList.add("modal-buttons");
             for (const html in this.content) {
@@ -136,6 +137,7 @@ class Modal {
         };
         this.show = function () {
             if (window.modal === this.title) {
+                this.modal.style.display = 'block'
                 this.modal.classList.add("showing");
             }
             window.modal = this.title
@@ -146,6 +148,9 @@ class Modal {
             let modal = this.modal
             if (m) modal = m
             modal.classList.remove("showing");
+            setTimeout(function () {
+                modal.style.display = 'none'
+            },400)
             document.querySelector(".modal-container").classList.remove("overlay");
             return this;
         };

@@ -13,13 +13,16 @@ function FlipAnimProfile(loggedIn) {
     if (query.includes('&')) query = query.split('&')[0]
     // Update the page title
     document.querySelector('title').innerHTML = 'FlipAnim | @' + loggedIn.name.text + '\'s profile'
+    // Make a request to the API to fetch the user info
     fetch('/api/v1/users?' + query).then(
-        resp => {
-            console.log(resp.body)
-            resp.json().then(fin => {
-                loggedIn = fin; loadProfile(fin);
-            }).catch(err => {
-                profileNotFound()
+        resp => { 
+            resp.json().then(fin => { // Then set a variable to the user info
+                // so we can access it later on
+                loggedIn = fin;
+                // Update the HTML with the newly fetched user info
+                loadProfile(fin);
+            }).catch(err => { // Request failed?
+                profileNotFound() // Just say the user's not found :)
                 console.error(err)
             })
         }
@@ -29,21 +32,35 @@ function FlipAnimProfile(loggedIn) {
         <p>The profile could not be loaded, as the user doesn't exist</p>
         <a style="cursor:pointer;text-decoration:underline;" onclick="window.history.go(-1)">&larr; Back</a>`
     }
-    function loadProfile(data) {
+    let editStatusModal = new Modal({
+        title: ('Edit Status'),
+        description: (' '),
+        content: {
+            buttons: [
+                { name: 'Cancel' },
+                { name: 'Save' }
+            ]
+        }
+    })
+    editStatusModal.init()
+    function loadProfile() {
+        // Shorthand function for setting the html of a profile element
         function html(el, text) {
             el.innerHTML = text
             return el.classList.remove('skeleton')
         }
+        // List of statuses. Since the API provides numbers
+        // for statuses, we'll need to translate
         const statuses = {
             "0": 'Invisible',
             "1": 'Online',
             "2": 'Idle',
             "3": 'Do Not Disturb',
         }
-
-        if (loggedIn === undefined) return $('.profile-basic-info').innerHTML = '<h1>User not found</h1>'
+        // No data? User not found
+        if (loggedIn === undefined) return profileNotFound()
         html($('.profile-name'), loggedIn.name.display + ' <span> @' + loggedIn.name.text + '</span>')
-        if (loggedIn.admin === true) {
+        if (loggedIn.badges.includes('admin')) { // User is admin?
             let admin = document.createElement('DIV')
             admin.classList.add('admin')
             $('.profile-name').appendChild(admin)
@@ -54,8 +71,17 @@ function FlipAnimProfile(loggedIn) {
         html($('.profile-follow.ing'), 'Following ' + loggedIn.following.length)
         if (loggedIn.bio) html($('.profile-bio'), loggedIn.bio)
 
-        html($('.profile-status'), `<span class="profile-status-type ${statuses[loggedIn.status.type]}">${statuses[loggedIn.status.type]}</span>${loggedIn.status.name ? ' | ' + loggedIn.status.name : ''}`)
-
+        html($('.profile-status'), `
+        <span class="profile-status-type ${statuses[loggedIn.status.type]}">
+        ${statuses[loggedIn.status.type]}</span>
+        ${loggedIn.status.name ? ' | ' + loggedIn.status.name : ''}`)
+        let edit = document.createElement('DIV')
+        edit.classList.add('edit')
+        edit.setAttribute('data-tooltip','edit')
+        edit.onclick = () => {
+            editStatusModal.show()
+        }
+        $('.profile-status-header').appendChild(edit)
         loadAnims(loggedIn.anims, loggedIn)
     }
 

@@ -32,6 +32,8 @@ body {
   --footer-margin: 20px;
   --footer-padding: 20px;
   --footer-shadow: 0 -5px 10px rgba(0, 0, 0, 0.4);
+  /* Tooltips */
+  --tooltip-background: var(--card-background);
 }
 
 /* Classic Mode */
@@ -74,8 +76,9 @@ h1 span {
 nav {
   background: var(--nav-background);
   backdrop-filter: var(--nav-blur);
-  box-shadow: var(--nav-shadow);
   -webkit-backdrop-filter: var(--nav-blur);
+  box-shadow: var(--nav-shadow);
+  
   padding: 10px;
   width: 100vw;
   margin: 0;
@@ -103,8 +106,10 @@ nav .linktitle {
 }
 
 .nav-logo {
+  image-rendering: -webkit-optimize-contrast;
   vertical-align: bottom;
   margin-right: 5px;
+  transform: translateZ(0);
 }
 
 nav .linktitle {
@@ -121,7 +126,7 @@ nav .linktitle:hover {
 main {
   margin-top: 100px;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -134,7 +139,7 @@ main {
 }
 
 .profile img {
-  height: 50px;
+  height: 57px;
   border-radius: 50%;
   border: 1px solid rgba(164, 171, 255, 0.4);
 }
@@ -431,8 +436,6 @@ Profile
   color: lime
 }
 
-;
-
 .Invisible {
   color: #ffffffaa
 }
@@ -443,6 +446,21 @@ Profile
 
 .Idle {
   color: orange
+}
+
+.profile-status-header {
+  display: flex;
+}
+
+.profile-status-info .edit {
+  height: 27px;
+  cursor: pointer;
+  transition: 0.2s;
+  transform-origin: bottom left;
+  vertical-align: text-bottom;
+  width: 27px;
+  background-image: url('/public/imgs/edit.png');
+  background-size: cover;
 }
 
 hr {
@@ -545,33 +563,6 @@ Anim Page
   max-width: 500px
 }
 
-/********************
-Tooltip
-********************/
-[tooltip] {
-  position: relative
-}
-
-[tooltip]::after {
-  content: attr(tooltip);
-  color: white;
-  max-width: 300px;
-  white-space: pre;
-  position: absolute;
-  transition: 0.2s;
-  background: rgba(255, 0, 0, 0.448);
-  box-shadow: 0 0 20px var(--body-background-lighter);
-  padding: 10px 20px;
-  border-radius: 10px;
-  top: calc(-100% - 10px);
-  left: 50%;
-  transform: translateX(-50%)
-}
-
-.tooltip-hidden[tooltip]::after {
-  opacity: 0;
-}
-
 /**********************
 Comments
 **********************/
@@ -655,7 +646,7 @@ aside div.flex:last-child {
 /*******************
 Settings
 *******************/
-.theme-setting,.theme-setting:focus {
+.theme-setting, .theme-setting:focus {
   margin: 5px;
   padding: 20px 0px;
   -webkit-appearance: none;
@@ -687,7 +678,7 @@ Settings
   font-weight: 500;
   font-family: Roboto, Quicksand, Inter, Arial, Helvetica, sans-serif;
   right: 0;
-  background:0;
+  background: 0;
   display: flex;
   border-radius: 10px;
   align-items: center;
@@ -697,12 +688,15 @@ Settings
 .theme-setting:checked::after {
   opacity: 1;
 }
+
 .theme-setting:focus {
   background: #000020;
 }
+
 .theme-setting.classic:focus {
   background: #2cce6f
 }
+
 /*****************
 Footer
 *****************/
@@ -730,4 +724,57 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/******************
+Tooltips
+*******************/
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-tooltip]:after {
+  line-height: 1;
+  font-size: .9em;
+  opacity: 0;
+  transition: 0.2s;
+  transform:translateY(10px);
+  pointer-events: none;
+  position: absolute;
+  content: attr(data-tooltip);
+  text-align: center;
+  max-width: 21em;
+  width: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 11px;
+  border-radius: 6px;
+  background: var(--tooltip-background);
+  color: #FFFFFF;
+  z-index: 2;
+  font-size: 15px;
+}
+[data-tooltip]:hover:after {
+  pointer-events: all;
+  opacity: 1;
+  transform:translateY(0);
+}
+
+[data-tooltip]:not([data-flow])::after,
+[data-tooltip][data-flow="top"]::after {
+  bottom: calc(100% + 5px);
+}
+
+[tooltip]:not([data-flow])::after,
+[data-tooltip][data-flow="top"]::after {
+  left: 50%;
+  -webkit-transform: translate(-50%, -4px);
+  transform: translate(-50%, -4px);
+}
+
+[data-tooltip=""]::after {
+  opacity:0;
+  pointer-events: none
 }

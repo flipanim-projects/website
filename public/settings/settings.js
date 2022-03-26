@@ -34,21 +34,7 @@ function FlipAnimSettings(user) {
       ]
     },
   });
-  function loadScript(src) {
-    return new Promise(function (resolve, reject) {
-      var script = document.createElement('script');
-      script.onload = function () {
-        resolve();
-      };
-      script.onerror = function () {
-        reject();
-      };
-      script.src = src;
-      document.body.appendChild(script);
-
-    });
-  }
-  loadScript('https://js.hcaptcha.com/1/api.js')
+  
   modal.init()
   $('changePass').onclick = () => {
     modal.show();
@@ -61,3 +47,19 @@ function FlipAnimSettings(user) {
 }
 
 var s = FlipAnimSettings(loggedIn)
+function loadScript(src) {
+  return new Promise(function (resolve, reject) {
+    var script = document.createElement('script');
+    script.onload = function () {
+      resolve();
+    };
+    script.onerror = function () {
+      reject();
+    };
+    script.src = src;
+    document.body.appendChild(script);
+
+  });
+}
+loadScript('https://js.hcaptcha.com/1/api.js')
+loadScript = undefined

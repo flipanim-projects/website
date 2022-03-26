@@ -17,7 +17,7 @@ main
                 .profile-follow.ers.skeleton Loading
                 .profile-follow.ing.skeleton Loading
         .profile-status-info
-            h2 Status
+            h2.profile-status-header Status
             .text-box.profile-status.skeleton
                 span.profile-status-type
             br
@@ -33,4 +33,5 @@ script.
     function ObjectId(id) { return id }
     var loggedIn = !{loggedIn}
 script(src='/public/index.bundle.js')
+script(src='/public/utils/modal.js')
 script(src='/public/profile/profile.js')
