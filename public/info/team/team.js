@@ -8,11 +8,11 @@ const team = [
         image: false,
         link: "https://pineapplerind.ga"
     }, {
-        name: "", // Fill this in with your name / display name
-        username: "", // Your FAv2 username
-        role: "", // Role in the project
-        image: "", // Image. Can be a url, or just put false for no image, like I did above
-        link: "" // Link to your FAv2 profile OR website
+        name: "Speez", // Fill this in with your name / display name
+        username: "speez69", // Your FAv2 username
+        role: "Admin & Miscellaneous Helper", // Role in the project
+        image: "false", // Will fill in later
+        link: "false" // Will fill in later
     }, {
         name: "", // Fill this in with your name / display name
         username: "", // Your FAv2 username
