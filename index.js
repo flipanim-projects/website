@@ -9,9 +9,8 @@ var express = require("express"),
     LocalStrategy = require('passport-local').Strategy,
     FileStore = require('session-file-store')(session),
     server = app.listen(process.env.PORT || 3000, listen),
-    router = express.Router(),
-    pug = require('pug'),
-    rateLimit = require('express-rate-limit')
+    rateLimit = require('express-rate-limit'),
+    morgan = require('morgan')
 
 var api = require('./api/index'),
     User = require('./models/User'),
@@ -31,6 +30,7 @@ mongoose.connect(dbUrl, {
 function listen() {
     return console.log('Server is listening');
 }
+
 function genSessionSecret() {
     return Math.floor(Math.random() * 100 ** 7).toString(16);
 }
@@ -46,6 +46,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -104,7 +105,7 @@ const limitShort = (minutes, max, msg) => {
         legacyHeaders: false, // Disable the `X-RateLimit-*` headers
     })
 }
-app.get("/api/v1/users", limitShort(0.2,2,'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
+app.get("/api/v1/users", limitShort(0.2, 2, 'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
 app.route("/api/v1/users").post(api.user.create, limitShort(30, 1)); // For creation of users
 app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth, limitShort(0.2, 1));
 app.route('/api/v1/users/:userId/status').put(api.user.edit.status)
@@ -119,48 +120,17 @@ app.route("/api/v1/logout").post(api.session.logout);
 /*********************
  * STATIC PAGES with pug!
  ********************/
-app.get('/', async (req, res) => {
-    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-        res.render('browse/index', { title: 'FlipAnim | Home', loggedIn: user })
+const pageRoute = (url, page, args) => {
+    app.get(url, async (req, res) => {
+        if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
+            res.render(page.a[0] || page, { title: page.a[1], loggedIn: user })
+        })
+        else res.render(page.ua[0] || page, { title: page.ua[1] })
     })
-    else res.render('index', { title: 'FlipAnim | Home' })
-})
-
-app.get('/account/login', async (req, res) => {
-    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-        if (!user) res.render('account/login', { title: 'FlipAnim | Log in' })
-        else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
-    })
-    else if (!req.session.passport) res.render('account/login', { title: 'FlipAnim | Log in' })
-})
-app.get('/account/create', async (req, res) => {
-    if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-        if (!user) res.render('account/create', { title: 'FlipAnim | Create an account' })
-        else res.render('account/alreadyin', { title: 'FlipAnim | Already logged in', loggedIn: user })
-    })
-    else if (!req.session.passport) res.render('account/create', { title: 'FlipAnim | Create an account' })
-})
-app.get('/profile', async (req, res) => {
-    if (req.session.passport) {
-        await User.findById(req.session.passport.user).then(async user => {
-            res.render('profile/index', { title: 'FlipAnim | Profile', loggedIn: user, user: req.query.user })
-        });
-    }
-    else res.redirect('/account/login')
-})
-app.get('/editor', async (req, res) => {
-    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
-        res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: user })
-    })
-    else res.render('editor/index', { title: 'FlipAnim | Editor', loggedIn: false })
-})
-app.get('/settings', async (req, res) => {
-    if (req.session.passport) await User.findById(req.session.passport.user).then(user => {
-        if (!user) res.render('account/login', { title: 'FlipAnim | Log in', loggedIn: false })
-        res.render('settings/index', { title: 'FlipAnim | Settings', loggedIn: user })
-    })
-    else res.redirect('/account/login')
-})
-app.get('/error', async (req, res) => {
-    res.render('error/500', { title: 'FlipAnim | Error', loggedIn: false })
-})
+}
+pageRoute('/', { a: ['browse/index', 'FlipAnim | Home'], ua: ['index', 'FlipAnim | Home'] })
+pageRoute('/account/login', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/login', 'FlipAnim | Login'] })
+pageRoute('/account/create', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/create', 'FlipAnim | Create account'] })
+pageRoute('/profile', { a: ['profile/index', 'FlipAnim | Profile'], ua: ['/account/login', 'FlipAnim | Login'] })
+pageRoute('/editor', { a: ['profile/index', 'FlipAnim | Editor'], ua: ['editor/index', 'FlipAnim | Editor'] })
+pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
