@@ -7,6 +7,7 @@ FlipAnim V2 Official Repository
 `/components` components used in some pages, such as the navigation bar<br>
 `/models` data structures for mongodb<br>
 `/api` what the api runs when dealing with requests<br>
+`/sessions` where people's sessions are stored. delete all of these and everyone will be logged out
 `/node_modules` imagine explaining this<br>
 
 
