@@ -47,6 +47,7 @@ do {
         card.onclick = () => {
             window.open(team[r].link, '_blank').focus();
         }
+    }
     document.getElementById('teamMembers').appendChild(card)
     i++
 } while (i < team.length)
