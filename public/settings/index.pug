@@ -1,40 +1,33 @@
+extends ../../components/base
 mixin usersetting(name,id,value)
     br
     p: b= name 
     input(type='text', name=id, id=id, placeholder=value ? value : 'No '+name, value=value)
-html
-    include ../../components/head
-body
-    include ../../components/nav
-    main 
-        .main.create
-            h1(style="color:red") Page not functional (yet)
-            h1 Settings for @#{loggedIn.name.text}
+block content
+     .main.create
+        h1(style="color:red") Page not functional (yet)
+        h1 Settings for @#{loggedIn.name.text}
+        br
+        div(style="width:100%") 
+            +usersetting('Display Name', 'displayName', loggedIn.name.display)
+            +usersetting('Bio','bio',loggedIn.bio)
             br
-            div(style="width:100%") 
-                +usersetting('Display Name', 'displayName', loggedIn.name.display)
-                +usersetting('Bio','bio',loggedIn.bio)
-                br
-                p: b Status 
-                p Change your status on the 
-                    a(href="/profile") profile page. 
-                br
-                p: b Theme
-                div.flex
-                    input.theme-setting.dark(type="radio" name="theme")
-                    input.theme-setting.classic(type="radio" name="theme")
-                br
-                p Danger zone
-                button#changePass Change Password
-                
-                .flex 
-                    button(style="width: 100%" onclick="window.history.go(-1)") Cancel
-                    input#subm(type='submit', value='Save')
+            p: b Status 
+            p Change your status on the 
+                a(href="/profile") profile page. 
+            br
+            p: b Theme
+            div.flex
+                input.theme-setting.dark(type="radio" name="theme")
+                input.theme-setting.classic(type="radio" name="theme")
+            br
+            p Danger zone
+            button#changePass Change Password
+            .flex 
+                button(style="width: 100%" onclick="window.history.go(-1)") Cancel
+                input#subm(type='submit', value='Save')
     div.modal-container
-    include ../../components/foot
-script.
-    function ObjectId(id) { return id }
-    var loggedIn = !{loggedIn}
-script(src="/public/index.bundle.js")
-script(src="/public/utils/modal.js")
-script(src="/public/settings/settings.js")
+block scripts
+    script(src='/public/utils/modal.js')
+    script(src='/public/index.js')
+    script(src="/public/settings/settings.js")

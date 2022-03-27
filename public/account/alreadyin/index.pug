@@ -1,10 +1,10 @@
-doctype html
-include ../../components/head
-include ../../../components/nav
-main
+extends ../../../components/base
+block content
     .main.create
         h1 Error 
         p You are already logged in as 
         b @#{loggedIn.name.text}
-include ../../../components/foot
-script(src='../../index.bundle.js')
+
+block scripts
+    script(src='/public/utils/modal.js')
+    script(src='/public/index.js')

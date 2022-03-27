@@ -1,7 +1,5 @@
-doctype html
-include ../../../components/head
-include ../../../components/nav
-main
+extends ../../../components/base
+block content
   .main.create
     h1 Create an Account
     #error(style='color: red;')
@@ -13,6 +11,7 @@ main
       script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
       br
       input(type='submit', value='Submit')
-include ../../../components/foot
-script(src='/public/index.bundle.js')
-script(src='/public/account/create/index.js')
+block scripts
+  script(src='/public/index.js')
+  script(src='/public/utils/modal.js')
+  script(src='/public/account/create/index.js')

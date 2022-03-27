@@ -79,7 +79,9 @@ function FlipAnimProfile(loggedIn) {
         edit.classList.add('edit')
         edit.setAttribute('data-tooltip','edit')
         edit.onclick = () => {
-            editStatusModal.show()
+            console.log(editStatusModal)
+            try { editStatusModal.show() }
+            catch(err) {console.log(err)}
         }
         $('.profile-status-header').appendChild(edit)
         loadAnims(loggedIn.anims, loggedIn)

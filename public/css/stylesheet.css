@@ -78,7 +78,6 @@ nav {
   backdrop-filter: var(--nav-blur);
   -webkit-backdrop-filter: var(--nav-blur);
   box-shadow: var(--nav-shadow);
-
   padding: 10px;
   width: 100vw;
   margin: 0;
@@ -126,7 +125,7 @@ nav .linktitle:hover {
 main {
   margin-top: 100px;
   width: 100%;
-  height: fit-content;
+  min-height: 100%; height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -204,7 +203,9 @@ main {
 
 .main.create {
   flex-direction: column;
-  width: fit-content
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
 }
 
 .anim h2 {
@@ -704,7 +705,9 @@ Footer
 
 footer {
   width: 100vw;
-  height: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
   justify-content: space-evenly !important;
   align-items: unset !important;
   padding: var(--footer-padding);

@@ -1,17 +1,15 @@
-doctype html
-include ../../../components/head
-body
-    include ../../../components/nav
-    main
-        .main.create
-            h1 Log In
+extends ../../../components/base
+block content
+    .main.create
+        h1 Log In
+        br
+        form.create(action='/api/v1/login', method='POST')
+            input#username(type='text', name='username', placeholder='Username...')
+            input#password(type='password', name='password', placeholder='Password...')
+            .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
+            script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
             br
-            form.create(action='/api/v1/login', method='POST')
-                input#username(type='text', name='username', placeholder='Username...')
-                input#password(type='password', name='password', placeholder='Password...')
-                .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
-                script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
-                br
-                input(type='submit', value='Submit')
-    include ../../../components/foot
-    script(src='../../index.bundle.js')
+            input(type='submit', value='Submit')
+block scripts
+    script(src='/public/utils/modal.js')
+    script(src='/public/index.js')

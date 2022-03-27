@@ -1,7 +1,5 @@
-doctype html
-include ../../components/head
-include ../../components/nav
-main
+extends ../../components/base
+block content
   .main.anim-main
     h1.anim-title Loading
     .anim-image.skeleton
@@ -23,6 +21,7 @@ main
       | Comments 
       span.anim-comment-count
     .anim-comment-container
-include ../../components/foot
-script(src='../index.bundle.js')
-script(src='anim.js')
+block scripts
+  script(src='/public/index.js')
+  script(src='/public/utils/modal.js')
+  script(src='anim.js')

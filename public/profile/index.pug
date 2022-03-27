@@ -1,13 +1,11 @@
+extends ../../components/base
 mixin anim(src,text,author) 
     div.anim(onclick="window.location.href='"+id+"'")
         img(src=src)
         div.anim-text
             h1=text
             h2=author
-doctype html
-include ../../components/head
-include ../../components/nav
-main
+block content
     #profile-main.main
         .profile-basic-info
             .profile-image.skeleton(style='background-image:url(/public/imgs/profile.png)')
@@ -28,10 +26,8 @@ main
     hr
     h1 Anims
     .profile-anims
-include ../../components/foot
-script.
-    function ObjectId(id) { return id }
-    var loggedIn = !{loggedIn}
-script(src='/public/index.bundle.js')
-script(src='/public/utils/modal.js')
-script(src='/public/profile/profile.js')
+
+block scripts
+    script(src='/public/utils/modal.js')
+    script(src='/public/index.js')
+    script(src='/public/profile/profile.js')
