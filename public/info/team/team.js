@@ -11,7 +11,7 @@ const team = [
         name: "Speez", // Fill this in with your name / display name
         username: "speez69", // Your FAv2 username
         role: "Admin & Miscellaneous Helper", // Role in the project
-        image: "false", // Will fill in later
+        image: false, // Will fill in later
         link: "false" // Will fill in later
     }, {
         name: "", // Fill this in with your name / display name
@@ -41,9 +41,12 @@ do {
         <p><b>${team[i].role}</b></p>
     </div>`
     card.classList.add('team-card')
-    if (team[i].link) card.onclick = () => {
-        window.open(team[i].link, '_blank').focus();
-    }
+    
+    if (team[i].link) {
+        let r = i
+        card.onclick = () => {
+            window.open(team[r].link, '_blank').focus();
+        }
     document.getElementById('teamMembers').appendChild(card)
     i++
 } while (i < team.length)
