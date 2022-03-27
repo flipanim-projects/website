@@ -1,63 +1,45 @@
-html
-    include ../../components/head
-body
-    include ../../components/nav
-    main
+extends ../../components/base
+block content
 
-        div.main
-            .flex 
+    div.main
+        .flex 
+            div 
+            div.flex 
                 div 
-                div.flex 
-                    div 
-                    div 
-                    div 
-                    div 
                 div 
-            .flex
                 div 
-                .flex  
                 div 
-            .editor.flex
-                aside 
-                    div.flex(style="flex-wrap:wrap")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -19px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -69px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -19px -267px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    div.flex(style="flex-wrap:wrap")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    div.flex(style="flex-wrap:wrap")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    div.flex(style="flex-wrap:wrap")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    div.flex(style="flex-wrap:wrap")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                        .tool-wrap 
-                            .tool(style="background: url('../imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                .editor-active 
-                    canvas
-                aside 
-            .editor-palette
-    include ../../components/foot
+            div 
+        .flex
+            div 
+            .flex  
+            div 
+        .editor.flex
+            aside 
+                div.flex(style="flex-wrap:wrap")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -69px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -320px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -19px -267px; width: 36px; height: 36px")
+                div.flex(style="flex-wrap:wrap")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -117px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -167px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                div.flex(style="flex-wrap:wrap")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                div.flex(style="flex-wrap:wrap")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                div.flex(style="flex-wrap:wrap")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+            .editor-active 
+                canvas
+            aside 
+        .editor-palette
+block scripts 
     script(src="../index.bundle.js")
     script(src="editor.js")

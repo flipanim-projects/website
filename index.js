@@ -122,15 +122,20 @@ app.route("/api/v1/logout").post(api.session.logout);
  ********************/
 const pageRoute = (url, page, args) => {
     app.get(url, async (req, res) => {
+        let pg
+        if (!page.a) pg = { a: [page[0], page[1]], ua: [page[0], page[1]] }
+        else pg = page
+        console.log(pg)
         if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-            res.render(page.a[0] || page, { title: page.a[1], loggedIn: user })
+            res.render(pg.a[0], { title: pg.a[1], loggedIn: user })
         })
-        else res.render(page.ua[0] || page, { title: page.ua[1] })
+        else res.render(pg.ua[0], { title: pg.ua[1] })
     })
 }
 pageRoute('/', { a: ['browse/index', 'FlipAnim | Home'], ua: ['index', 'FlipAnim | Home'] })
 pageRoute('/account/login', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/login', 'FlipAnim | Login'] })
 pageRoute('/account/create', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/create', 'FlipAnim | Create account'] })
 pageRoute('/profile', { a: ['profile/index', 'FlipAnim | Profile'], ua: ['/account/login', 'FlipAnim | Login'] })
-pageRoute('/editor', { a: ['profile/index', 'FlipAnim | Editor'], ua: ['editor/index', 'FlipAnim | Editor'] })
+pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
+pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])

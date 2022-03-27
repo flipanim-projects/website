@@ -1,14 +1,9 @@
-doctype html
-include ../../components/head
-include ../../components/nav
-main
+extends ../../components/base.pug
+block content
   .main 
     h1 this is where the browse page should be
-include ../../components/foot
+    p you're now logged in
 
-script.
-    function ObjectId(id) { return id }
-    var loggedIn = !{loggedIn}
-    
-script(src='/public/index.bundle.js')
-script(src='anim.js')
+block scripts
+  script(src='/public/index.bundle.js')
+  script(src='anim.js')

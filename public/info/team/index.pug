@@ -1,8 +1,7 @@
-html
-  include ../components/head
-body
-  include ../components/nav
-  main
-    h1 FlipAnim V2 Team
-  include ../components/foot
-  script(src="index.bundle.js")
+extends ../../../components/base
+block content
+  h1 FlipAnim v2 Team
+  #teamMembers 
+block scripts 
+  script(src="/public/index.bundle.js")
+  script(src="/public/info/team/team.js")

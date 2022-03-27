@@ -78,7 +78,7 @@ nav {
   backdrop-filter: var(--nav-blur);
   -webkit-backdrop-filter: var(--nav-blur);
   box-shadow: var(--nav-shadow);
-  
+
   padding: 10px;
   width: 100vw;
   margin: 0;
@@ -608,6 +608,7 @@ Editor
 .editor-active canvas {
   width: clamp(300px, 50vw, 600px);
   height: clamp(300px, 50vw, 600px);
+  background: white;
 }
 
 .editor-active {
@@ -740,7 +741,7 @@ Tooltips
   font-size: .9em;
   opacity: 0;
   transition: 0.2s;
-  transform:translateY(10px);
+  transform: translateY(10px);
   pointer-events: none;
   position: absolute;
   content: attr(data-tooltip);
@@ -757,10 +758,11 @@ Tooltips
   z-index: 2;
   font-size: 15px;
 }
+
 [data-tooltip]:hover:after {
   pointer-events: all;
   opacity: 1;
-  transform:translateY(0);
+  transform: translateY(0);
 }
 
 [data-tooltip]:not([data-flow])::after,
@@ -776,6 +778,42 @@ Tooltips
 }
 
 [data-tooltip=""]::after {
-  opacity:0;
+  opacity: 0;
   pointer-events: none
+}
+
+/********************
+Team Page
+********************/
+#teamMembers {
+  display: flex;
+  align-items: center;
+  width: 80vw;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-card {
+  background: var(--card-background);
+  padding: 20px;
+  display: flex;
+  width: clamp(370px,50vw, 700px);
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.team-card img {
+  border-radius: 20px;
+  height: clamp(5vw, 140px, 20vw);
+}
+
+.team-card>div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  margin-left: 10px;
+}
+.team-card h2 span {
+  opacity: 0.6;
 }

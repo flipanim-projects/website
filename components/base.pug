@@ -1,0 +1,52 @@
+doctype html
+head
+    title= title
+    link(rel='stylesheet', href='/public/css/stylesheet.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Indie+Flower&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
+body
+    if loggedIn
+        input#userID(type="text" value=loggedIn.name.id style="pointer-events: none; display: none")
+
+    nav
+        div.flex
+            a(onclick="window.location.href = '/'"): img.linktitle(src="/public/imgs/flipanimv2.png" height="60px" style="vertical-align: bottom;margin-right:5px;" alt="FlipAnim")
+            a.linktitle(onclick="window.location.href = '/editor'") Draw
+            a.linktitle Search
+            a.linktitle Followed
+        if loggedIn
+            div.profile
+                img(src="/public/imgs/profile.png" onclick="document.querySelector('.profile-options').classList.toggle('open')")
+        else 
+            .login-buttons 
+                button(onclick="window.location.href='/account/login'") Log in 
+                button(onclick="window.location.href='/account/create'") Create account
+    if loggedIn
+        div.profile-options
+            p(disabled='', style='pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5')
+                | Logged in as @#{loggedIn.name.text}
+                #profileLink.profile-option Profile
+                #settings.profile-option Settings
+                #logOut.profile-option Log out 
+    main 
+        block content 
+
+    footer.flex 
+        div 
+            p(style="opacity:0.7") Legals
+            a(href="#") Privacy 
+            a(href="#") Terms 
+        div 
+            p(style="opacity:0.7") Credits
+            a(href="https://flipanim.com") Original Site
+            a(href="/info/team") FAV2 Team
+        div 
+            p(style="opacity:0.7") Contact 
+            a(href="https://discord.gg/jF69TvPthh") Feedback 
+            a(href="https://discord.gg/jF69TvPthh") Support
+    script.
+        function ObjectId(id) { return id }
+        var loggedIn = !{loggedIn}
+    block scripts 
