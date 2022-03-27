@@ -1,6 +1,5 @@
 function FlipAnimSettings(user) {
   const $ = function (id) { return document.getElementById(id) }
-  console.log(user)
   let modal = new Modal({
     title: "Change password",
     type: 1,
@@ -16,14 +15,17 @@ function FlipAnimSettings(user) {
         placeholder: 'Current password',
         name: 'curPassword',
         type: 'password',
+        attrs: { autocomplete: 'current-password' }
       }, {
         placeholder: 'New password',
         name: 'newPassword',
-        type: 'password'
+        type: 'password',
+        attrs: { autocomplete: 'new-password' }
       }, {
         placeholder: 'Confirm new password',
         name: "confirmNewPassword",
-        type: 'password'
+        type: 'password',
+        attrs: { autocomplete: 'new-password' }
       }],
       extraHTML: [
         `<div class="h-captcha" id="captcha" name="captcha" data-callback="s.hcaptcha" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>`
@@ -63,3 +65,4 @@ function loadScript(src) {
 }
 loadScript('https://js.hcaptcha.com/1/api.js')
 loadScript = undefined
+loggedIn = undefined

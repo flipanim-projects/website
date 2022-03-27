@@ -1,13 +1,13 @@
-
 const FlipAnim = function (loggedIn) {
   const $ = function (id) {
     return document.querySelector(id);
   };
-  if (!$('.modal-container')) document.body.insertAdjacentHTML(
-    "beforeend",
-    `<div class="modal-container"></div>`
-  );
-  let modal 
+  if (!$(".modal-container"))
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div class="modal-container"></div>`
+    );
+  let modal;
   try {
     modal = new Modal({
       title: "Are you sure you want to log out?",
@@ -39,16 +39,18 @@ const FlipAnim = function (loggedIn) {
   } catch (err) {
     return console.error(err);
   }
-  $("#logOut").onclick = () => {
-    modal.show();
-  };
-  $("#profileLink").onclick = () => {
-    document.location.href =
-      "/profile?user=" + document.getElementById("userID").value;
-  };
-  $("#settings").onclick = () => {
-    document.location.href = "/settings";
-  };
+  if (loggedIn.name) {
+    $("#logOut").onclick = () => {
+      modal.show();
+    };
+    $("#profileLink").onclick = () => {
+      document.location.href =
+        "/profile?user=" + document.getElementById("userID").value;
+    };
+    $("#settings").onclick = () => {
+      document.location.href = "/settings";
+    };
+  }
   if (loggedIn && loggedIn.preferences.theme)
     document.querySelector("body").classList.add(loggedIn.preferredTheme);
 
@@ -59,6 +61,5 @@ const FlipAnim = function (loggedIn) {
   }
   //fetch('http://0.0.0.0:3000/api/v1/session')
 };
-setTimeout(function(){
-	FlipAnim(loggedIn)
-},500)
+
+onload = () => FlipAnim(loggedIn);

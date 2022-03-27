@@ -2,7 +2,7 @@ class Modal {
   constructor(opts) {
     Object.assign(this, opts);
     this.init = function () {
-      let modal = document.createElement("DIV"),
+      let modal = document.createElement(this.type === 1 ? "FORM" : "DIV"),
         actions = document.createElement("DIV"),
         buttons = document.createElement("DIV"),
         extras = document.createElement("DIV");
@@ -24,7 +24,11 @@ class Modal {
           input.setAttribute("name", data[j].name);
           input.value = data[j].value || "";
           if (data[j].type) input.setAttribute("type", data[j].type);
-
+          if (data[j].attrs) {
+              for (const attr in data[j].attrs) {
+                input.setAttribute(attr,data[j].attrs[attr])
+              }
+          }
           input.oninput = () => {
             md.form.body[data[j].name] = input.value;
           };

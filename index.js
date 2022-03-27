@@ -127,7 +127,17 @@ const pageRoute = (url, page, args) => {
         else pg = page
         console.log(pg)
         if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
-            res.render(pg.a[0], { title: pg.a[1], loggedIn: user })
+            let tosend = {
+                name: {
+                    display: user.name.display,
+                    text: user.name.text,
+                    id: user.name.id
+                }, preferences: {
+                    theme: user.preferences.theme
+                }
+            }
+            console.log(JSON.stringify(tosend))
+            res.render(pg.a[0], { title: pg.a[1], user: JSON.stringify(tosend) })
         })
         else res.render(pg.ua[0], { title: pg.ua[1] })
     })
