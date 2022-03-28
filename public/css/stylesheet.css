@@ -805,6 +805,10 @@ Team Page
   border-radius: 20px;
 }
 
+.team-card:hover{
+  cursor: pointer;
+}
+
 .team-card img {
   border-radius: 20px;
   height: clamp(5vw, 140px, 20vw);
