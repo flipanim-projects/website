@@ -35,10 +35,20 @@ function FlipAnimProfile(loggedIn) {
     let editStatusModal = new Modal({
         title: ('Edit Status'),
         description: (' '),
+        type: 1,
+        form: {
+            inputs: ['newStatus'],
+            action: '/api/v1/users/' + loggedIn.name.id + '/status',
+            method: 'PUT',
+            query: true
+        },
         content: {
+            inputs: [
+                { placeholder: 'New Status... ', value: loggedIn.status.name ? loggedIn.status.name : '', name: 'newStatus'}
+            ],
             buttons: [
-                { name: 'Cancel' },
-                { name: 'Save' }
+                { text: 'Cancel', type: 'cancel' },
+                { text: 'Save' , type: 'proceed' }
             ]
         }
     })

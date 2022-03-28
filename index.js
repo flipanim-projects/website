@@ -49,6 +49,7 @@ app.use(passport.session());
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(
     bodyParser.urlencoded({
         extended: true,
@@ -125,7 +126,6 @@ const pageRoute = (url, page, args) => {
         let pg
         if (!page.a) pg = { a: [page[0], page[1]], ua: [page[0], page[1]] }
         else pg = page
-        console.log(pg)
         if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
             let tosend = {
                 name: {
@@ -134,9 +134,9 @@ const pageRoute = (url, page, args) => {
                     id: user.name.id
                 }, preferences: {
                     theme: user.preferences.theme
-                }
+                }, bio: user.bio,
+                status: { text: user.status.text }
             }
-            console.log(JSON.stringify(tosend))
             res.render(pg.a[0], { title: pg.a[1], user: JSON.stringify(tosend) })
         })
         else res.render(pg.ua[0], { title: pg.ua[1] })

@@ -57,9 +57,7 @@ const FlipAnim = function (loggedIn) {
   if (
     document.location.search.replace("?", "").split("=")[0] === "justLoggedOut"
   ) {
-    //TODO
   }
-  //fetch('http://0.0.0.0:3000/api/v1/session')
 };
 
 onload = () => FlipAnim(loggedIn);

@@ -73,6 +73,11 @@ h1 span {
   font-family: Indie Flower
 }
 
+[disabled] {
+  opacity:0.6;
+  cursor: not-allowed !important;
+}
+
 nav {
   background: var(--nav-background);
   backdrop-filter: var(--nav-blur);

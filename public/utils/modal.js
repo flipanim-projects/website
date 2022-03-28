@@ -25,9 +25,9 @@ class Modal {
           input.value = data[j].value || "";
           if (data[j].type) input.setAttribute("type", data[j].type);
           if (data[j].attrs) {
-              for (const attr in data[j].attrs) {
-                input.setAttribute(attr,data[j].attrs[attr])
-              }
+            for (const attr in data[j].attrs) {
+              input.setAttribute(attr, data[j].attrs[attr])
+            }
           }
           input.oninput = () => {
             md.form.body[data[j].name] = input.value;
@@ -39,10 +39,10 @@ class Modal {
         for (let k = 0; k < data.length; k++) {
           let button = document.createElement("BUTTON");
           button.innerHTML = data[k].text;
-          button.onclick = data[k].action || function () {};
+          button.onclick = data[k].action || function () { };
           if (data[k].type === "cancel") {
             button.onclick = (e) => {
-              data[k].action ? data[k].action(e) : (function () {})();
+              data[k].action ? data[k].action(e) : (function () { })();
               md.hide();
             };
           }
@@ -62,7 +62,25 @@ class Modal {
       modal.appendChild(actions);
       modal.appendChild(extras);
       modal.appendChild(buttons);
-
+      function flattenObj(obj, parent, res = {}) {
+        for (let key in obj) {
+          let propName = key;
+          if (typeof obj[key] == 'object') {
+            flattenObj(obj[key], propName, res);
+          } else {
+            res[propName] = obj[key];
+          }
+        }
+        return res;
+      }
+      function parseURL(obj) {
+        let str = [];
+        for (let p in obj)
+          if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
+        return '?' + str.join("&");
+      }
       if (this.type === 1) {
         this.form["body"] = {};
         modal.getElementsByClassName("proceed")[0].onclick = () => {
@@ -72,10 +90,15 @@ class Modal {
             if (!el) continue;
             md.form["body"][cur] = el.value;
           }
-          fetch(this.form.action, {
-            method: this.form.method,
-            body: this.form.body,
-          });
+          console.log(this.form.body)
+          let url = this.form.action
+          var params = {
+            method: this.form.method
+          }
+          if (this.form.query) {
+            url = this.form.action + parseURL(flattenObj(this.form.body))
+          } else params.body = JSON.stringify(this.form.body)
+          fetch(url, params);
           this.hide();
         };
       }
@@ -83,6 +106,9 @@ class Modal {
         if (e.code === "Escape") md.hide();
       };
       this.modal = modal;
+      if (this.type === 1) this.modal.onsubmit = e => {
+        e.preventDefault(); return false
+      }
       document.querySelector(".modal-container").appendChild(modal);
       return this;
     };
