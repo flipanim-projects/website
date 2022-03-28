@@ -145,7 +145,7 @@ const pageRoute = (url, page, args) => {
 pageRoute('/', { a: ['browse/index', 'FlipAnim | Home'], ua: ['index', 'FlipAnim | Home'] })
 pageRoute('/account/login', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/login', 'FlipAnim | Login'] })
 pageRoute('/account/create', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/create', 'FlipAnim | Create account'] })
-pageRoute('/profile', { a: ['profile/index', 'FlipAnim | Profile'], ua: ['/account/login', 'FlipAnim | Login'] })
+pageRoute('/profile', { a: ['profile/index', 'FlipAnim | Profile'], ua: ['account/login', 'FlipAnim | Login'] })
 pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
