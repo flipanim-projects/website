@@ -73,6 +73,15 @@ h1 span {
   font-family: Indie Flower
 }
 
+a /* Links */ {
+  color: var(--body-text);
+  font-weight: 300;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+
 [disabled] {
   opacity:0.6;
   cursor: not-allowed !important;
@@ -319,6 +328,7 @@ main {
 }
 
 button {
+  margin: 4px 0;
   padding: 10px 20px;
   background: var(--card-background);
   color: white;

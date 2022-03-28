@@ -1,7 +1,7 @@
 const User = require('../../../models/User')
 async function status(req, res) {
-    console.log(req,req.body,req.query)
-    if (!req.session.passport.user) return res.status(401).json({
+    console.log(req.session,req.body,req.query)
+    if (!req.isAuthenticated()) return res.status(401).json({
         status: 401,
         message: '401 Unauthorized'
     }) 
