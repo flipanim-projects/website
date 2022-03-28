@@ -62,8 +62,8 @@ body {
   background-image: url('https://flipanim.com/gfx/noise.png');
   position: relative;
   display: flex;
-  height: 100vh;
   flex-direction: column;
+  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -125,10 +125,11 @@ nav .linktitle:hover {
 main {
   margin-top: 100px;
   width: 100%;
-  min-height: 100%; height: 100%;
+  max-height: none;
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: var(--footer-margin)
 }
 
 .profile {
@@ -706,12 +707,10 @@ Footer
 footer {
   width: 100vw;
   height: 100px;
-  position: absolute;
-  bottom: 0;
+  margin-top:auto; 
   justify-content: space-evenly !important;
   align-items: unset !important;
   padding: var(--footer-padding);
-  margin-top: var(--footer-margin);
   background: var(--body-background-lighter);
   box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
 }
@@ -791,7 +790,7 @@ Team Page
 #teamMembers {
   display: flex;
   align-items: center;
-  width: 80vw;
+  width: 90vw;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -800,13 +799,16 @@ Team Page
   background: var(--card-background);
   padding: 20px;
   display: flex;
-  width: clamp(370px,50vw, 700px);
+  width: clamp(370px,40vw,500px);
   margin: 10px;
   border-radius: 20px;
+  cursor: pointer;
+  transition: 200ms;
 }
 
-.team-card:hover{
-  cursor: pointer;
+.team-card:hover {
+  background: var(--card-background-intense);
+  transform:translatey(-2px);
 }
 
 .team-card img {
