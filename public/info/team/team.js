@@ -12,7 +12,7 @@ const team = [
         username: "speez69", // Your FAv2 username
         role: "Admin & Miscellaneous Helper", // Role in the project
         image: false, // Will fill in later
-        link: "false" // Will fill in later
+        link: "/profile?user=_a053c" // Will fill in later
     }, {
         name: "PichuTheCreeper", // Fill this in with your name / display name
         username: "thepichu", // Your FAv2 username
