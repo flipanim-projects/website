@@ -11,8 +11,6 @@ function FlipAnimProfile(loggedIn) {
     // Not logged in, AND no query? Redirect to login page
     else if (!query && !loggedIn) window.location.href = '/account/login'
     if (query.includes('&')) query = query.split('&')[0]
-    // Update the page title
-    document.querySelector('title').innerHTML = 'FlipAnim | @' + loggedIn.name.text + '\'s profile'
     // Make a request to the API to fetch the user info
     fetch('/api/v1/users?' + query).then(
         resp => { 
@@ -61,6 +59,8 @@ function FlipAnimProfile(loggedIn) {
     })
     editStatusModal.init()
     function loadProfile() {
+        // Update the page title
+    document.querySelector('title').innerHTML = 'FlipAnim | @' + loggedIn.name.text + '\'s profile'
         // Shorthand function for setting the html of a profile element
         function html(el, text) {
             el.innerHTML = text
