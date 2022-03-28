@@ -9,7 +9,7 @@ head
 body
     script.
         function ObjectId(id) { return id }
-        var loggedIn = !{user}
+        var loggedIn = !{user ? user : false}
     if user
         input#userID(type="text" value=JSON.parse(user).name.id style="pointer-events: none; display: none")
 

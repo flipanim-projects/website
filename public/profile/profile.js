@@ -32,20 +32,27 @@ function FlipAnimProfile(loggedIn) {
         <p>The profile could not be loaded, as the user doesn't exist</p>
         <a style="cursor:pointer;text-decoration:underline;" onclick="window.history.go(-1)">&larr; Back</a>`
     }
+    console.log(loggedIn.status)
     let editStatusModal = new Modal({
         title: ('Edit Status'),
         description: (' '),
         type: 1,
         form: {
-            inputs: ['newStatus'],
+            inputs: ['newStatus','type'],
             action: '/api/v1/users/' + loggedIn.name.id + '/status',
             method: 'PUT',
             query: true
         },
         content: {
             inputs: [
-                { placeholder: 'New Status... ', value: loggedIn.status.name ? loggedIn.status.name : '', name: 'newStatus'}
+                { placeholder: 'New Status... ', value: loggedIn.status.name ? loggedIn.status.name : '', name: 'newStatus' },
             ],
+            extraHTML: [`<select id="type" name="type">
+            <option value="0">Invisible</option>
+            <option value="1">Online</option>
+            <option value="2">Idle</option>
+            <option value="3">Do Not Disturb</option>
+            </select>`],
             buttons: [
                 { text: 'Cancel', type: 'cancel' },
                 { text: 'Save' , type: 'proceed' }
@@ -82,18 +89,19 @@ function FlipAnimProfile(loggedIn) {
         if (loggedIn.bio) html($('.profile-bio'), loggedIn.bio)
 
         html($('.profile-status'), `
-        <span class="profile-status-type ${statuses[loggedIn.status.type]}">
+        <span class="profile-status-type ${statuses[loggedIn.status.type].replaceAll(' ','')}">
         ${statuses[loggedIn.status.type]}</span>
         ${loggedIn.status.name ? ' | ' + loggedIn.status.name : ''}`)
-        let edit = document.createElement('DIV')
-        edit.classList.add('edit')
-        edit.setAttribute('data-tooltip','edit')
-        edit.onclick = () => {
-            console.log(editStatusModal)
-            try { editStatusModal.show() }
-            catch(err) {console.log(err)}
+        let edit = document.getElementById('editStatus')
+        if (edit) {
+            edit.classList.add('edit')
+            edit.setAttribute('data-tooltip','edit')
+            edit.onclick = () => {
+                console.log(editStatusModal)
+                try { editStatusModal.show() }
+                catch(err) {console.log(err)}
+            }
         }
-        $('.profile-status-header').appendChild(edit)
         loadAnims(loggedIn.anims, loggedIn)
     }
 
@@ -115,4 +123,5 @@ function FlipAnimProfile(loggedIn) {
         }
     }
 }
-FlipAnimProfile(loggedIn)
+var user = loggedIn ? loggedIn : false
+FlipAnimProfile(user)
