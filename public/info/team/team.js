@@ -20,11 +20,11 @@ const team = [
         image: false, // Will fill in later
         link: "false" // my profile page doesnt work lmao
     }, {
-        name: "", // Fill this in with your name / display name
-        username: "", // Your FAv2 username
-        role: "", // Role in the project
-        image: "", // Image. Can be a url, or just put false for no image, like I did above
-        link: "" // Link to your FAv2 profile OR website
+        name: "MatthewMason", // Fill this in with your name / display name
+        username: "matthewmason", // Your FAv2 username
+        role: "Admin, Designer, Manager", // Role in the project
+        image: false, // Image. Can be a url, or just put false for no image, like I did above
+        link: "false" // Link to your FAv2 profile OR website
     }
 ]
 
