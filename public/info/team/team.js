@@ -17,7 +17,7 @@ const team = [
         name: "PichuTheCreeper", // Fill this in with your name / display name
         username: "thepichu", // Your FAv2 username
         role: "Admin, Designer", // Role in the project
-        image: "https://im5.ezgif.com/tmp/ezgif-5-d4a45560d2-gif-im/frame_00_delay-0.08s.gif", // Will fill in later
+        image: "false", // Will fill in later
         link: "https://flipanimv2publicbeta.herokuapp.com/profile?user=d723b-" // my profile page doesnt work lmao
     }, {
         name: "MatthewMason", // Fill this in with your name / display name
