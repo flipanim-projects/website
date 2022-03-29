@@ -34,8 +34,10 @@ const team = [
 let i = 0
 do {
     let card = document.createElement('DIV')
+    let image = team[i].image
+    if (image === 'false' || !image) image = '/public/imgs/profile.png'
     card.innerHTML = `
-    <img src="${team[i].image ? team[i].image : '/public/imgs/profile.png'}">
+    <img src="${image}">
     <div>
         <h2>${team[i].name} <span>@${team[i].username}</span></h2>
         <p><b>${team[i].role}</b></p>
@@ -45,7 +47,7 @@ do {
     if (team[i].link) {
         let r = i
         card.onclick = () => {
-            window.open(team[r].link, '_blank').focus();
+            if (team[r].link !== false && team[r].link !== 'false') window.open(team[r].link, '_blank').focus();
         }
     }
     document.getElementById('teamMembers').appendChild(card)
