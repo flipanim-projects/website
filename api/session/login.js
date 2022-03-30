@@ -5,7 +5,6 @@ async function login(req, res, next) {
     //     status: 400,
     //     message: '400 Bad Request: Invalid Captcha'
     // })
-    console.log(req.body, req.query)
     new captchaHandler().send({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {

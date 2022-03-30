@@ -21,22 +21,10 @@ async function information(req, res) {
     },
   });
 
-  let toupdate = req.user;
-  function removeProp(obj, propToDelete) {
-    for (var property in obj) {
-      if (obj.hasOwnProperty(property)) {
-        if (typeof obj[property] == "object") {
-          return removeProp(obj[property], propToDelete);
-        } else {
-          if (property === propToDelete && obj[property] === true) {
-            delete obj[property];
-          }
-        }
-      }
-    }
-  }
-  removeProp(toupdate, "_id");
-  delete toupdate._v;
+  let toupdate = {};
+  toupdate.name = req.user.name
+  toupdate.bio = req.user.bio
+  toupdate.preferences.theme = req.user.preferences.theme
 
   async function editUser() {
     req.body["bio"] ? (toupdate.bio = req.body["bio"]) : null;
