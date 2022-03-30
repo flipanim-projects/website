@@ -6,6 +6,14 @@ async function information(req, res) {
       status: 400,
       message: "400 Bad Request: No data provided",
     });
+  if (req.body["displayName"].length > 18) return res.status(413).json({
+      status: 413,
+      message: "413 Payload Too Large: Display name too long",
+    });
+  if (req.body['bio'].length > 120) return res.status(413).json({
+      status: 413,
+      message: "413 Payload Too Large: Bio too long",
+    });
 
   let hcaptcha = req.body["h-captcha-response"];
   new CaptchaHandler().send({

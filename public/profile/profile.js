@@ -58,6 +58,8 @@ function FlipAnimProfile(user) {
                     toasts.success.init().show()
                     editStatusModal.hide()
                 }, "400": function () {
+                    toasts.error.init().show()
+                }, "413": function () {
                     toasts.tooLong.init().show()
                 }, "429": function () {
                     toasts.ratelimited.init().show()

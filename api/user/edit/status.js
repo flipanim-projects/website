@@ -5,6 +5,10 @@ async function status(req, res) {
         status: 401,
         message: '401 Unauthorized'
     }) 
+    if (req.query['newStatus'].length > 20) return res.status(413).json({
+            status: 413,
+            message: '413 Payload Too Large: Status too long'
+})
     
     // Fetch user from the database
     await User.findById(req.session.passport.user).then(async (user) => {

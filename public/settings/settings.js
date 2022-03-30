@@ -1,3 +1,5 @@
+const read = require("body-parser/lib/read")
+
 function FlipAnimSettings(user) {
   window.selectedTheme = undefined
   const $ = function (id) { return document.getElementById(id) }
@@ -87,6 +89,8 @@ function FlipAnimSettings(user) {
           toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
         } else if (res.status === 400 && res.message === '400 Bad Request: No data provided') {
           toast('No data provided', 'Please fill out all the fields', 5).init().show()
+        } else if (res.status === 413 && res.message === '413 Payload Too Large: Bio too long') {
+          toast('Too long', 'Your bio is too long, make it under 120 characters', 5).init().show()
         } else if (res.status === 429) {
           toast('Too many requests', 'Please try again later, you are being ratelimited').init().show()
         } else if (res.status === 500) {
