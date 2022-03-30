@@ -93,14 +93,16 @@ function FlipAnimProfile(user) {
         ${statuses[user.status.type]}</span>
         ${user.status.name ? ' | ' + user.status.name : ''}`)
         let edit = document.getElementById('editStatus')
-        edit.classList.add('edit')
-        edit.setAttribute('data-tooltip', 'edit')
-        edit.onclick = () => {
-            console.log(editStatusModal)
-            try { editStatusModal.show() }
-            catch (err) { console.log(err) }
+        if (loggedIn) {
+            edit.classList.add('edit')
+            edit.setAttribute('data-tooltip', 'edit')
+            edit.onclick = () => {
+                console.log(editStatusModal)
+                try { editStatusModal.show() }
+                catch (err) { console.error(err) }
+            }
         }
-        document.querySelector('.profile-status-header').appendChild(edit)
+       // document.querySelector('.profile-status-header').appendChild(edit)
         loadAnims(user.anims, user)
     }
 

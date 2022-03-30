@@ -3,13 +3,15 @@ block content
     .main.create
         h1 Log In
         br
-        form.create(action='/api/v1/login', method='POST')
+        form.create#login(onsubmit="return false")
             input#username(type='text', name='username', placeholder='Username...')
             input#password(type='password', name='password', placeholder='Password...')
-            .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
+            .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43' data-callback="hcaptcha")
             script(src='https://js.hcaptcha.com/1/api.js', async='', defer='')
             br
             input(type='submit', value='Submit')
 block scripts
     script(src='/public/utils/modal.js')
+    script(src='/public/utils/toast.js')
     script(src='/public/index.js')
+    script(src='/public/account/login/index.js')

@@ -41,6 +41,9 @@ app.use(
         secret: 'DevelopmentSecret (replace during public beta)',
         resave: false,
         saveUninitialized: false,
+        cookie: {
+            maxAge: 180*60*1000 // 3 hours
+        }
     })
 );
 app.use(passport.initialize());
@@ -64,7 +67,7 @@ app.set("views", path.join(__dirname, "public"));
 
 passport.use(new LocalStrategy(
     { usernameField: 'username' },
-    async (username, password, done,) => {
+    async (username, password, done) => {
         await User.findOne({
             'name.text': username
         }).then(user => {
@@ -101,7 +104,7 @@ const limitShort = (minutes, max, msg) => {
     return rateLimit({
         windowMs: minutes * 60 * 1000,
         max: max,
-        message: 'You are being rate limited' || msg,
+        message: msg ? msg : 'You\'re being ratelimited',
         standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
         legacyHeaders: false, // Disable the `X-RateLimit-*` headers
     })
@@ -116,7 +119,7 @@ app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
 app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
 app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // Get anim by id
 // app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
-app.route("/api/v1/login").post(api.session.login);
+app.post("/api/v1/login", limitShort(0.3, 3, 'You are being ratelimited, try again later'), api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
 /*********************
  * STATIC PAGES with pug!
