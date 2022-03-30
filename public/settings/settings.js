@@ -1,5 +1,3 @@
-const read = require("body-parser/lib/read")
-
 function FlipAnimSettings(user) {
   window.selectedTheme = undefined
   const $ = function (id) { return document.getElementById(id) }
