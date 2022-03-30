@@ -112,7 +112,7 @@ const limitShort = (minutes, max, msg) => {
 app.get("/api/v1/users", limitShort(0.2, 2, 'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
 app.route("/api/v1/users").post(api.user.create, limitShort(30, 1)); // For creation of users
 app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth, limitShort(0.2, 1));
-app.route('/api/v1/users/:userId/status').put(api.user.edit.status)
+app.put('/api/v1/users/:userId/status', limitShort(0.3, 2, 'You cannot set your status as you are being rate limited'), api.user.edit.status)
 app.route('/api/v1/users/:userId/information').put(api.user.edit.information)
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims

@@ -31,7 +31,19 @@ function FlipAnimProfile(user) {
         <p>The profile could not be loaded, as the user doesn't exist</p>
         <a style="cursor:pointer;text-decoration:underline;" onclick="window.history.go(-1)">&larr; Back</a>`
     }
-    let editStatusModal
+    function toast(t, d, du) {
+        return new Toast({
+            title: t,
+            description: d,
+            duration: du
+        })
+    }
+    let editStatusModal, toasts = {
+        success: toast('Success', 'Successfully set status, reload to see your new status', 5),
+        error: toast('Error', 'An error occurred while setting status', 5),
+        tooLong: toast('Error', 'Status is too long', 5),
+        ratelimited: toast('Error', 'You are sending requests too quickly', 5)
+    }
     if (loggedIn) editStatusModal = new Modal({
         title: ('Edit Status'),
         description: (' '),
@@ -40,7 +52,19 @@ function FlipAnimProfile(user) {
             inputs: ['newStatus', 'type'],
             action: '/api/v1/users/' + loggedIn.name.id + '/status',
             method: 'PUT',
-            query: true
+            query: true,
+            responses: {
+                "200": function () {
+                    toasts.success.init().show()
+                    editStatusModal.hide()
+                }, "400": function () {
+                    toasts.tooLong.init().show()
+                }, "429": function () {
+                    toasts.ratelimited.init().show()
+                }, "500": function () {
+                    toasts.error.init().show()
+                }
+            }
         },
         content: {
             inputs: [
@@ -84,7 +108,7 @@ function FlipAnimProfile(user) {
         }
         $(".profile-image").classList.remove('skeleton')
         let date = new Date(user.creation.text)
-        html($('.profile-creation'), 'Created ' +  date.toLocaleString())
+        html($('.profile-creation'), 'Created ' + date.toLocaleString())
         html($('.profile-follow.ers'), user.followers.length + ' followers')
         html($('.profile-follow.ing'), 'Following ' + user.following.length)
         html($('.profile-bio'), user.bio ? user.bio : 'No bio')
@@ -97,12 +121,11 @@ function FlipAnimProfile(user) {
             edit.classList.add('edit')
             edit.setAttribute('data-tooltip', 'edit')
             edit.onclick = () => {
-                console.log(editStatusModal)
                 try { editStatusModal.show() }
                 catch (err) { console.error(err) }
             }
         }
-       // document.querySelector('.profile-status-header').appendChild(edit)
+        // document.querySelector('.profile-status-header').appendChild(edit)
         loadAnims(user.anims, user)
     }
 

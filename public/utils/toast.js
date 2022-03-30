@@ -2,7 +2,7 @@ class Toast {
     constructor(obj) {
         this.title = obj.title
         this.description = obj.description
-        this.duration = obj.duration * 1000
+        this.duration = obj.duration ? obj.duration * 1000 : 5000
         this.init = function () {
             let toastcont = document.querySelector('.toast-container')
             let toast = document.createElement('DIV')
@@ -17,9 +17,11 @@ class Toast {
             let toaststruct = this
             setTimeout(function () { toaststruct.element.classList.add('showing') })
             setTimeout(function () {
-                toaststruct.element.classList.remove('showing')
+                try { toaststruct.element.classList.remove('showing') }
+                catch (err) { console.error(err) }
                 setTimeout(function () {
-                    toaststruct.element.remove()
+                    try { toaststruct.element.remove() }
+                    catch (err) { console.error(err) }
                 }, 500)
             }, this.duration)
             return this

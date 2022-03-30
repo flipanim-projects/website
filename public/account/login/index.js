@@ -1,5 +1,13 @@
 const FlipAnimLogin = function () {
     const $ = id => { return document.querySelector(id) }
+    function toast(t, d, du) {
+        new Toast({
+            title: t,
+            description: d,
+            duration: du
+        }).init().show()
+        loginBtn.classList.remove('submitting')
+    }
     function login(username, password, captcha) {
         let fdata = new FormData()
         fdata.append('username', username)
@@ -17,7 +25,7 @@ const FlipAnimLogin = function () {
         }).then(resp => {
             resp.json().then(res => {
                 if (res.status == 400) {
-                    toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)',5)
+                    toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5)
                 } else if (res.status == 401) {
                     toast('Invalid credentials', 'Your username or password is incorrect', 5)
                 } else if (res.status == 200 || res.status == 302) {
@@ -26,18 +34,16 @@ const FlipAnimLogin = function () {
                 } else if (res.status == 429) {
                     toast('Too many requests', 'Please try again later, you are being ratelimited')
                 }
-                function toast(t,d,du) {
-                    new Toast({
-                        title: t,
-                        description: d,
-                        duration: du
-                    }).init().show()
-                    loginBtn.classList.remove('submitting')
-                }
+
             })
         })
     }
     $('#login').onsubmit = e => {
+        if (!$('#username').value || !$('#password').value) {
+            toast('Invalid credentials', 'Please fill out the username and password fields', 5)
+            e.preventDefault()
+            return
+        }
         login(
             $('#username').value,
             $('#password').value,

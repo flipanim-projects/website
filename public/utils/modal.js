@@ -98,7 +98,12 @@ class Modal {
           if (this.form.query) {
             url = this.form.action + parseURL(flattenObj(this.form.body))
           } else params.body = JSON.stringify(this.form.body)
-          fetch(url, params);
+          fetch(url, params).then(res => {
+            if (this.form.responses) {
+              this.form.responses[res.status]()
+              console.log(res)
+            }
+          });
           this.hide();
         };
       }
