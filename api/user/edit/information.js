@@ -7,13 +7,13 @@ async function information(req, res) {
       message: "400 Bad Request: No data provided",
     });
   if (req.body["displayName"].length > 18) return res.status(413).json({
-      status: 413,
-      message: "413 Payload Too Large: Display name too long",
-    });
+    status: 413,
+    message: "413 Payload Too Large: Display name too long",
+  });
   if (req.body['bio'].length > 120) return res.status(413).json({
-      status: 413,
-      message: "413 Payload Too Large: Bio too long",
-    });
+    status: 413,
+    message: "413 Payload Too Large: Bio too long",
+  });
 
   let hcaptcha = req.body["h-captcha-response"];
   new CaptchaHandler().send({
@@ -32,7 +32,7 @@ async function information(req, res) {
   let toupdate = {};
   toupdate.name = req.user.name
   toupdate.bio = req.user.bio
-  toupdate.preferences.theme = req.user.preferences.theme
+  toupdate.preferences = { theme: req.user.preferences.theme }
 
   async function editUser() {
     req.body["bio"] ? (toupdate.bio = req.body["bio"]) : null;
