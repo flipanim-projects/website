@@ -89,6 +89,8 @@ function FlipAnimSettings(user) {
           toast('No data provided', 'Please fill out all the fields', 5).init().show()
         } else if (res.status === 429) {
           toast('Too many requests', 'Please try again later, you are being ratelimited').init().show()
+        } else if (res.status === 500) {
+          toast('Internal server error', 'Please try again later, something went wrong', 5).init().show()
         }
       })
     })
