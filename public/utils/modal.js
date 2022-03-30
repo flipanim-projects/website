@@ -82,7 +82,7 @@ class Modal {
         return '?' + str.join("&");
       }
       if (this.type === 1) {
-        this.form["body"] = {};
+        if (!this.form['body']) this.form['body'] = {};
         modal.getElementsByClassName("proceed")[0].onclick = () => {
           for (let i = 0; i < md.form.inputs.length; i++) {
             let cur = md.form.inputs[i];

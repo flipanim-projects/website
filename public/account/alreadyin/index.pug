@@ -2,8 +2,9 @@ extends ../../../components/base
 block content
     .main.create
         h1 Error 
-        p You are already logged in as 
-        b @#{loggedIn.name.text}
+        - let usn = JSON.parse(user).name
+        p(style="display: inline") You are already logged in as 
+            b #{(usn.display ? usn.display : '@'+usn.text) + ' (@'+(usn.display ? usn.text : '')+')'}
 
 block scripts
     script(src='/public/utils/modal.js')

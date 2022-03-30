@@ -3,7 +3,7 @@ const User = require('../../../models/User'),
 async function information(req, res) {
     if (!req.body['displayName'] && !req.body['bio']) return res.status(400).json({
         status: 400,
-        message: '400 Bad Request'
+        message: '400 Bad Request: No data provided'
     })
 
     let hcaptcha = req.body['h-captcha-response']
@@ -19,11 +19,12 @@ async function information(req, res) {
         }
     })
 
-    let toupdate = { bio: null, name: { display: null } }
+    let toupdate = req.user
 
     async function editUser() {
-        if (req.body['bio']) toupdate.bio = req.body['bio']
+        req.body['bio'] ? toupdate.bio = req.body['bio'] : null
         if (req.body['displayName']) toupdate.name.display = req.body['displayName']
+        if (req.body['theme']) toupdate.preferences.theme = req.body['theme']
         await User.findByIdAndUpdate(req.session.passport.user, toupdate).then(() => {
             res.status(200).json({
                 status: 200,

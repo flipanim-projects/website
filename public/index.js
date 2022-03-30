@@ -51,13 +51,6 @@ const FlipAnim = function (loggedIn) {
       document.location.href = "/settings";
     };
   }
-  if (loggedIn && loggedIn.preferences.theme)
-    document.querySelector("body").classList.add(loggedIn.preferredTheme);
-
-  if (
-    document.location.search.replace("?", "").split("=")[0] === "justLoggedOut"
-  ) {
-  }
 };
 
 onload = () => FlipAnim(loggedIn);

@@ -5,10 +5,10 @@ mixin usersetting(name,id,value)
     input(type='text', name=id, id=id, placeholder=value ? value : 'No '+name, value=value)
 block content
     .main.create
-        h1(style="color:red") Page not functional (yet)
         h1 Settings for @#{JSON.parse(user).name.text}
         br
-        div(style="width:100%") 
+        form#settingsForm(style="width:100%", onsubmit="return false;", method="post") 
+            p This page is in alpha, please report bugs
             +usersetting('Display Name', 'displayName', user.name)
             +usersetting('Bio','bio',user.bio)
             br
@@ -18,16 +18,18 @@ block content
             br
             p: b Theme
             div.flex
-                input.theme-setting.dark(type="radio" name="theme")
-                input.theme-setting.classic(type="radio" name="theme")
+                input.theme-setting.dark(type="radio" name="theme" onclick="window.selectedTheme = 'dark'")
+                input.theme-setting.classic(type="radio" name="theme" onclick="window.selectedTheme = 'classic'")
             br
             p Danger zone
             button#changePass Change Password
+            <div class="h-captcha" id="captcha" name="captcha" data-callback="hcaptchaCallback" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>
             .flex 
                 button(style="width: 100%" onclick="window.history.go(-1)") Cancel
-                input#subm(type='submit', value='Save')
+                input#subm(type='submit',value='Save')
     div.modal-container
 block scripts
+    script(src="/public/utils/toast.js")
     script(src='/public/utils/modal.js')
     script(src='/public/index.js')
     script(src="/public/settings/settings.js")

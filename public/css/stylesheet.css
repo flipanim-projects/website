@@ -697,9 +697,10 @@ Settings
   cursor: pointer;
   color: white;
   border-radius: 10px;
-  background: #000020;
 }
-
+.theme-setting.dark {
+  background: #111133;
+}
 .theme-setting.classic {
   background: #2cce6f
 }
@@ -731,8 +732,8 @@ Settings
   opacity: 1;
 }
 
-.theme-setting:focus {
-  background: #000020;
+.theme-setting.dark:focus {
+  background: #111133;
 }
 
 .theme-setting.classic:focus {
