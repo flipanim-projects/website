@@ -97,14 +97,24 @@ class Modal {
           }
           if (this.form.query) {
             url = this.form.action + parseURL(flattenObj(this.form.body))
-          } else params.body = JSON.stringify(this.form.body)
+          } else {
+            let fdata = new FormData()
+            for (const key in this.form.body) {
+              fdata.append(key, this.form.body[key])
+            }
+            fdata = JSON.stringify(Object.fromEntries(fdata.entries()))
+            params.body = fdata;
+            params.headers = {
+              'Content-Type': 'application/json'
+            }
+          }
           fetch(url, params).then(res => {
             if (this.form.responses) {
-              this.form.responses[res.status]()
+              this.form.responses[res.status](this)
               console.log(res)
             }
           });
-          this.hide();
+          return this
         };
       }
       modal.onkeydown = (e) => {

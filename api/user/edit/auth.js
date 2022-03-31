@@ -6,23 +6,25 @@ async function auth(req, res) {
         status: 401,
         message: '401 Unauthorized'
     })
-    let user = await User.findById(req.session.passport.user).then(user => {
-        if (!user) return res.status(400)
+    let user
+    // find the user in the database and set it to user variable to use later
+    User.findById(req.session.passport.user).then(async resp => {
+        user = resp
+        new CaptchaHandler().send({
+            hcaptcha: req.body['h-captcha-response'],
+            invalid: function () {
+                res.status(400).json({
+                    status: 400,
+                    message: '400 Bad Request: Invalid Captcha'
+                })
+            }, next: function () {
+                editUserAuth(req.body)
+            }
+        })
     })
-    console.log(CaptchaHandler)
-    new CaptchaHandler().send({
-        captcha: req.body['h-captcha-response'],
-        invalid: function () {
-            res.status(400).json({
-                status: 400,
-                message: '400 Bad Request: Invalid Captcha'
-            })
-        }, next: function () {
-            editUserAuth(req.body)
-        }
-    })
+
     async function editUserAuth(d) {
-        let cur = d['currentPassword']
+        let cur = d['curPassword']
         if (sha256(cur) === user.password) {
             if (d['newPassword'] === d['confirmNewPassword']) {
                 user.password = sha256(d['newPassword'])

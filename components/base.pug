@@ -26,7 +26,16 @@ body(class=user ? JSON.parse(user).preferences.theme : 'dark')
             a.linktitle(disabled) Followed
         if user
             div.profile
-                img(src="/public/imgs/profile.png" onclick="document.querySelector('.profile-options').classList.toggle('open')")
+                script.
+                    (function(){
+                        window.openUserDropdown = () => {
+                            var o = document.getElementsByClassName("profile-options")[0];
+                            o.classList.contains("open") ? (o.classList.remove("open"), window.onclick = (() => {})) : o.classList.contains("open") || (window.onclick = (o => {
+                                o.target !== document.getElementById("profileDropdownOpener") && window.openUserDropdown()
+                            }), o.classList.add("open"))
+                        };
+                    })()
+                img#profileDropdownOpener(src="/public/imgs/profile.png" onclick="window.openUserDropdown()")
         else 
             .login-buttons 
                 button(onclick="window.location.href='/account/login'") Log in 

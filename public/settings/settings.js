@@ -19,9 +19,22 @@ function FlipAnimSettings(user) {
       action: '/api/v1/users/' + $('userID').value + '/auth',
       method: 'PUT',
       inputs: [
-        'curPassword', 'newPassword', 'confirmNewPassword', 'captcha'
+        'curPassword', 'newPassword', 'confirmNewPassword'
       ], body: {
-        'hcaptcha-response': window.captchaPasswordResponse
+        'h-captcha-response': window.hcaptchaPasswordResponse
+      }, responses: {
+        "400": () => {
+          toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
+        }, "401": () => {
+          toast('Invalid password', 'Please enter your current password', 5).init().show()
+        }, "429": () => {
+          toast('Too many attempts', 'Please try again later', 5).init().show()
+        }, "500": () => {
+          toast('Internal server error', 'Please try again later', 5).init().show()
+        }, "200": (modal) => {
+          toast('Password changed', 'Your password has been changed', 5).init().show()
+          modal.hide()
+        }
       }
     },
     content: {
@@ -50,6 +63,9 @@ function FlipAnimSettings(user) {
       ]
     },
   });
+  window.hcaptchaPasswordCallback = function (token) {
+    modal.form.body['h-captcha-response'] = token
+  }
 
   modal.init()
   $('changePass').onclick = () => {
@@ -105,9 +121,7 @@ function FlipAnimSettings(user) {
 } window.hcaptchaCallback = function (token) {
   window.hcaptchaResponse = token
 }
-window.hcaptchaPasswordCallback = function (token) {
-  window.hcaptchaPasswordResponse = token
-}
+
 FlipAnimSettings(loggedIn)
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
