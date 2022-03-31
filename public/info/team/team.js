@@ -24,7 +24,7 @@ const team = [
         username: "matthewmason", // Your FAv2 username
         role: "Admin, Designer, Manager", // Role in the project
         image: false, // Image. Can be a url, or just put false for no image, like I did above
-        link: "false" // Link to your FAv2 profile OR website
+        link: "https://flipanimv2publicbeta.herokuapp.com/profile?user=98_ed5" // Link to your FAv2 profile OR website
     }
 ]
 
