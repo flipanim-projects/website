@@ -72,7 +72,7 @@ function FlipAnimProfile(user) {
             inputs: [
                 { placeholder: 'New Status... ', value: loggedIn.status.name ? loggedIn.status.name : '', name: 'newStatus' },
             ],
-            extraHTML: [`<select id="type" name="type">
+            extraHTML: [`<select id="type" value="${user.status.type}" name="type">
             <option value="0">Invisible</option>
             <option value="1">Online</option>
             <option value="2">Idle</option>
@@ -84,9 +84,13 @@ function FlipAnimProfile(user) {
             ]
         }
     }).init()
-    function loadProfile(user) {
+    $('#type').children[user.status.type].selected = 'true'
+    function loadProfile(f) {
+        console.log(f)
+        // No data? User not found
+        if (f === undefined) return profileNotFound()
         // Update the page title
-        document.querySelector('title').innerHTML = 'FlipAnim | @' + user.name.text + '\'s profile'
+        document.querySelector('title').innerHTML = 'FlipAnim | @' + f.name.text + '\'s profile'
         // Shorthand function for setting the html of a profile element
         function html(el, text) {
             el.innerHTML = text
@@ -100,24 +104,22 @@ function FlipAnimProfile(user) {
             "2": 'Idle',
             "3": 'Do Not Disturb',
         }
-        // No data? User not found
-        if (user === undefined) return profileNotFound()
-        html($('.profile-name'), user.name.display ? user.name.display + ' <span> @' + user.name.text + '</span>' : '@' + user.name.text)
-        if (user.badges.includes('admin')) { // User is admin?
+        html($('.profile-name'), f.name.display ? f.name.display + ' <span> @' + f.name.text + '</span>' : '@' + f.name.text)
+        if (f.badges.includes('admin')) { // User is admin?
             let admin = document.createElement('DIV')
             admin.classList.add('admin')
             $('.profile-name').appendChild(admin)
         }
         $(".profile-image").classList.remove('skeleton')
-        let date = new Date(user.creation.text)
+        let date = new Date(f.creation.text)
         html($('.profile-creation'), 'Created ' + date.toLocaleString())
-        html($('.profile-follow.ers'), user.followers.length + ' followers')
-        html($('.profile-follow.ing'), 'Following ' + user.following.length)
-        html($('.profile-bio'), user.bio ? user.bio : 'No bio')
+        html($('.profile-follow.ers'), f.followers.length + ' followers')
+        html($('.profile-follow.ing'), 'Following ' + f.following.length)
+        html($('.profile-bio'), f.bio ? f.bio : 'No bio')
         html($('.profile-status'), `
-        <span class="profile-status-type ${statuses[user.status.type].replaceAll(' ', '')}">
-        ${statuses[user.status.type]}</span>
-        ${user.status.name ? ' | ' + user.status.name : ''}`)
+        <span class="profile-status-type ${statuses[f.status.type].replaceAll(' ', '')}">
+        ${statuses[f.status.type]}</span>
+        ${f.status.name ? ' | ' + f.status.name : ''}`)
         let edit = document.getElementById('editStatus')
         if (loggedIn) {
             edit.classList.add('edit')
@@ -127,7 +129,7 @@ function FlipAnimProfile(user) {
                 catch (err) { console.error(err) }
             }
         }
-        loadAnims(user.anims, user)
+        loadAnims(f.anims, f)
     }
 
     function loadAnims(anims, user) {

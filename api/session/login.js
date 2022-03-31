@@ -19,7 +19,7 @@ async function login(req, res, next) {
     })
     // configure passport.js to use the local strategy
     let auth = passport.authenticate('local', (err, user, info) => {
-        if (info) { return res.send(info.message) }
+        if (info) { return res.send(info) }
         if (err) { return next(err); }
         if (!user) { return res.redirect('/login'); }
         req.login(user, (err) => {

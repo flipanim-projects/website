@@ -31,9 +31,9 @@ block content
                         var bio = document.getElementById('bio');
                         var bioCount = document.getElementsByClassName('char-count')[1];
                         var bioLimit = bioCount.getAttribute('limit');
-                        var bioLength = bio.value.length;
+                        var bioLength = bio.value.replaceAll('\n','<br>').length;
                         function upd() {
-                            bioLength = bio.value.length;
+                            bioLength = bio.value.replaceAll('\n','<br>').length;
                             bioCount.innerHTML = bioLimit - bioLength;
                             bioCount.setAttribute('left', bioLimit - bioLength);
                         }
@@ -54,7 +54,7 @@ block content
                 input.theme-setting.classic(type="radio" name="theme" onclick="window.selectedTheme = 'classic'")
             br
             p Danger zone
-            button#changePass Change Password
+            button#changePass(type="button") Change Password
             <div class="h-captcha" id="captcha" name="captcha" data-callback="hcaptchaCallback" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>
             .flex 
                 button(style="width: 100%" onclick="window.history.go(-1)") Cancel

@@ -5,9 +5,11 @@ async function getUser(req, res) {
         message: '400 Bad Request',
     });
     try {
+        console.log(req.query.user)
         await User.findOne({
             'name.id': req.query.user
         }).then(user => {
+            console.log('asdatagata',user)
             if (!user) res.status(404).json({
                 status: 404,
                 message: '404 User Not Found',

@@ -74,8 +74,7 @@ passport.use(new LocalStrategy(
                 console.log('Local strategy returned true')
                 return done(null, user)
             } else {
-                console.log('Incorrect')
-                return done(null, false, { message: 'Invalid credentials.\n' })
+                return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
             }
         }).catch(err => {
             console.error(err)

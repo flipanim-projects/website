@@ -28,13 +28,16 @@ const FlipAnimLogin = function () {
                     toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5)
                 } else if (res.status == 401) {
                     toast('Invalid credentials', 'Your username or password is incorrect', 5)
+                    window.hcaptcha.reset()
                 } else if (res.status == 200 || res.status == 302) {
                     toast('Logged in', 'Redirecting to the main page...', 5)
                     window.location.href = '/'
                 } else if (res.status == 429) {
                     toast('Too many requests', 'Please try again later, you are being ratelimited')
                 }
-
+            }).catch(err => {
+                console.log(err)
+                console.log(resp)
             })
         })
     }
@@ -58,7 +61,7 @@ const FlipAnimLogin = function () {
         btn.classList.add('submitting')
     }
 }
-function hcaptcha(resp) {
+function hcaptchaCallback(resp) {
     window.captchaResponse = resp
 }
 FlipAnimLogin()
