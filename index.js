@@ -41,7 +41,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 180*60*1000 // 3 hours
+            maxAge: 180 * 60 * 1000 // 3 hours
         }
     })
 );
@@ -106,14 +106,14 @@ const limitShort = (minutes, max, msg) => {
     })
 }
 app.get("/api/v1/users", limitShort(0.2, 2, 'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
-app.route("/api/v1/users").post(api.user.create, limitShort(30, 1)); // For creation of users
+app.post('/api/v1/users', limitShort(30, 1), api.user.create); // For creation of users
 app.route("/api/v1/users/:userId/auth").put(api.user.edit.auth, limitShort(0.2, 1));
 app.put('/api/v1/users/:userId/status', limitShort(0.3, 2, 'You cannot set your status as you are being rate limited'), api.user.edit.status)
-app.route('/api/v1/users/:userId/information').put(api.user.edit.information)
+app.put('/api/v1/users/:userId/information', limitShort(2, 2, 'You are being rate limited'), api.user.edit.information)
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
 app.route("/api/v1/anims").get(api.anim.byId); // Get anim by id
-app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // Get anim by id
+app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // POST anim
 // app.route('/api/v1/anims/:animId/comments').get(api.getAnimComments)
 app.post("/api/v1/login", limitShort(0.3, 3, 'You are being ratelimited, try again later'), api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);

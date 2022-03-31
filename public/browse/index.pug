@@ -1,9 +1,12 @@
 extends ../../components/base.pug
 block content
-    h1 this is where the browse page should be
-    br
-    p you're now logged in
-
+  div.select-horizontal(name="animtype")
+    option(value="popular") Popular
+    option(value="new") New
+    option(value="featured") Featured
+  h1 Browse page
+  p This page does not work. Don't try using it.
 block scripts
   script(src='/public/index.js')
   script(src='/public/utils/modal.js')
+  script(src="/public/browse/anims.js")

@@ -26,7 +26,10 @@ function FlipAnimSettings(user) {
         "400": () => {
           toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
         }, "401": () => {
+          window.hcaptcha.reset(window.oasswordCaptcha)
           toast('Invalid password', 'Please enter your current password', 5).init().show()
+        }, "403": () => {
+          toast('Passwords do not match', 'Please make sure your new password and confirmation password match', 5).init().show()
         }, "429": () => {
           toast('Too many attempts', 'Please try again later', 5).init().show()
         }, "500": () => {
@@ -55,7 +58,13 @@ function FlipAnimSettings(user) {
         attrs: { autocomplete: 'new-password' }
       }],
       extraHTML: [
-        `<div class="h-captcha" id="changePassword" name="change-password" data-callback="hcaptchaPasswordCallback" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>`
+        `<div class="captcha" id="changePassword" name="change-password" data-callback="hcaptchaPasswordCallback" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>
+        `,` <script id="hcaptchascript">
+       window.passwordCaptcha = hcaptcha.render(document.querySelector('.captcha'), {
+            theme: 'dark',
+            callback: 'hcaptchaPasswordCallback'
+        })
+      </script>`
       ],
       buttons: [
         { text: 'Cancel', type: 'cancel' },
@@ -68,7 +77,10 @@ function FlipAnimSettings(user) {
   }
 
   modal.init()
+  let text = document.getElementById('hcaptchascript');
+  
   $('changePass').onclick = () => {
+    (0, eval)(text.textContent)
     modal.show();
   }
   function submitHandler() {
@@ -118,7 +130,8 @@ function FlipAnimSettings(user) {
     e.preventDefault();
     return false
   }
-} window.hcaptchaCallback = function (token) {
+}
+window.hcaptchaCallback = function (token) {
   window.hcaptchaResponse = token
 }
 

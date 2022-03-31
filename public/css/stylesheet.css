@@ -943,3 +943,31 @@ Toasts / Popups / Snackbars
   -webkit-backdrop-filter: blur(10px) opacity(1);
   transform: translateX(0%)
 }
+/***********************
+Horizontal select menus
+***********************/
+.select-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+  padding: 3px;
+  border-radius: 15px;
+  background: var(--body-background-lighter);
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.select-horizontal option {
+  padding: 10px 20px;
+  transition: 0.2s;
+  margin:3px;
+  border-radius:10px;
+}
+
+.select-horizontal option:hover,
+.select-horizontal option.selected {
+  background: var(--card-background);
+}
