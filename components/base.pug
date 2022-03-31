@@ -13,9 +13,8 @@ body(class=user ? JSON.parse(user).preferences.theme : 'dark')
     script.
         function ObjectId(id) { return id }
         var loggedIn = !{user ? user : false}
-        console.log(loggedIn)
-        var theme = loggedIn.preferences.theme 
-        console.log(theme)
+        var theme
+        if (loggedIn) theme = loggedIn.preferences.theme 
     if user
         input#userID(type="text" value=JSON.parse(user).name.id style="pointer-events: none; display: none")
 
