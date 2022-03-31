@@ -9,8 +9,7 @@ var express = require("express"),
     LocalStrategy = require('passport-local').Strategy,
     FileStore = require('session-file-store')(session),
     server = app.listen(process.env.PORT || 3000, listen),
-    rateLimit = require('express-rate-limit'),
-    morgan = require('morgan')
+    rateLimit = require('express-rate-limit')
 
 var api = require('./api/index'),
     User = require('./models/User'),
@@ -48,8 +47,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());

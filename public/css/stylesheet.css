@@ -230,6 +230,9 @@ main {
   pointer-events: all;
 
 }
+.profile-bio {
+  max-width: 400px;
+}
 
 .main {
   display: flex;
@@ -551,7 +554,7 @@ Create Account
   color: white
 }
 
-input {
+input,textarea {
   background: var(--card-background);
   padding: 10px 20px;
   border: 0;
@@ -561,6 +564,10 @@ input {
   margin: 10px 0;
   transition: 0.4s;
   color: white
+}
+textarea {
+  max-width: clamp(150px, 50vw, 400px);
+  transition: none;
 }
 
 .main.create ::-webkit-input-placeholder {
@@ -587,6 +594,24 @@ input[type=submit]:hover {
   background: rgba(0, 255, 0, 0.648);
 }
 
+/*****************
+Character Limits
+******************/
+[left='1'], [left='0'] {
+  color: red;
+  font-weight: 700;
+}
+[left='3'], [left='2'] {
+  color: rgb(255, 166, 0);
+  font-weight: 700;
+}
+[left='5'],[left='4'] {
+  color: rgb(208, 255, 0);
+  font-weight: 700;
+}
+.char-count {
+  font-size: 14px;
+}
 /*****************
 Anim Page
 *****************/

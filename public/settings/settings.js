@@ -55,17 +55,14 @@ function FlipAnimSettings(user) {
   $('changePass').onclick = () => {
     modal.show();
   }
-  let submitted = false
   function submitHandler() {
-    if (submitted == true) return
-    submitted = true
     let inputs = {
       bio: $('bio').value,
       displayName: $('displayName').value,
       theme: window.selectedTheme ? window.selectedTheme : user.preferences.theme
     }
     let fdata = new FormData()
-    fdata.append('bio', inputs.bio)
+    fdata.append('bio', inputs.bio.replaceAll('\n', '<br>'))
     fdata.append('displayName', inputs.displayName)
     fdata.append('h-captcha-response', window.hcaptchaResponse)
     fdata.append('theme', inputs.theme)
@@ -83,12 +80,14 @@ function FlipAnimSettings(user) {
         if (res.status === 200) {
           toast('Success', 'Your settings have been updated', 5).init().show()
           window.location.href = '/profile?user=' + $('userID').value
-        } else if (res.status === 400 && res.message !== '400 Bad Request: No data provided') {
+        } else if (res.status === 400 && res.message === '400 Bad Request: Invalid Captcha') {
           toast('Invalid captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
         } else if (res.status === 400 && res.message === '400 Bad Request: No data provided') {
           toast('No data provided', 'Please fill out all the fields', 5).init().show()
         } else if (res.status === 413 && res.message === '413 Payload Too Large: Bio too long') {
           toast('Too long', 'Your bio is too long, make it under 120 characters', 5).init().show()
+        } else if (res.status === 413 && res.message === '413 Payload Too Large: Display name too long') {
+          toast('Too long', 'Your display name is too long, make it under 20 characters', 5).init().show()
         } else if (res.status === 429) {
           toast('Too many requests', 'Please try again later, you are being ratelimited').init().show()
         } else if (res.status === 500) {
@@ -98,7 +97,8 @@ function FlipAnimSettings(user) {
     })
   }
   $('settingsForm').onsubmit = function (e) {
-    submitHandler()
+    if (window.hcaptchaResponse) submitHandler()
+    else toast('Please fill out the captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
     e.preventDefault();
     return false
   }

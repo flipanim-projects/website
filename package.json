@@ -18,7 +18,6 @@
     "got": "^12.0.1",
     "hcaptcha": "^0.1.1",
     "mongoose": "^6.2.4",
-    "morgan": "^1.10.0",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",

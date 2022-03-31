@@ -84,7 +84,7 @@ function FlipAnimProfile(user) {
             ]
         }
     }).init()
-    function loadProfile() {
+    function loadProfile(user) {
         // Update the page title
         document.querySelector('title').innerHTML = 'FlipAnim | @' + user.name.text + '\'s profile'
         // Shorthand function for setting the html of a profile element
@@ -127,7 +127,6 @@ function FlipAnimProfile(user) {
                 catch (err) { console.error(err) }
             }
         }
-        // document.querySelector('.profile-status-header').appendChild(edit)
         loadAnims(user.anims, user)
     }
 
@@ -147,6 +146,9 @@ function FlipAnimProfile(user) {
         if (anims.length == 0) {
             return $('.profile-anims').innerHTML += ('No anims<br><br>')
         }
+    } 
+    if (window.location.search.includes('justCreated=true')) {
+        toast('Your account was just created','<a href="/account/login">Click here</a> to log in with your new account').init().show()
     }
 }
 var user = loggedIn ? loggedIn : false

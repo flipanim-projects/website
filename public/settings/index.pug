@@ -1,16 +1,48 @@
 extends ../../components/base
-mixin usersetting(name,id,value)
-    br
-    p: b= name 
-    input(type='text', name=id, id=id, placeholder=value ? value : 'No '+name, value=value)
 block content
     .main.create
-        h1 Settings for @#{JSON.parse(user).name.text}
+        - user = JSON.parse(user)
+        h1 Settings for @#{user.name.text}
         br
         form#settingsForm(style="width:100%", onsubmit="return false;", method="post") 
             p This page is in alpha, please report bugs
-            +usersetting('Display Name', 'displayName', user.name)
-            +usersetting('Bio','bio',user.bio)
+            br
+            p: b= 'Display Name' 
+                input(type='text', name='displayName', id='displayName', placeholder='Display name...', value=user.name.display)
+                div.char-count(limit='15', left="15")
+                script.
+                    (function(){
+                        var displayName = document.getElementById('displayName');
+                        var displayNameCount = document.getElementsByClassName('char-count')[0];
+                        var displayNameLimit = displayNameCount.getAttribute('limit');
+                        displayName.addEventListener('keyup', function() {
+                            var displayNameLength = displayName.value.length;
+                            displayNameCount.innerHTML = displayNameLimit - displayNameLength;
+                            displayNameCount.setAttribute('left', displayNameLimit - displayNameLength);
+                            if (displayNameLength > displayNameLimit) { displayName.value = displayName.value.substring(0, displayNameLimit); }
+                        });
+                    })();
+            br
+            p: b= "Bio"
+                textarea(name='bio', id='bio', placeholder='Bio...', style='display: block' rows="5")= user.bio.replaceAll('<br>','\n')
+                div.char-count(limit='120',left="120")
+                script.
+                    (function(){
+                        var bio = document.getElementById('bio');
+                        var bioCount = document.getElementsByClassName('char-count')[1];
+                        var bioLimit = bioCount.getAttribute('limit');
+                        var bioLength = bio.value.length;
+                        function upd() {
+                            bioLength = bio.value.length;
+                            bioCount.innerHTML = bioLimit - bioLength;
+                            bioCount.setAttribute('left', bioLimit - bioLength);
+                        }
+                        upd()
+                        bio.addEventListener('keyup', function() {
+                            upd()
+                            if (bioLength > bioLimit) { bio.value = bio.value.substring(0, bioLimit); }
+                        });
+                    })()
             br
             p: b Status 
             p Change your status on the 
