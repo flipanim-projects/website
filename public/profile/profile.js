@@ -134,7 +134,7 @@ function FlipAnimProfile(user) {
         ${statuses[f.status.type]}</span>
         ${f.status.name ? ' | ' + f.status.name : ''}`)
         let edit = document.getElementById('editStatus')
-        if (loggedIn.name.id === f.name.id) {
+        if (loggedIn) if (loggedIn.name.id === f.name.id) {
             edit.classList.add('edit')
             edit.setAttribute('data-tooltip', 'edit')
             edit.onclick = () => {
