@@ -13,6 +13,7 @@ const anim = {
     status: require('./user/edit/status'),
     information: require('./user/edit/information')
   },
+  follow: require('./user/follow'),
   get: require('./user/get')
 }
 module.exports = {

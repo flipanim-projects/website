@@ -84,7 +84,7 @@ function FlipAnimProfile(user) {
             ]
         }
     }).init()
-    $('#type').children[user.status.type].selected = 'true'
+
     function loadProfile(f) {
         console.log(f)
         // No data? User not found
@@ -113,8 +113,7 @@ function FlipAnimProfile(user) {
         $(".profile-image").classList.remove('skeleton')
         let date = new Date(f.creation.text)
         html($('.profile-creation'), 'Created ' + date.toLocaleString())
-        html($('.profile-follow.ers'), f.followers.length + ' followers')
-        html($('.profile-follow.ing'), 'Following ' + f.following.length)
+        followerHTML(html, f);
         html($('.profile-bio'), f.bio ? f.bio : 'No bio')
         html($('.profile-status'), `
         <span class="profile-status-type ${statuses[f.status.type].replaceAll(' ', '')}">
@@ -125,11 +124,53 @@ function FlipAnimProfile(user) {
             edit.classList.add('edit')
             edit.setAttribute('data-tooltip', 'edit')
             edit.onclick = () => {
-                try { editStatusModal.show() }
+                try { editStatusModal.show(); $('#type').children[user.status.type].selected = 'true' }
                 catch (err) { console.error(err) }
             }
         }
         loadAnims(f.anims, f)
+    }
+
+    function followerHTML(html, f) {
+        if (f.name.id === loggedIn.name.id) {
+            html($('.profile-follow.ers'), f.followers.length + ' followers');
+            html($('.profile-follow.ing'), 'Following ' + f.following.length);
+        } else {
+            $('.profile-follow.ing').remove()
+            if (f.followers.includes(loggedIn.name.id)) {
+                html($('.profile-follow.ers'), 'Following (' + f.followers.length + ')');
+                $('.profile-follow.ers').classList.add('clickable')
+            }
+            else {
+                html($('.profile-follow.ers'), 'Follow (' + f.followers.length + ')');
+                $('.profile-follow.ers').classList.add('clickable')
+                $('.profile-follow.ers').onclick = () => {
+                    fetch('/api/v1/users/' + f.name.id + '/followers', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }).then(res => {
+                        if (res.status === 200) {
+                            $('.profile-follow.ers').classList.remove('submitting')
+                            f.followers.push(user.id)
+                            html($('.profile-follow.ers'), 'Following (' + f.followers.length + ')')
+                            toast('Success', 'You are now following ' + f.name.text, 5).init().show()
+                        } else if (res.status === 429) {
+                            toast('Error', 'You are sending requests too quickly', 5).init().show()
+                        } else if (res.status === 500) {
+                            toast('Error', 'An error occurred while following ' + f.name.text, 5).init().show()
+                        } else if (res.status === 409) {
+                            toast('Error', 'You are already following ' + f.name.text, 5).init().show()
+                        } else if (res.status === 404) {
+                            toast('Error', 'User not found', 5).init().show()
+                        }
+                    })
+                    $('.profile-follow.ers').classList.add('submitting')
+                }
+                $('.profile-follow.ing').style.display = 'none';
+            }
+        }
     }
 
     function loadAnims(anims, user) {
@@ -148,9 +189,9 @@ function FlipAnimProfile(user) {
         if (anims.length == 0) {
             return $('.profile-anims').innerHTML += ('No anims<br><br>')
         }
-    } 
+    }
     if (window.location.search.includes('justCreated=true')) {
-        toast('Your account was just created','<a href="/account/login">Click here</a> to log in with your new account').init().show()
+        toast('Your account was just created', '<a href="/account/login">Click here</a> to log in with your new account').init().show()
     }
 }
 var user = loggedIn ? loggedIn : false

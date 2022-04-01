@@ -5,7 +5,7 @@ async function createUser(req, res) {
     new CaptchaHandler().send({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {
-            res.status(400).json({
+            return res.status(400).json({
                 status: 400,
                 message: '400 Bad Request: Invalid Captcha'
             })

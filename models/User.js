@@ -40,16 +40,8 @@ let userSchema = new Schema(
             }
         ],
         "status": Object,
-        "following": [
-            {
-                "id": String
-            }
-        ],
-        "followers": [
-            {
-                "id": String
-            }
-        ],
+        "following": Array,
+        "followers": Array,
         "password": String,
         "bio": String,
         "badges": Array,

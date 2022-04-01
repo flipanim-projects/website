@@ -56,10 +56,31 @@ body.light {
   --body-background-lighter: #dfdfdf;
   --body-background-lightest: #cacaca;
   --body-text: rgb(37, 37, 37);
+  /* Elements "floating" above the main page, such as navbar and anims */
+  --card-background: #00000028;
+  --card-background-intense: #00000048;
+  --card-background-selected: #7b84ff28;
+  --card-background-selected-intense: #7b84ff48;
+  --card-blur: blur(17px);
+  /* Dark Cards */
+  --dcard-background: #ffffff28;
+  --dcard-background-intense: #ffffff48;
+  --tooltip-background: var(--card-background);
 }
 
 @supports (backdrop-filter: blur(10px)) {
   body {
+    /* Elements "floating" above the main page, such as navbar and anims */
+    --card-background: #ffffff28;
+    --card-background-intense: #ffffff48;
+    --card-background-selected: #7b84ff28;
+    --card-background-selected-intense: #7b84ff48;
+    --card-blur: blur(17px);
+    /* Dark Cards */
+    --dcard-background: #00000028;
+    --dcard-background-intense: #00000048;
+  }
+  body.light {
     /* Elements "floating" above the main page, such as navbar and anims */
     --card-background: #ffffff28;
     --card-background-intense: #ffffff48;
@@ -155,7 +176,7 @@ nav .linktitle {
 
 nav h1:hover,
 nav .linktitle:hover {
-  background: rgba(255, 255, 255, 0.178);
+  background: var(--card-background);
 }
 
 main {
@@ -506,6 +527,9 @@ Profile
   background-image: url('/public/imgs/edit.png');
   background-size: cover;
 }
+body.light .profile-status-info .edit {
+  filter: invert(2)
+}
 
 hr {
   width: 70%;
@@ -723,11 +747,17 @@ Settings
   color: white;
   border-radius: 10px;
 }
-.theme-setting.dark {
+.theme-setting.dark,
+.theme-setting.dark:focus {
   background: #111133;
 }
-.theme-setting.classic {
+.theme-setting.classic,
+.theme-setting.classic:focus {
   background: #2cce6f
+}
+.theme-setting.light,
+.theme-setting.light:focus {
+  background: #f6f6f6;
 }
 
 .theme-setting:focus {
@@ -746,6 +776,7 @@ Settings
   font-weight: 500;
   font-family: Roboto, Quicksand, Inter, Arial, Helvetica, sans-serif;
   right: 0;
+  text-shadow: 0 0 10px black, 0 0 4px black;
   background: 0;
   display: flex;
   border-radius: 10px;
@@ -755,14 +786,6 @@ Settings
 
 .theme-setting:checked::after {
   opacity: 1;
-}
-
-.theme-setting.dark:focus {
-  background: #111133;
-}
-
-.theme-setting.classic:focus {
-  background: #2cce6f
 }
 
 /*****************
