@@ -132,6 +132,15 @@ function FlipAnimProfile(user) {
     }
 
     function followerHTML(html, f) {
+        if (!loggedIn) {
+            html($('.profile-follow.ers'), 'Follow (' + f.followers.length + ')');
+            $('.profile-follow.ers').classList.add('clickable')
+            $('.profile-follow.ing').remove()
+            $('.profile-follow.ers').onclick = () => {
+                window.location.href = '/account/login'
+            }
+            return
+        }
         if (f.name.id === loggedIn.name.id) {
             html($('.profile-follow.ers'), f.followers.length + ' followers');
             html($('.profile-follow.ing'), 'Following ' + f.following.length);
@@ -140,8 +149,7 @@ function FlipAnimProfile(user) {
             if (f.followers.includes(loggedIn.name.id)) {
                 html($('.profile-follow.ers'), 'Following (' + f.followers.length + ')');
                 $('.profile-follow.ers').classList.add('clickable')
-            }
-            else {
+            } else {
                 html($('.profile-follow.ers'), 'Follow (' + f.followers.length + ')');
                 $('.profile-follow.ers').classList.add('clickable')
                 $('.profile-follow.ers').onclick = () => {
