@@ -25,6 +25,12 @@ const team = [
         role: "Admin, Designer, Manager", // Role in the project
         image: false, // Image. Can be a url, or just put false for no image, like I did above
         link: "https://flipanimv2publicbeta.herokuapp.com/profile?user=98_ed5" // Link to your FAv2 profile OR website
+    }, {
+        name: "FlipAnim", // Fill this in with your name / display name
+        username: "flipanim", // Your FAv2 username
+        role: "Fake FlipAnim Account", // Role in the project
+        image: false, // Image. Can be a url, or just put false for no image, like I did above
+        link: "https://flipanimv2publicbeta.herokuapp.com/profile?user=d30b33" // Link to your FAv2 profile OR website    
     }
 ]
 
