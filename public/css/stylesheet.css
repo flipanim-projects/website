@@ -80,6 +80,7 @@ body.light {
     --dcard-background: #00000028;
     --dcard-background-intense: #00000048;
   }
+
   body.light {
     /* Elements "floating" above the main page, such as navbar and anims */
     --card-background: #ffffff28;
@@ -251,6 +252,7 @@ main {
   pointer-events: all;
 
 }
+
 .profile-bio {
   max-width: 400px;
 }
@@ -415,9 +417,35 @@ button[disabled], input[type=submit].submitting {
   opacity: 0.5;
   cursor: not-allowed;
 }
-input[type=submit].submitting {
+.submitting {
+  position: relative;
   pointer-events: none;
 }
+.submitting::after {
+  border: 2px solid #94000000;
+  /* Light grey */
+  border-top: 2px solid #ffffff;
+  /* Blue */
+  border-radius: 50%;
+  position: absolute;
+  right: -30%;
+  transition: 0.3s;
+  width: 14px;
+  height: 14px;
+  content: '';
+  animation: spinner-load 0.5s infinite cubic-bezier(.57, .35, .36, .78);
+}
+
+@keyframes spinner-load {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /*********************
 Profile
 **********************/
@@ -479,7 +507,21 @@ Profile
   padding: 7px 15px;
   border-radius: 10px;
   margin: 5px;
+  position: relative;
   background: var(--card-background)
+}
+
+.profile-follow.clickable {
+  cursor: pointer;
+}
+
+.profile-follow.submitting {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.profile-follow.followed {
+  background: var(--card-background-selected);
 }
 
 .profile-status-info {
@@ -527,6 +569,7 @@ Profile
   background-image: url('/public/imgs/edit.png');
   background-size: cover;
 }
+
 body.light .profile-status-info .edit {
   filter: invert(2)
 }
@@ -578,7 +621,7 @@ Create Account
   color: white
 }
 
-input,textarea {
+input, textarea {
   background: var(--card-background);
   padding: 10px 20px;
   border: 0;
@@ -589,6 +632,7 @@ input,textarea {
   transition: 0.4s;
   color: white
 }
+
 textarea {
   max-width: clamp(150px, 50vw, 400px);
   transition: none;
@@ -625,17 +669,21 @@ Character Limits
   color: red;
   font-weight: 700;
 }
+
 [left='3'], [left='2'] {
   color: rgb(255, 166, 0);
   font-weight: 700;
 }
-[left='5'],[left='4'] {
+
+[left='5'], [left='4'] {
   color: rgb(208, 255, 0);
   font-weight: 700;
 }
+
 .char-count {
   font-size: 14px;
 }
+
 /*****************
 Anim Page
 *****************/
@@ -747,14 +795,17 @@ Settings
   color: white;
   border-radius: 10px;
 }
+
 .theme-setting.dark,
 .theme-setting.dark:focus {
   background: #111133;
 }
+
 .theme-setting.classic,
 .theme-setting.classic:focus {
   background: #2cce6f
 }
+
 .theme-setting.light,
 .theme-setting.light:focus {
   background: #f6f6f6;
@@ -966,6 +1017,7 @@ Toasts / Popups / Snackbars
   -webkit-backdrop-filter: blur(10px) opacity(1);
   transform: translateX(0%)
 }
+
 /***********************
 Horizontal select menus
 ***********************/
@@ -986,8 +1038,8 @@ Horizontal select menus
 .select-horizontal option {
   padding: 10px 20px;
   transition: 0.2s;
-  margin:3px;
-  border-radius:10px;
+  margin: 3px;
+  border-radius: 10px;
 }
 
 .select-horizontal option:hover,

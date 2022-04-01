@@ -112,6 +112,7 @@ app.post('/api/v1/users', limitShort(30, 1), api.user.create); // For creation o
 app.put("/api/v1/users/:userId/auth", api.user.edit.auth, limitShort(0.2, 1));
 app.put('/api/v1/users/:userId/status', limitShort(0.3, 2, 'You cannot set your status as you are being rate limited'), api.user.edit.status)
 app.put('/api/v1/users/:userId/information', limitShort(2, 2, 'You are being rate limited'), api.user.edit.information)
+// Following users
 app.put('/api/v1/users/:userId/followers', limitShort(0.2, 2, 'You cannot follow this user as you are being rate limited'), api.user.follow)
 // Anim methods
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims

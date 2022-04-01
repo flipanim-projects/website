@@ -2,6 +2,7 @@ extends ../../../components/base
 block content
     .main.create
         h1 Log In
+        small Don't have an account? <a href="/account/create">Create one</a>
         br
         form.create#login(onsubmit="return false")
             input#username(type='text', name='username', placeholder='Username...')

@@ -1,10 +1,6 @@
 const passport = require('passport'),
     captchaHandler = require('../utils/captcha');
 async function login(req, res, next) {
-    // if (!req.body['h-captcha-response']) return res.status(400).json({
-    //     status: 400,
-    //     message: '400 Bad Request: Invalid Captcha'
-    // })
     new captchaHandler().send({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {
@@ -13,7 +9,6 @@ async function login(req, res, next) {
                 message: '400 Bad Request: Invalid Captcha'
             })
         }, next: function () {
-            console.log('Captcha.')
             auth(req, res, next)
         }
     })
