@@ -54,6 +54,7 @@ function FlipAnimProfile(user) {
     let editStatusModal, toasts = {
         success: toast('Success', 'Successfully set status, reload to see your new status', 5),
         error: toast('Error', 'An error occurred while setting status', 5),
+        invalid: toast('Invalid', 'The status you entered is either too long or has invalid characters', 5),
         tooLong: toast('Error', 'Status is too long', 5),
         ratelimited: toast('Error', 'You are sending requests too quickly', 5)
     }
@@ -71,7 +72,7 @@ function FlipAnimProfile(user) {
                     toasts.success.init().show()
                     editStatusModal.hide()
                 }, "400": function () {
-                    toasts.error.init().show()
+                    toasts.invalid.init().show()
                 }, "413": function () {
                     toasts.tooLong.init().show()
                 }, "429": function () {
@@ -79,7 +80,7 @@ function FlipAnimProfile(user) {
                 }, "500": function () {
                     toasts.error.init().show()
                 }
-            }
+            },
         },
         content: {
             inputs: [

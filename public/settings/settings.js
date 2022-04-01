@@ -89,6 +89,9 @@ function FlipAnimSettings(user) {
       displayName: $('displayName').value,
       theme: window.selectedTheme ? window.selectedTheme : user.preferences.theme
     }
+    let whitelist = new RegExp(`^(?:[\u0000-\u024f]+)$`,'g')
+    if (!whitelist.test(inputs.displayName)) return toast('Invalid display name', 'Display name can\'t contain special characters', 5)
+    if (!whitelist.test(inputs.bio)) return toast('Invalid bio', 'Bio can\'t contain special characters', 5)
     let fdata = new FormData()
     fdata.append('bio', inputs.bio.replaceAll('\n', '<br>'))
     fdata.append('displayName', inputs.displayName)
