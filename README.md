@@ -11,7 +11,7 @@ FlipAnim V2 Official Repository
 `/node_modules` imagine explaining this<br>
 
 
-## API Documentation
+## API & Modal Documentation
 Hosted in a separate repository and there's no way you'll get to see it >:)
 
 *(...yet)*
