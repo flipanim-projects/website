@@ -1,6 +1,4 @@
-'use strict';
 function FlipAnimProfile(user) {
-    'use strict';
     let loggedIn = user
     // Get which user the user is trying to view
     let query = window.location.search.replace('?', '')
@@ -100,8 +98,6 @@ function FlipAnimProfile(user) {
     }).init()
 
     function loadProfile(f) {
-        'use strict';
-        console.log(f)
         // No data? User not found
         if (f === undefined) return profileNotFound()
         // Update the page title
@@ -146,7 +142,6 @@ function FlipAnimProfile(user) {
         loadAnims(f.anims, f)
     }
     function followerHTML(html, f) {
-        'use strict';
         const ers = $('.profile-follow.ers');
         if (!loggedIn) {
             /** Not logged in? Only show the number of followers */

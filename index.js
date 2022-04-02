@@ -115,6 +115,8 @@ app.put('/api/v1/users/:userId/information', limitShort(2, 2, 'You are being rat
 // Following users
 app.put('/api/v1/users/:userId/followers', limitShort(0.2, 2, 'You cannot follow this user as you are being rate limited'), api.user.followers.put)
 app.get('/api/v1/users/:userId/followers', limitShort(0.4, 2, 'You cannot get this user\'s followers as you are being rate limited'), api.user.followers.get)
+// Searching
+app.get('/api/v1/search/users', limitShort(0.2, 2, 'You cannot search as you are being rate limited'), api.search.users)
 // Anim methods
 app.route("/api/v1/anims/popular").get(api.anim.getPopular); // Get popular anims
 app.route("/api/v1/anims/new").get(api.anim.getNew); // Get popular anims
@@ -154,3 +156,4 @@ pageRoute('/profile', ['profile/index', 'FlipAnim | Profile'])
 pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
+pageRoute('/search', ['search/index', 'FlipAnim | Search'])

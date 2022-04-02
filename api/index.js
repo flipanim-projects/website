@@ -18,7 +18,9 @@ const anim = {
     put: require('./user/followers/put')
   },
   get: require('./user/get')
+  }, search = {
+  users: require('./search/users')
 }
 module.exports = {
-  anim, session, user
+  anim, session, user, search
 }
