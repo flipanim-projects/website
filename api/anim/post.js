@@ -1,5 +1,6 @@
 const User = require('../../models/User'),
     Anim = require('../../models/Anim')
+    
 async function post(req, res) {
     if (!req.isAuthenticated()) return res.status(401).json({
         status: '401',

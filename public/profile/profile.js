@@ -167,33 +167,55 @@ function FlipAnimProfile(user) {
         } else {
             /* User is viewing someone else's profile? Make the user be able to follow that user */
             if ($('.profile-follow.ing')) $('.profile-follow.ing').remove()
-            // If the user is already following, OR if 
-            if (f.followers.includes(loggedIn.name.id) || followingBool === false) {
-                followingBool = !f.followers.includes(loggedIn.name.id)
+
+            let ifHas = f.followers.filter(p => p.id === loggedIn.name.id) 
+            if (ifHas.length < 1) ifHas = true
+            else ifHas = false
+
+            if (!ifHas) {
+                followingBool = !ifHas
                 html(ers, 'Following (' + f.followers.length + ')');
                 ers.classList.add('clickable')
                 ers.classList.add('following')
             } else {
                 html(ers, 'Follow (' + f.followers.length + ')');
-                followingBool = !f.followers.includes(loggedIn.name.id)
+                followingBool = !ifHas
                 ers.classList.add('clickable')
             }
             ers.onclick = () => {
                 ers.classList.add('submitting')
-                fetch('/api/v1/users/' + f.name.id + '/followers', {
+                console.log(followingBool)
+                fetch('/api/v1/users/' + f.name.id + '/followers?name='+loggedIn.name.text, {
                     method: 'PUT',
-                    body: `{\"follow\":\"${followingBool}\"}`,
+                    body: `{\"follow\":\"${!followingBool}\"}`,
                     headers: {
                         'Content-Type': 'application/json',
                     }
                 }).then(res => {
                     ers.classList.remove('submitting')
                     if (res.status === 200) {
-                        if (followingBool === false) f.followers.splice(f.followers.indexOf(loggedIn.name.id), 1), console.log('removed' + loggedIn.name.id + ' from ' + f.name.text)
-                        else f.followers.push(loggedIn.name.id), console.log('removed '+ loggedIn.name.id + ' from ' + f.name.text)
-                        followingBool = !f.followers.includes(loggedIn.name.id)
-                        toast('Success', `You are ${followingBool === true ? 'no longer following' : 'now following'} ${f.name.text}`).init().show()
-                        followerHTML(html, f)
+                        if (followingBool === true) {
+                            let ind = f.followers.map(p => p.id).indexOf(loggedIn.name.id)
+                            f.followers.splice(ind, 1), console.log('removed' + loggedIn.name.id + ' from ' + f.name.text)
+                        } else f.followers.push({ id: loggedIn.name.id, name: loggedIn.name.text }), console.log('added' + loggedIn.name.id + ' to ' + f.name.text)
+                        
+                        let ifHas = f.followers.filter(p => p.id === loggedIn.name.id) 
+                        console.log('ifHas', ifHas)
+                        if (ifHas.length < 1) ifHas = true
+                        else ifHas = false
+
+                        followingBool = !ifHas
+                        toast('Success', `You are ${followingBool === false ? 'no longer following' : 'now following'} ${f.name.text}`).init().show()
+                        
+                        if (followingBool === false) {
+                            ers.classList.remove('following')
+                            ers.classList.add('clickable')
+                            html(ers, 'Follow (' + f.followers.length + ')');
+                        } else {
+                            ers.classList.add('following')
+                            ers.classList.add('clickable')
+                            html(ers, 'Following (' + f.followers.length + ')');
+                        }
                     } else if (res.status === 500) { // Server error
                         toast('Error', `An error occurred while ${followingBool === true ? 'unfollowing' : 'following'} ${f.name.text}`).init().show()
                     } else if (res.status === 400) { // Bad request
