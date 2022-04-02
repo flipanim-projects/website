@@ -178,6 +178,9 @@ nav .linktitle {
 }
 
 @media (max-width: 608px) {
+  body {
+    overflow: scroll
+  }
   nav h1,
   nav .linktitle {
     padding: 10px;

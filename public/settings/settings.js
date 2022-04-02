@@ -84,14 +84,15 @@ function FlipAnimSettings(user) {
     modal.show();
   }
   function submitHandler() {
+    console.log('Submitting')
     let inputs = {
       bio: $('bio').value,
       displayName: $('displayName').value,
       theme: window.selectedTheme ? window.selectedTheme : user.preferences.theme
     }
-    let whitelist = new RegExp(`^(?:[\u0000-\u024f]+)$`,'g')
-    if (!whitelist.test(inputs.displayName)) return toast('Invalid display name', 'Display name can\'t contain special characters', 5)
-    if (!whitelist.test(inputs.bio)) return toast('Invalid bio', 'Bio can\'t contain special characters', 5)
+    // let whitelist = new RegExp(`^(?:[\u0000-\u024f]+)$`,'g')
+    // if (!whitelist.test(inputs.displayName)) return toast('Invalid display name', 'Display name can\'t contain special characters', 5)
+    // if (!whitelist.test(inputs.bio)) return toast('Invalid bio', 'Bio can\'t contain special characters', 5)
     let fdata = new FormData()
     fdata.append('bio', inputs.bio.replaceAll('\n', '<br>'))
     fdata.append('displayName', inputs.displayName)
@@ -128,6 +129,12 @@ function FlipAnimSettings(user) {
     })
   }
   $('settingsForm').onsubmit = function (e) {
+    if (window.hcaptchaResponse) submitHandler()
+    else toast('Please fill out the captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
+    e.preventDefault();
+    return false
+   }
+  $('subm').onclick = e => {
     if (window.hcaptchaResponse) submitHandler()
     else toast('Please fill out the captcha', 'Please fill out the captcha to prove you are not a robot =)', 5).init().show()
     e.preventDefault();

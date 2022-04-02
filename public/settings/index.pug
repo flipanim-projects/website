@@ -59,7 +59,7 @@ block content
             <div class="h-captcha" id="captcha" name="captcha" data-callback="hcaptchaCallback" data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43'></div>
             .flex 
                 button(style="width: 100%" onclick="window.history.go(-1)") Cancel
-                input#subm(type='submit',value='Save')
+                button#subm(style="width: 100%" type='button',value='Save',class="proceed") Save
     div.modal-container
 block scripts
     script(src="/public/utils/toast.js")
