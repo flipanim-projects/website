@@ -53,7 +53,7 @@ const FlipAnimCreateAccount = function () {
       toast('Invalid username', 'Username cannot contain slashes', 5)
     }
     let toFilter = $('#username').value.toLowerCase()
-    let reserved = ["LatticedDreams", "VideoGameDude", "Corruptandco", "Sharkiiie", "Flippy", "Ilysmfromm", "DanePerson", "Deku-Kun2", "Infinity999", "GearyOGuy", "Starshifter", "Worthings", "Worthlessness", "gafrield", "ViViHelico", "one", "FluffyGraffes", "Bugtoast", "Fazerlazer321", "Ak.", "jay", "Thatwaffle99", "wafels", "Its_Dev3230", "Infienthusiastowo", "catarie", "Queen-PufPuf", "Link", "the-dumb-dino", "Bakedbeano", "Poyo"]
+    let reserved = ["LatticedDreams", "VideoGameDude", "Corruptandco", "Sharkiiie", "Flippy", "Ilysmfromm", "DanePerson", "Deku-Kun2", "Infinity999", "GearyOGuy", "Starshifter", "Worthings", "Worthlessness", "gafrield", "ViViHelico", "one", "FluffyGraffes", "Bugtoast", "Fazerlazer321", "Ak.", "jay", "Thatwaffle99", "wafels", "Its_Dev3230", "Infienthusiastowo", "catarie", "Link", "the-dumb-dino", "Bakedbeano"]
     for (let i = 0; i < reserved.length; i++) {
       if (toFilter.includes(reserved[i].toLowerCase())) return toast('Username is reserved', 'Contact a site admin privately to temporarily un-reserve this username, so you can register it', 10)
     }
