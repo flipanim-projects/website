@@ -162,6 +162,8 @@ nav .linktitle {
   border-radius: 10px;
 }
 
+
+
 .nav-logo {
   image-rendering: -webkit-optimize-contrast;
   vertical-align: bottom;
@@ -173,6 +175,17 @@ nav .linktitle {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 608px) {
+  nav h1,
+  nav .linktitle {
+    padding: 10px;
+    margin: 0;
+  }
+  .nav-logo {
+    margin-left: -5px;
+  }
 }
 
 nav h1:hover,

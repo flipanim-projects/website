@@ -10,7 +10,7 @@ const FlipAnimLogin = function () {
     }
     function login(username, password, captcha) {
         let fdata = new FormData()
-        fdata.append('username', username)
+        fdata.append('username', username.toLowerCase())
         fdata.append('password', password)
         fdata.append('h-captcha-response', captcha)
         fdata = JSON.stringify(Object.fromEntries(fdata.entries()))
