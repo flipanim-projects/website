@@ -46,6 +46,7 @@ let userSchema = new Schema(
         "password": String,
         "bio": String,
         "badges": Array,
+        "email": String,
         "preferences": {
             "theme": String
         },

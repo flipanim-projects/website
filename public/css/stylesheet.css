@@ -11,7 +11,7 @@ body {
   --body-background-lightest: #484e64;
   /* Text */
   --body-text: #eee;
-  --body-text-alternate: #222; /* Usually inverse of --body-text */
+  --body-text-alternate: #eee; /* Usually inverse of --body-text */
   /* Elements "floating" above the main page, such as navbar and anims */
   --card-background: #484e64d0;
   --card-background-intense: #5d6379ce;

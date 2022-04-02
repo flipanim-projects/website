@@ -27,7 +27,7 @@ async function createUser(req, res) {
     }
     async function sendToAPI() {
         let date = new Date();
-        let userOpts = { "name": { "text": req.body.username.toLowerCase(), "display": '', "id": idGen() }, "avatar": false, "stats": {}, "anims": [], "notifications": [{ "title": "Welcome to FlipAnim!", "description": "Placeholder text.", "read": false }], "status": { "name": false, "type": 0 }, "following": [], "followers": [], "preferences": { theme: "dark" }, "password": sha256(req.body.password), "bio": "", "creation": { "unix": Date.now() / 1000, "text": date.toISOString() } }
+        let userOpts = { "name": { "text": req.body.username.toLowerCase(), "display": '', "id": idGen() }, "avatar": false, "stats": {}, "anims": [], "notifications": [{ "title": "Welcome to FlipAnim!", "description": "Placeholder text.", "read": false }], "status": { "name": false, "type": 0 }, "following": [], "followers": [], "preferences": { theme: "dark" }, "password": sha256(req.body.password), "email": req.body.email, "bio": "", "creation": { "unix": Date.now() / 1000, "text": date.toISOString() } }
         await User.findOne({
             'name.text': userOpts.name.text
         }).then(fin => {
