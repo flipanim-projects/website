@@ -1,6 +1,12 @@
 const User = require("../../../models/User"),
   CaptchaHandler = require("../../utils/captcha");
 async function information(req, res) {
+  if (!req.isAuthenticated())
+    return res.status(401).json({
+      status: 401,
+      message: "401 Unauthorized: User not logged in"
+    })
+  
   if (!req.body["displayName"] && !req.body["bio"])
     return res.status(400).json({
       status: 400,

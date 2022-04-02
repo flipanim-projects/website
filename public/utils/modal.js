@@ -11,6 +11,9 @@ class Modal {
       modal.style.display = "none";
       actions.classList.add("modal-actions");
       buttons.classList.add("modal-buttons");
+      if (this.classes) for (let i = 0; i < this.classes.length; i++) {
+        modal.classList.add(this.classes[i]);
+      }
       for (const html in this.content) {
         if (html == "inputs") inputs(this.content["inputs"]);
         else if (html == "buttons") _buttons(this.content["buttons"]);

@@ -9,7 +9,9 @@ body {
   --body-background: #111133;
   --body-background-lighter: #2a2a55;
   --body-background-lightest: #484e64;
+  /* Text */
   --body-text: #eee;
+  --body-text-alternate: #222; /* Usually inverse of --body-text */
   /* Elements "floating" above the main page, such as navbar and anims */
   --card-background: #484e64d0;
   --card-background-intense: #5d6379ce;
@@ -45,6 +47,7 @@ body.classic {
   --body-background-lighter: #219e55;
   --body-background-lightest: #168042;
   --body-text: rgb(37, 37, 37);
+  --body-text-alternate: rgb(240, 240, 240);
   /* Nav Background */
   --nav-background: rgb(60, 113, 187);
   --nav-shadow: inset -2px -5px 10px rgba(0, 0, 0, 0.7);
@@ -56,6 +59,7 @@ body.light {
   --body-background-lighter: #dfdfdf;
   --body-background-lightest: #cacaca;
   --body-text: rgb(37, 37, 37);
+  --body-text-alternate: rgb(240, 240, 240);
   /* Elements "floating" above the main page, such as navbar and anims */
   --card-background: #00000028;
   --card-background-intense: #00000048;
@@ -373,6 +377,7 @@ main {
   border-radius: 20px;
   transform: scale(0.9);
   transition: 0.4s;
+  color: var(--body-text-alternate)
 }
 
 .modal.showing {
@@ -386,6 +391,7 @@ main {
 }
 
 .modal-buttons {
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -437,7 +443,7 @@ button[disabled], input[type=submit].submitting {
   position: relative;
   pointer-events: none;
 }
-.submitting::after {
+.submitting::after, .spinner-load {
   border: 2px solid #94000000;
   /* Light grey */
   border-top: 2px solid #ffffff;
@@ -450,6 +456,11 @@ button[disabled], input[type=submit].submitting {
   height: 14px;
   content: '';
   animation: spinner-load 0.5s infinite cubic-bezier(.57, .35, .36, .78);
+}
+
+.spinner-load {
+  position: relative;
+  right: unset;
 }
 
 @keyframes spinner-load {
@@ -527,7 +538,7 @@ Profile
   background: var(--card-background)
 }
 
-.profile-follow.clickable {
+.clickable {
   cursor: pointer;
 }
 
@@ -540,6 +551,32 @@ Profile
   background: var(--card-background-selected);
 }
 
+.following-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  padding-right: 10px;
+  margin: 3px;
+  transition: 0.2s;
+  border-radius: 20px;
+  background: var(--card-background)
+}
+.following-user span {
+  display: block;
+  margin-left: 5px;
+  opacity: 0.7;
+}
+.following-user img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+.following-user.clickable:hover {
+  background: var(--card-background-intense);
+  transform: translateY(-1px);
+}
 .profile-status-info {
   margin-left: 40px;
 }

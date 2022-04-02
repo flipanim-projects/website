@@ -21,7 +21,7 @@ function FlipAnimProfile(user) {
                 profileNotFound()
             } else if (resp.status === 429) { // Too many requests?
                 tooManyRequests()
-            } 
+            }
         }
     )
     const $ = function (id) { return document.querySelector(id) }
@@ -145,11 +145,9 @@ function FlipAnimProfile(user) {
         }
         loadAnims(f.anims, f)
     }
-    let followingBool
     function followerHTML(html, f) {
         'use strict';
         const ers = $('.profile-follow.ers');
-        console.log(followingBool)
         if (!loggedIn) {
             /** Not logged in? Only show the number of followers */
             html(ers, 'Follow (' + f.followers.length + ')');
@@ -163,51 +161,47 @@ function FlipAnimProfile(user) {
         if (f.name.id === loggedIn.name.id) {
             /* User is viewing their own profile? Show the number of followers and number the user is following */
             html(ers, f.followers.length + ' followers');
+            ers.classList.add('clickable')
+            ers.onclick = () => {
+                getFollowers(f)
+            }
             html($('.profile-follow.ing'), 'Following ' + f.following.length);
         } else {
             /* User is viewing someone else's profile? Make the user be able to follow that user */
             if ($('.profile-follow.ing')) $('.profile-follow.ing').remove()
 
-            let ifHas = f.followers.filter(p => p.id === loggedIn.name.id) 
-            if (ifHas.length < 1) ifHas = true
-            else ifHas = false
+            let ifHas = !f.followers.includes(loggedIn.name.id)
 
             if (!ifHas) {
-                followingBool = !ifHas
                 html(ers, 'Following (' + f.followers.length + ')');
                 ers.classList.add('clickable')
                 ers.classList.add('following')
             } else {
                 html(ers, 'Follow (' + f.followers.length + ')');
-                followingBool = !ifHas
                 ers.classList.add('clickable')
             }
             ers.onclick = () => {
                 ers.classList.add('submitting')
-                console.log(followingBool)
-                fetch('/api/v1/users/' + f.name.id + '/followers?name='+loggedIn.name.text, {
+                console.log('ifHas', ifHas)
+                fetch('/api/v1/users/' + f.name.id + '/followers?name=' + loggedIn.name.text, {
                     method: 'PUT',
-                    body: `{\"follow\":\"${!followingBool}\"}`,
+                    body: `{\"follow\":\"${ifHas}\"}`,
                     headers: {
                         'Content-Type': 'application/json',
                     }
                 }).then(res => {
                     ers.classList.remove('submitting')
                     if (res.status === 200) {
-                        if (followingBool === true) {
-                            let ind = f.followers.map(p => p.id).indexOf(loggedIn.name.id)
+                        if (!ifHas) {
+                            let ind = f.followers.indexOf(loggedIn.name.id)
                             f.followers.splice(ind, 1), console.log('removed' + loggedIn.name.id + ' from ' + f.name.text)
-                        } else f.followers.push({ id: loggedIn.name.id, name: loggedIn.name.text }), console.log('added' + loggedIn.name.id + ' to ' + f.name.text)
-                        
-                        let ifHas = f.followers.filter(p => p.id === loggedIn.name.id) 
-                        console.log('ifHas', ifHas)
-                        if (ifHas.length < 1) ifHas = true
-                        else ifHas = false
+                        } else f.followers.push(loggedIn.name.id), console.log('added' + loggedIn.name.id + ' to ' + f.name.text)
 
-                        followingBool = !ifHas
-                        toast('Success', `You are ${followingBool === false ? 'no longer following' : 'now following'} ${f.name.text}`).init().show()
-                        
-                        if (followingBool === false) {
+                        ifHas = !f.followers.includes(loggedIn.name.id)
+                        console.log('ifHas', ifHas)
+                        toast('Success', `You are ${ifHas === true ? 'no longer following' : 'now following'} ${f.name.text}`).init().show()
+
+                        if (ifHas === true) {
                             ers.classList.remove('following')
                             ers.classList.add('clickable')
                             html(ers, 'Follow (' + f.followers.length + ')');
@@ -217,19 +211,82 @@ function FlipAnimProfile(user) {
                             html(ers, 'Following (' + f.followers.length + ')');
                         }
                     } else if (res.status === 500) { // Server error
-                        toast('Error', `An error occurred while ${followingBool === true ? 'unfollowing' : 'following'} ${f.name.text}`).init().show()
+                        toast('Error', `An error occurred while ${ifHas === true ? 'unfollowing' : 'following'} ${f.name.text}`).init().show()
                     } else if (res.status === 400) { // Bad request
-                        toast('Error', `You are already ${followingBool === true ? 'not following' : 'following'} ${f.name.text}`, 5).init().show()
+                        toast('Error', `You are already ${ifHas === true ? 'not following' : 'following'} ${f.name.text}`, 5).init().show()
                     } else if (res.status === 429) { // Rate limited
                         toast('Error', 'You are spamming, how mean >:(', 5).init().show()
                     } else if (res.status === 409) { // Conflict
-                        toast('Error', `You are already ${followingBool === true ? 'not following' : 'following'} ${f.name.text}`, 5).init().show()
+                        toast('Error', `You are already ${ifHas === true ? 'not following' : 'following'} ${f.name.text}`, 5).init().show()
                     } else { // Unknown error
                         toast('Error', 'An unknown error occurred', 5).init().show()
                     }
                 })
             }
         }
+    }
+    let fmodal = new Modal({
+        title: 'Followers',
+        description: '<div class="flex">Fetching followers... <div class="spinner-load"></div></div>',
+        classes: ['followers-modal'],
+        content: {
+            buttons: [
+                {
+                    text: 'Close',
+                    type: 'cancel'
+                }
+            ]
+        }
+    }), alreadyfetched = false
+    function getFollowers(f) {
+       
+        fmodal.init().show()
+        if (alreadyfetched === false) fetch('/api/v1/users/' + f.name.id + '/followers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(res => {
+            if (res.status === 200 || res.status === 204 || res.status === 304) {
+                res.json().then(resp => {
+                    console.log(resp)
+                    updateFollowers(resp.data,fmodal)
+                })
+                alreadyfetched = true
+            } else if (res.status === 500) { // Server error
+                toast('Error', `An error occurred while getting ${f.name.text}'s followers`).init().show()
+            } else if (res.status === 400) { // Bad request
+                toast('Error', `An error occurred while getting ${f.name.text}'s followers`, 5).init().show()
+            } else if (res.status === 429) { // Rate limited
+                toast('Error', 'You are spamming, how mean >:(', 5).init().show()
+            } else if (res.status === 409) { // Conflict
+                toast('Error', `An error occurred while getting ${f.name.text}'s followers`, 5).init().show()
+            } else { // Unknown error
+                toast('Error', 'An unknown error occurred', 5).init().show()
+            }
+        })
+    }
+
+    function updateFollowers(data) {
+        console.log(data)
+        if (data.length < 1) {
+            $('.followers-modal').children[2].innerHTML = 'No followers'
+            fmodal.description = 'No followers'
+            return
+        }
+        $('.followers-modal').children[2].innerHTML = ''
+        for (let i = 0; i < data.length; i++) {
+            let user = data[i]
+            let userDiv = document.createElement('div')
+            userDiv.classList.add('following-user')
+            userDiv.classList.add('clickable')
+            userDiv.onclick = () => {
+                window.location.href = '/profile?user=' + user.id
+            }
+            userDiv.innerHTML = `<img src="${user.avatar ? user.avatar : '/public/imgs/profile.png'}"> ${user.display} <span>@${user.name}</span>`
+            $('.followers-modal').children[2].appendChild(userDiv)
+        }
+        fmodal.description = $('.followers-modal').children[2].innerHTML
     }
 
     function loadAnims(anims, user) {

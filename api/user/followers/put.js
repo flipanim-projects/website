@@ -1,5 +1,9 @@
-const User = require('../../models/User')
-async function follow(req, res) {
+const User = require('../../../models/User')
+async function put(req, res) {
+    if (!req.isAuthenticated()) return res.status(401).json({
+        status: 401,
+        message: '401 Unauthorized: User not logged in'
+    })
     if (!req.params.userId) return res.status(400).json({
         status: 400,
         message: '400 Bad Request: No id provided'
@@ -9,8 +13,7 @@ async function follow(req, res) {
         let user, sent = false
         await User.findById(req.session.passport.user).then(resp => {
             user = resp
-            let ifHas = user.following.filter(f => f.id.toString() === req.params.userId)
-            if (ifHas.length > 0) {
+            if (user.following.includes(resp.name.id)) {
                 sent = true
                 return res.status(409).json({
                     status: 409,
@@ -23,10 +26,7 @@ async function follow(req, res) {
                 'name.id': user.name.id.toString()
             }, {
             $push: {
-                following: {
-                    id: req.params.userId.toString(),
-                    name: req.query.name.toString()
-                }
+                following: req.params.userId.toString()
             }
         }).then(async () => {
             await User.updateOne(
@@ -34,10 +34,7 @@ async function follow(req, res) {
                     'name.id': req.params.userId.toString()
                 }, {
                 $push: {
-                    followers: {
-                        id: user.name.id.toString(),
-                        name: user.name.text.toString()
-                    }
+                    followers: user.name.id.toString()
                 }
             }).then(() => {
                 if (!res.headersSent) res.status(200).json({
@@ -59,38 +56,41 @@ async function follow(req, res) {
             })
         })
     } else if (req.body.follow === 'false') {
-        let user
-        await User.findById(req.session.passport.user).then(resp => {
+        let user, sent = false
+        await User.findById(req.session.passport.user).then(async resp => {
             user = resp
             console.log(user.following, req.params.userId)
-            let ifHas = user.following.filter(f => f.id.toString() === req.params.userId.toString())
-            console.log(ifHas)
             // If user is not following
-            if (ifHas.length < 1) {
+            if (!user.following.includes(req.params.userId)) {
+                sent = true
                 if (!res.headersSent) return res.status(409).json({
                     status: 409,
                     message: '409 Conflict: Not following'
                 })
             }
-        })
-        await User.updateOne(
-            {
-                'name.id': user.name.id.toString()
-            }, {
-            $pull: {
-                following: {
-                    id: req.params.userId.toString()
-                }
-            }
-        }).exec().then(async () => {
-            if (!res.headersSent) await User.updateOne({ 'name.id': req.params.userId.toString() }, {
+            if (sent === false) await User.updateOne(
+                {
+                    'name.id': user.name.id.toString()
+                }, {
                 $pull: {
-                    followers: { id: user.name.id }
+                    following: req.params.userId.toString()
                 }
-            }).exec().then(() => {
-                res.status(200).json({
-                    status: 200,
-                    message: 'Unfollowed'
+            }).exec().then(async () => {
+                if (!res.headersSent) await User.updateOne({ 'name.id': req.params.userId.toString() }, {
+                    $pull: {
+                        followers: user.name.id
+                    }
+                }).exec().then(() => {
+                    res.status(200).json({
+                        status: 200,
+                        message: 'Unfollowed'
+                    })
+                }).catch(err => {
+                    console.error(err)
+                    if (!res.headersSent) return res.status(500).json({
+                        status: 500,
+                        message: 'Internal Server Error'
+                    })
                 })
             }).catch(err => {
                 console.error(err)
@@ -99,13 +99,8 @@ async function follow(req, res) {
                     message: 'Internal Server Error'
                 })
             })
-        }).catch(err => {
-            console.error(err)
-            if (!res.headersSent) return res.status(500).json({
-                status: 500,
-                message: 'Internal Server Error'
-            })
         })
+
     } else {
         if (!res.headersSent) return res.status(400).json({
             status: 400,
@@ -114,4 +109,4 @@ async function follow(req, res) {
     }
 
 }
-module.exports = follow
+module.exports = put
