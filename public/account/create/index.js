@@ -1,6 +1,3 @@
-
-
-
 const FlipAnimCreateAccount = function () {
   const $ = id => { return document.querySelector(id) }
   let createBtn = $('input[type=submit]')
@@ -43,7 +40,6 @@ const FlipAnimCreateAccount = function () {
     })
   }
   function submitHandler() {
-    
     if (!$('#username').value || !$('#password').value || !$('#email').value) {
       toast('No data', 'Please fill out the username, email and password fields', 5)
       return
@@ -59,7 +55,7 @@ const FlipAnimCreateAccount = function () {
       return toast('Invalid username', 'Username cannot contain slashes', 5)
     }
     let toFilter = $('#username').value.toLowerCase()
-    let reserved = ["VideoGameDude", "Sharkiiie", "Flippy", "Deku-Kun2", "Infinity999", "GearyOGuy", "Starshifter", "Worthings", "Worthlessness", "ViViHelico", "one", "FluffyGraffes", "Bugtoast", "Fazerlazer321", "Ak.", "jay", "Thatwaffle99", "wafels", "Its_Dev3230", "Infienthusiastowo", "catarie", "Link", "the-dumb-dino"]
+    let reserved = ["VideoGameDude", "Sharkiiie", "Flippy", "Deku-Kun2", "Infinity999", "GearyOGuy", "Starshifter", "Worthings", "Worthlessness", "ViViHelico", "one", "FluffyGraffes", "Bugtoast", "Fazerlazer321", "Ak.", "Thatwaffle99", "wafels", "Its_Dev3230", "Infienthusiastowo", "catarie", "Link", "the-dumb-dino"]
     for (let i = 0; i < reserved.length; i++) {
       if (toFilter.includes(reserved[i].toLowerCase())) {
         createBtn.classList.remove('submitting')
