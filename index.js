@@ -154,5 +154,3 @@ pageRoute('/profile', ['profile/index', 'FlipAnim | Profile'])
 pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
-
-//comment to fix app crash
