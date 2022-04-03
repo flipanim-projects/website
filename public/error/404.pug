@@ -54,9 +54,7 @@ body.error
                             }, snow.changer = 10 * Math.random(); 
                             snow.startX = snow.position.x
                             snow.classList.add('snow')
-                            snow.style.position = "absolute"
-                            snow.style.userSelect = "none"
-                            snow.style.color = "white"
+
                             snow.position.x = snow.startX + 10 * Math.sin(e / snow.velocity.x) 
                             snow.style.left = snow.position.x + "px" 
                             snow.style.top = snow.position.y + "px"
@@ -72,6 +70,8 @@ body.error
                     }
                     function slct(y,snow) {
                         if (window.score === null) return
+                        if (y.selected === true) return 
+                        y.selected = true
                         started = true
                         window.score++
                         document.getElementById('score').innerHTML = window.score
