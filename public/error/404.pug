@@ -17,17 +17,17 @@ body.error
         p Because:
         ul 
             li This was never intended to last more than a day. 
-            li The unprecedented advertising (not expected).
-            li Alt spam. This was not aganist the TOS at the time (there was none!) but it is now.
+            li The unprecedented advertising of this site (not expected).
+            li Alt spam. Too many alts. This was not aganist the TOS at the time (there was none!) but it is now.
             li And finally, extensive load on Heroku's servers, which after all are only on the free tier
         p In the first Public Beta alone, 423 accounts were created.
         h2 What's next?
-        p Remember that there is another Public Beta.
+        p Remember that there will be another Public Beta, in a month or maybe even a few weeks =)
         p Join the Discord for more announcements and updates: <a href="https://discord.gg/9Xd5RehAx">https://discord.gg/g9Xd5RehAx</a>
         small: a(href="https://pineapplerind.ga") - Pineapple-Rind, main coder
     script.
         window.onload = function() {
-            window.score = 0;
+            window.score = 0, started = false;
             window.onmousemove = function(e) {
                 var x = e.clientX;
                 var y = e.clientY;
@@ -72,6 +72,7 @@ body.error
                     }
                     function slct(y,snow) {
                         if (window.score === null) return
+                        started = true
                         window.score++
                         document.getElementById('score').innerHTML = window.score
                         snow.style.pointerEvents = "none"
@@ -105,6 +106,7 @@ body.error
                             }, 500)
                         }
                         if (snow.position.y >= (scrollheight-40)) {
+                            if (!started) return
                             flakes = []
                             document.getElementById('score').style.color = 'green'
                             document.getElementById('score').innerHTML = 'Score: ' + window.score

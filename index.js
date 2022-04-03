@@ -105,6 +105,7 @@ const limitShort = (minutes, max, msg) => {
         legacyHeaders: false, // Disable the `X-RateLimit-*` headers
     })
 }
+
 // Getting & creating users
 app.get("/api/v1/users", limitShort(0.2, 2, 'You cannot get a user as you are being rate limited'), api.user.get); // For individual user requests!
 app.post('/api/v1/users', limitShort(30, 1), api.user.create); // For creation of users
@@ -125,9 +126,8 @@ app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // POST anim
 // Session methods
 app.post("/api/v1/login", limitShort(0.3, 3, 'You are being ratelimited, try again later'), api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
-/*********************
- * STATIC PAGES with pug!
- ********************/
+
+
 const pageRoute = (url, page, args) => {
     app.get(url, async (req, res) => {
         let pg
@@ -157,3 +157,5 @@ pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
 pageRoute('/search', ['search/index', 'FlipAnim | Search'])
+pageRoute('/anim', ['anim/index', 'FlipAnim | Anim'])
+// pageRoute('*',['error/404', '404'] )

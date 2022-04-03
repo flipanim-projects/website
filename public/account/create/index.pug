@@ -5,15 +5,15 @@ block content
     small Already have an account? <a href="/account/login">Login</a>
     form.create#create(onsubmit="return false")
       br
-      p(style="max-width: 300px;") Having issues? Join our <a href=https://discord.gg/jF69TvPthh>Discord</a>.
-        input#username(type='text', name='username', placeholder='Username...')
-        input#email(type='text', name='email', placeholder='Email...')
-        small emails are only used for verification. We will never spam your email
-        input#password(type='password', name='password', placeholder='Password...')
-        .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43' data-callback="hcaptcha")
-        script(src='https://js.hcaptcha.com/1/api.js')
-        br
-        input(type='submit', value='Submit')
+      //- p(style="max-width: 300px;") Creating accounts is now shut down due to alt spam.
+      input#username(type='text', name='username', placeholder='Username...')
+      input#email(type='text', name='email', placeholder='Email...')
+      small emails are only used for verification. We will never spam your email
+      input#password(type='password', name='password', placeholder='Password...')
+      .h-captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43' data-callback="hcaptcha")
+      script(src='https://js.hcaptcha.com/1/api.js')
+      br
+      input(type='submit', value='Submit')
 block scripts
   script(src="/public/utils/toast.js")
   script(src='/public/index.js')

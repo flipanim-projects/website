@@ -17,12 +17,13 @@ function loadAnim(data) {
         el.innerHTML = text
         return el.classList.remove('skeleton')
     }
+    let creation = new Date(data.creation.text)
     html($('.anim-title'), data.name)
     document.querySelector('title').innerHTML = data.name+' | FlipAnim'
     html($('.anim-likes'), `<b>${data.stats.likes}</b> like${data.stats.likes === 1 ? '' : 's'}`)
     html($('.anim-views'), `<b>${data.stats.views}</b> view${data.stats.views === 1 ? '' : 's'}`)
     html($('.anim-author'), `by <b>${data.author.text}</b>`)
-    html($('.anim-creation'), data.creation.text)
+    html($('.anim-creation'), creation.toLocaleString())
     html($('.anim-comment-count'), '(' + data.comments.length + ')')
     html($('.anim-comment-container'), loadComments(data))
 }
