@@ -15,26 +15,28 @@ block content
             div 
         .editor.flex
             aside 
+                style.
+                    [disabled] { pointer-events: none; opacity: 0.5; }
                 div.flex(style="flex-wrap:wrap")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -69px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -320px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -19px -267px; width: 36px; height: 36px")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px", data-tool="pencil")
+                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -69px -217px; width: 36px; height: 36px", data-tool="eraser")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -320px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -19px -267px; width: 36px; height: 36px")
                 div.flex(style="flex-wrap:wrap")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -117px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -167px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -117px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -167px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
                 div.flex(style="flex-wrap:wrap")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
                 div.flex(style="flex-wrap:wrap")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
                 div.flex(style="flex-wrap:wrap")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
-                    .tool-wrap: .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
+                    .tool-wrap(disabled): .tool(style="background: url('/public/imgs/sprites.png') -21px -217px; width: 36px; height: 36px")
             .editor-active 
                 canvas
             aside 
@@ -42,4 +44,4 @@ block content
 block scripts 
     script(src='/public/utils/modal.js')
     script(src='/public/index.js')
-    script(src="editor.js")
+    script(src="/public/editor/editor.js")
