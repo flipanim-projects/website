@@ -34,16 +34,24 @@ async function information(req, res) {
       editUser();
     },
   });
+  function sanitize(input) {
+    let map = {
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    };
+    return input.replace(/[&<>"']/g, function (m) {
+      return map[m];
+    });
+  }
   async function editUser() {
-    let user = await User.findById(req.session.passport.user).then(async user => {
+    await User.findById(req.session.passport.user).then(async user => {
       let toupdate = {};
       toupdate.name = user.name
       toupdate.bio = user.bio
       toupdate.preferences = { theme: user.preferences.theme }
-      req.body["bio"] ? (toupdate.bio = req.body["bio"]) : null;
+      if (req.body["bio"]) toupdate.bio = sanitize(req.body["bio"])
       if (req.body["displayName"])
-        toupdate.name.display = req.body["displayName"];
-      if (req.body["theme"]) toupdate.preferences.theme = req.body["theme"];
+        toupdate.name.display = sanitize(req.body["displayName"]);
+      if (req.body["theme"]) toupdate.preferences.theme = sanitize(req.body["theme"]);
       await User.findByIdAndUpdate(req.session.passport.user, toupdate)
         .then(() => {
           res.status(200).json({

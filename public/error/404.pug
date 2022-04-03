@@ -11,7 +11,7 @@ body.error
     div#glass
         div#score
         h1 404
-        h2 Thank You 
+        h2 Page not found
         b Public Beta 1 has ended 
         br
         p Because:
@@ -23,8 +23,8 @@ body.error
         p In the first Public Beta alone, 423 accounts were created.
         h2 What's next?
         p Remember that there will be another Public Beta, in a month or maybe even a few weeks =)
-        p Join the Discord for more announcements and updates: <a href="https://discord.gg/9Xd5RehAx">https://discord.gg/g9Xd5RehAx</a>
-        small: a(href="https://pineapplerind.ga") - Pineapple-Rind, main coder
+        p Join the Discord for more announcements and updates: <a href="https://discord.gg/g9Xd5RehAx">https://discord.gg/g9Xd5RehAx</a>
+        small: a(onclick="window.location.href = 'https://pineapplerind.ga'" href="https://pineapplerind.ga") - Pineapple-Rind
     script.
         window.onload = function() {
             window.score = 0, started = false;
@@ -77,9 +77,9 @@ body.error
                         document.getElementById('score').innerHTML = window.score
                         snow.style.pointerEvents = "none"
                         y.velocity.x = -3 - (Math.random()*3)
-                        y.velocity.y = -1 - (Math.random()*3)
+                        y.velocity.y = -3 - (Math.random()*5)
                         snow.style.transform = "scale(1.5)"
-                        snow.style.opacity = "0.2"
+                        snow.style.opacity = "0.5"
                         setTimeout(function() {
                             snow.style.transform = "scale(1)"
                         }, 100)

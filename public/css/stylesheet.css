@@ -799,8 +799,8 @@ Editor
 }
 
 .editor-active canvas {
-  width: clamp(300px, 50vw, 600px);
-  height: clamp(300px, 50vw, 600px);
+  /* width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vw, 600px); */
   background: white;
 }
 

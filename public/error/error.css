@@ -52,7 +52,7 @@ a {
     font-weight: 200;
     color: white;
     font-size: 16px;
-
+    cursor: pointer;
     text-decoration: underline;
 }
 
@@ -83,6 +83,7 @@ ul {
     width: 50px;
     transition: 0.1s;
     height: 50px;
+    z-index: -1;
     pointer-events: none;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
@@ -129,22 +130,4 @@ ul {
     position: absolute;
     top:10px;
     right:10px;
-}
-
-/* Polyfill for backdrop-filter */
-@supports (backdrop-filter: blur(10px)) {
-    #glass {
-        backdrop-filter: blur(10px);
-    }
-}
-
-#glass:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index:-1;
-    height: 100%;
-    filter: blur(10px);
 }
