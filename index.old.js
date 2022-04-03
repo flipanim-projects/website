@@ -1,27 +1,21 @@
 var express = require("express"),
     session = require("express-session"),
     app = express(),
-    server = app.listen(process.env.PORT || 3000, listen),
-    path = require('path')/*,
+    path = require('path'),
     cors = require("cors"),
     bodyParser = require("body-parser"),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FileStore = require('session-file-store')(session),
+    server = app.listen(process.env.PORT || 3000, listen),
     rateLimit = require('express-rate-limit')
 
 var api = require('./api/index'),
     User = require('./models/User'),
-    sha256 = require('./api/sha256');*/
-function listen() {
-    return console.log('Server is listening');
-}
-app.use(express.static(path.join(__dirname + "/")));
+    sha256 = require('./api/sha256')
 
-app.set('view engine', 'pug')
-app.set("views", path.join(__dirname, "public"));
-/*const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
+const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
 
 // Connect to data server
 mongoose.connect(dbUrl, {
@@ -32,10 +26,13 @@ mongoose.connect(dbUrl, {
     if (err) console.log(err);
 });
 
+function listen() {
+    return console.log('Server is listening');
+}
+
 function genSessionSecret() {
     return Math.floor(Math.random() * 100 ** 7).toString(16);
 }
-
 let gened = genSessionSecret()
 app.use(
     session({
@@ -58,7 +55,11 @@ app.use(
         extended: true,
     })
 );
+app.use(express.static(path.join(__dirname + "/")));
 
+/**Pug Config*/
+app.set('view engine', 'pug')
+app.set("views", path.join(__dirname, "public"));
 
 
 passport.use(new LocalStrategy(
@@ -125,14 +126,14 @@ app.route("/api/v1/anims").post(api.anim.post, limitShort(2, 1)); // POST anim
 // Session methods
 app.post("/api/v1/login", limitShort(0.3, 3, 'You are being ratelimited, try again later'), api.session.login);
 app.route("/api/v1/logout").post(api.session.logout);
-*/
+
 
 const pageRoute = (url, page, args) => {
     app.get(url, async (req, res) => {
         let pg
         if (!page.a) pg = { a: [page[0], page[1]], ua: [page[0], page[1]] }
         else pg = page
-       /* if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
+        if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
             let tosend = {
                 name: {
                     display: user.name.display,
@@ -145,16 +146,16 @@ const pageRoute = (url, page, args) => {
             }
             res.render(pg.a[0], { title: pg.a[1], user: JSON.stringify(tosend) })
         })
-        else */res.render(pg.ua[0], { title: pg.ua[1] })
+        else res.render(pg.ua[0], { title: pg.ua[1] })
     })
 }
-// pageRoute('/', { a: ['browse/index', 'FlipAnim | Home'], ua: ['index', 'FlipAnim | Home'] })
-// pageRoute('/account/login', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/login', 'FlipAnim | Login'] })
-// pageRoute('/account/create', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/create', 'FlipAnim | Create account'] })
-// pageRoute('/profile', ['profile/index', 'FlipAnim | Profile'])
-// pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
-// pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
-// pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
-// pageRoute('/search', ['search/index', 'FlipAnim | Search'])
-// pageRoute('/anim', ['anim/index', 'FlipAnim | Anim'])
-pageRoute('*',['error/404', 'Public Beta Ended'] )
+pageRoute('/', { a: ['browse/index', 'FlipAnim | Home'], ua: ['index', 'FlipAnim | Home'] })
+pageRoute('/account/login', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/login', 'FlipAnim | Login'] })
+pageRoute('/account/create', { a: ['account/alreadyin', 'FlipAnim | Already logged in'], ua: ['account/create', 'FlipAnim | Create account'] })
+pageRoute('/profile', ['profile/index', 'FlipAnim | Profile'])
+pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
+pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
+pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
+pageRoute('/search', ['search/index', 'FlipAnim | Search'])
+pageRoute('/anim', ['anim/index', 'FlipAnim | Anim'])
+// pageRoute('*',['error/404', '404'] )

@@ -93,7 +93,11 @@ ul {
     z-index: 4;
     cursor: default;
     animation: fadein 1s linear;
+    position: absolute;
+    user-select: none;
+    color: white;
 }
+
 @keyframes fadein {
     from {
         opacity: 0;

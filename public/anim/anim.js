@@ -22,7 +22,7 @@ function loadAnim(data) {
     document.querySelector('title').innerHTML = data.name+' | FlipAnim'
     html($('.anim-likes'), `<b>${data.stats.likes}</b> like${data.stats.likes === 1 ? '' : 's'}`)
     html($('.anim-views'), `<b>${data.stats.views}</b> view${data.stats.views === 1 ? '' : 's'}`)
-    html($('.anim-author'), `by <b>${data.author.text}</b>`)
+    html($('.anim-author'), `by <b><a href="/profile?user=${data.author.id}">@${data.author.text}</a></b>`)
     html($('.anim-creation'), creation.toLocaleString())
     html($('.anim-comment-count'), '(' + data.comments.length + ')')
     html($('.anim-comment-container'), loadComments(data))
