@@ -790,21 +790,27 @@ Comments
 /*****************
 Editor
 ******************/
+.editor-main {
+  display: flex;
+  flex-direction: column;
+}
 .editor aside {
   margin: 10px;
   height: 100%;
-
   border-radius: 20px;
   background: var(--card-background);
 }
 
 .editor-active canvas {
-  /* width: clamp(300px, 50vw, 600px);
-  height: clamp(300px, 50vw, 600px); */
+  z-index: 100;
   background: white;
 }
 
 .editor-active {
+  position: relative;
+  z-index: 10;
+  width: clamp(300px, 50vw, 600px);
+  height: clamp(300px, 50vw, 600px);
   background: var(--card-background)
 }
 
@@ -815,7 +821,6 @@ Editor
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(0, 0, 255, 0);
-
 }
 
 .tool-wrap:hover {
@@ -837,6 +842,18 @@ aside div.flex:last-child {
   border: 0
 }
 
+.editor.flex {
+  display: flex;
+  width: 100%;
+}
+
+.editor-pallette, .tool-settings {
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background: var(--card-background);
+}
 /*******************
 Settings
 *******************/
