@@ -21,8 +21,7 @@ app.use(express.static(path.join(__dirname + "/")));
 
 app.set('view engine', 'pug')
 app.set("views", path.join(__dirname, "public"));
-/*const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
-
+/*
 // Connect to data server
 mongoose.connect(dbUrl, {
     keepAlive: 1,
