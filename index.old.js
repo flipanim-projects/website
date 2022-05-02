@@ -15,7 +15,7 @@ var api = require('./api/index'),
     User = require('./models/User'),
     sha256 = require('./api/sha256')
 
-const dbUrl = 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
+const dbUrl = 'your mom'
 
 // Connect to data server
 mongoose.connect(dbUrl, {
@@ -37,7 +37,7 @@ let gened = genSessionSecret()
 app.use(
     session({
         store: new FileStore(),
-        secret: 'DevelopmentSecret (replace during public beta)',
+        secret: 'wow look a secret',
         resave: false,
         saveUninitialized: false,
         cookie: {
