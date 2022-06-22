@@ -14,11 +14,9 @@ const anim = {
     information: require('./user/edit/information')
   },
   followers: {
-    get: require('./user/followers/get'),
     put: require('./user/followers/put')
   },
-  get: require('./user/get')
-  }, search = {
+}, search = {
   users: require('./search/users')
 }
 module.exports = {

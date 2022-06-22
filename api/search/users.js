@@ -2,21 +2,18 @@ const User = require('../../models/User')
 async function users(req, res) {
     //   search for users
     console.log(req.query)
-    if (req.query.q.length < 3) return res.status(400).json({
+    if (!req.query.q || req.query.q.length < 3) return res.status(400).json({
         status: 400,
-        message: '400 Bad Request: Search query too short'
+        message: '400 Bad Request: Search query too short or nonexistent'
     })
 
-    let users = await User.find({
-        'name.text': {
-            $regex: req.query.q,
-            // search globally with "g" flag and case-sensitive
-            $options: 'i'
-        },
-    }).then(users => {
+    await User.find({
+        'name.text': { $regex: req.query.q, $options: 'i' }
+    }).exec().then(users => {
         let stat
-        users ? stat = 200 : stat = 204
+        users.length > 0 ? stat = 200 : stat = 204
         let tosend = []
+        console.log(users)
         for (let i = 0; i < users.length; i++) {
             tosend.push({
                 id: users[i].name.id,
@@ -27,15 +24,9 @@ async function users(req, res) {
         }
         return res.status(stat).json({
             status: stat,
-            message: '200 OK',
+            message: stat.toString() + ' OK',
             data: tosend
-        });
-    }).catch(err => {
-        console.error(err)
-        return res.status(500).json({
-            status: 500,
-            message: 'Internal Server Error',
-        });
+        })
     })
 }
 

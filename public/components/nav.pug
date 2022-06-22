@@ -1,0 +1,29 @@
+nav
+    div.flex
+        a(onclick="window.location.href = '/'"): img.linktitle(src="/public/imgs/flipanimv2.png" height="60px" style="vertical-align: bottom;margin-right:5px;" alt="FlipAnim")
+        a.linktitle(disabled onclick="window.location.href = '#'") Draw
+        a.linktitle(onclick="window.location.href = '/search'") Search
+        a.linktitle(disabled) Followed
+    if user
+        div.profile
+            script.
+                (function(){
+                    window.openUserDropdown = () => {
+                        var o = document.getElementsByClassName("profile-options")[0];
+                        o.classList.contains("open") ? (o.classList.remove("open"), window.onclick = (() => {})) : o.classList.contains("open") || (window.onclick = (o => {
+                            o.target !== document.getElementById("profileDropdownOpener") && window.openUserDropdown()
+                        }), o.classList.add("open"))
+                    };
+                })()
+            img#profileDropdownOpener(src="/public/imgs/profile.png" onclick="window.openUserDropdown()")
+    else 
+        .login-buttons 
+            button(onclick="window.location.href='/account/login'") Log in 
+            button(onclick="window.location.href='/account/create'") Create account
+if user
+    div.profile-options
+        p(disabled='', style='pointer-events:none;padding-bottom:3px;opacity:0.5;margin:5px;border-bottom: 1px solid rgba(255,255,255),0.5')
+            | Logged in as @#{JSON.parse(user).name.text}
+            #profileLink.profile-option Profile
+            #settings.profile-option Settings
+            #logOut.profile-option Log out 

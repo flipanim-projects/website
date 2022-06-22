@@ -30,5 +30,5 @@ let animSchema = new Schema(
         }
     }
 );
-let Anim = mongoose.model("anim", animSchema);
+let Anim = mongoose.model("Anim", animSchema);
 module.exports = Anim;
