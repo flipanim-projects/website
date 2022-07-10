@@ -4,7 +4,7 @@
   "description": "The FlipAnim Website",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ignore sessions/ -e js,ts index.js"
+    "dev": "nodemon -e js,ts --ignore sessions/*,public/* index.js"
   },
   "author": "pr",
   "license": "MIT",
@@ -18,10 +18,9 @@
     "got": "^12.1.0",
     "hcaptcha": "^0.1.1",
     "mongoose": "^6.2.4",
-    "passport": "^0.5.2",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
-    "session-file-store": "^1.5.0",
-    "svelte-view-engine": "1.2.0-b"
+    "session-file-store": "^1.5.0"
   }
 }

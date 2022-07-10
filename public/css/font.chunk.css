@@ -1,0 +1,51 @@
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular700.woff);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular900.woff);
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular400i.woff);
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular500i.woff);
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular700i.woff);
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Circular;
+    src: url(../font/Circular900i.woff);
+    font-weight: 900;
+    font-style: italic;
+}

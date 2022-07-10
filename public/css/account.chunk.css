@@ -1,0 +1,8 @@
+.account-box {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--card-background);
+    width: 350px;
+}

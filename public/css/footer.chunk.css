@@ -6,7 +6,7 @@ footer {
     align-items: unset !important;
     padding: var(--footer-padding);
     background: var(--body-background-lighter);
-    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--footer-shadow);
 }
 
 footer>div {

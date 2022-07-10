@@ -26,7 +26,6 @@ mongoose.connect(dbUrl, {
 }, (err) => {
     if (err) console.log(err);
     else console.log('Connected to MongoDB');
-    console.log(mongoose.connections[0].db);
 });
 
 
@@ -68,10 +67,8 @@ passport.use(new LocalStrategy(
         await User.findOne({
             'name.text': username
         }).then(user => {
-            console.log(`Attempting to log in with user ` + username + '. Returned ' + user)
             if (!user) return done(null, false, { message: 'Invalid username or password\n' })
             if (username === user.name.text && sha256(password) === user.password) {
-                console.log('Local strategy returned true')
                 return done(null, user)
             } else {
                 return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
@@ -125,9 +122,8 @@ app.route("/api/v1/logout").post(api.session.logout);
 
 const pageRoute = (url, page, args) => {
     app.get(url, async (req, res) => {
-        let pg
-        if (!page.a) pg = { a: [page[0], page[1]], ua: [page[0], page[1]] }
-        else pg = page
+        let pg = page
+        if (!page.a) pg = { a: page, ua: page }
         if (req.isAuthenticated()) await User.findById(req.session.passport.user).then(user => {
             let tosend = {
                 name: {
@@ -151,5 +147,7 @@ pageRoute('/profile', ['profile/index', 'FlipAnim | Profile'])
 pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
+pageRoute('/info/terms', ['info/terms/index', 'FlipAnim | Terms of Service'])
+pageRoute('/info/privacy', ['info/policy/index', 'FlipAnim | Privacy Policy'])
 pageRoute('/search', ['search/index', 'FlipAnim | Search'])
 pageRoute('/anim', ['anim/index', 'FlipAnim | Anim'])
