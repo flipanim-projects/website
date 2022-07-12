@@ -1,7 +1,19 @@
 const passport = require('passport'),
     captchaHandler = require('../utils/captcha');
 async function login(req, res, next) {
-    new captchaHandler().send({
+    let auth = passport.authenticate('local', (err, user, info) => {
+        if (info) { return res.status(400).json(info) }
+        if (err) { return res.status(500).json({ status: 500 }) }
+        if (!user) { return res.send('No user'); }
+        req.login(user, (err) => {
+            console.log(err)
+            return res.status(302).json({
+                status: 302,
+                message: '302 Found, Redirecting'
+            })
+        })
+    });
+    if (require('../../config').captcha) new captchaHandler().send({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {
             res.status(400).json({
@@ -11,19 +23,8 @@ async function login(req, res, next) {
         }, next: function () {
             auth(req, res, next)
         }
-    })
-    // configure passport.js to use the local strategy
-    let auth = passport.authenticate('local', (err, user, info) => {
-        if (info) { return res.send(info) }
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
-        req.login(user, (err) => {
-            console.log(err)
-            return res.status(302).json({
-                status: 302,
-                message: '302 Found, Redirecting'
-            })
-        })
     });
+    else auth(req, res, next)
+    console.log('Request to login')
 }
 module.exports = login

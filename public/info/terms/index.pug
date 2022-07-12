@@ -3,6 +3,7 @@ block nav
    
 block content 
     div(style='display:flex;')
+        link(rel="stylesheet" href="/public/css/terms.chunk.css")
         div.aside
             small(style="display: block;margin-bottom:5px")
                 a(href="/") &larr; Back
@@ -82,6 +83,8 @@ block content
 
                 We do not warrant, endorse, guarantee, or assume responsibility for any product or service advertised or offered by a third party through the site, any linked website, or any website or mobile application advertised, and we will not be a party to or in any way be responsible for monitoring any transaction between you and any third-party providers of products or services. As with the purchase of a product or service through any medium or in any environment, you should use your best judgment and exercise caution where appropriate.
             hr
-            small(style="float: right") Last updated: 3/07/2022
+            small(style="float: right") 
+                span(style="opacity: 0.4") Last updated: 
+                span(style="opacity: 0.7") 3/07/2022
 block append scripts 
     script(src="/public/info/terms/terms.js") 

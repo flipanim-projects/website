@@ -1,22 +1,27 @@
 extends ../../components/base
-block content
+block append styles 
+    link(rel="stylesheet" href="/public/css/toast.chunk.css")
     link(rel="stylesheet" href="/public/css/account.chunk.css")
-    .account-box
+block content
+    .account-box#login
         h1 Log In
         small Don't have an account? <a href="/account/create">Create one</a>
         br
-        form#login(onsubmit="return false")
-            input#username(type='text', name='username', placeholder='Username...')
-            input#password(type='password', name='password', placeholder='Password...')
-            .captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
-            script(src='https://js.hcaptcha.com/1/api.js')
-            script(async defer).
-                window.curCaptcha = hcaptcha.render(document.querySelector('.captcha'), {
-                    theme: 'dark',
-                    callback: 'hcaptchaCallback'
-                })
+        div
+            input#username(type='text', name='username', placeholder='Username...').
+            div.password-container
+                input#password(type='password', name='password', placeholder='Password...').
+                div#showPassword(tabindex="1" aria-label="Show password").
+            //- .captcha(data-sitekey='aa5d6fa4-a22e-4f29-812f-09d146df8c43')
+            //- script(src='https://js.hcaptcha.com/1/api.js')
+            //- script(async defer).
+            //-     window.curCaptcha = hcaptcha.render(document.querySelector('.captcha'), {
+            //-         theme: 'dark',
+            //-         callback: 'hcaptchaCallback'
+            //-     })
             br
-            input(type='submit', value='Submit')
+            input(type='submit', id="submit", value='Log in').fullwidth
 block scripts
     script(src='/public/index.js')
+    script(src='/public/utils/toast.js')
     script(src='/public/account/login/index.js')

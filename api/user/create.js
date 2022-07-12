@@ -2,7 +2,7 @@ const sha256 = require('../sha256'),
     User = require('../../models/User'),
     CaptchaHandler = require('../utils/captcha')
 async function createUser(req, res) {
-    new CaptchaHandler().send({
+    if (require('../../config').captcha) new CaptchaHandler().send({
         hcaptcha: req.body['h-captcha-response'],
         invalid: function () {
             return res.status(400).json({

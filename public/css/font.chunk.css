@@ -12,8 +12,8 @@
 
 @font-face {
     font-family: Circular;
-    src: url(../font/Circular700.woff);
-    font-weight: 700;
+    src: url(../font/Circular600.woff);
+    font-weight: 600;
 }
 
 @font-face {
@@ -38,8 +38,8 @@
 
 @font-face {
     font-family: Circular;
-    src: url(../font/Circular700i.woff);
-    font-weight: 700;
+    src: url(../font/Circular600i.woff);
+    font-weight: 600;
     font-style: italic;
 }
 

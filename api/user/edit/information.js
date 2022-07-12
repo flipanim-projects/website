@@ -22,7 +22,7 @@ async function information(req, res) {
   });
 
   let hcaptcha = req.body["h-captcha-response"];
-  new CaptchaHandler().send({
+  if (require('../../config').captcha) new CaptchaHandler().send({
     hcaptcha: hcaptcha,
     invalid: function () {
       res.status(400).json({

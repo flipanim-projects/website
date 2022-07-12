@@ -4,7 +4,7 @@
     box-sizing: border-box !important;
     margin: 0;
     transition: 0.2s;
-    font-family: Circular !important;
+    font-family: Circular, Roboto Flex !important;
 }
 
 html {
@@ -285,92 +285,97 @@ a:hover {
     pointer-events: all;
 }
 
-button,input[type=submit] {
+button,
+input[type=submit] {
     padding: var(--button-padding);
     border-radius: var(--button-radius);
     background: var(--button-background);
     border: 0;
-    color: var(--body-text);
+    color: var(--body-text-q);
     cursor: pointer;
 }
 
-button:hover,input[type=submit]:hover {
+button:hover,
+input[type=submit]:hover {
     background: var(--button-background-hover);
     color: var(--body-text-l);
+}
+
+button:active,
+input[type=submit]:active {
+    transform: scale(0.98);
+}
+
+button.fullwidth,
+input[type=submit].fullwidth {
+    width: 100%;
 }
 
 nav button {
     margin: 0 3px;
 }
 
-.aside {
-    margin: 14px;
-    margin-left: 0;
-    min-width: 250px;
-    position: fixed;
-    background: var(--card-background);
-    padding: 10px;
-    border-radius: 0 20px 20px 0px;
-    backdrop-filter: var(--card-blur);
-    max-height: fit-content;
-}
-
-.aside .sidebar-item {
-    padding: 8px 10px;
-    border-radius: 0 20px 20px 0px;
-    cursor: pointer;
-    position: sticky
-}
-
-.aside .sidebar-item:hover {
-    background: var(--card-background);
-}
-
-.aside,
-.terms {
-    display: block;
-    margin-top: 30px
-}
-
-.terms {
-    margin-left: 270px;
-    margin-right: 20px;
-}
-
-.terms h2 {
-    margin-bottom: 4px;
-    margin-top: 15px
-}
-
-.indicator {
-    width: 3px;
-    position: absolute;
-    background: rgb(125, 116, 255);
-    top: 31px;
-    height: 34px;
-    transition: 0;
-    left: 10px;
-    border-radius: 10px;
-}
-
-.aside .sidebar-item-selected {
-    background: var(--card-background-intense);
-}
-
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
     margin: 5px 0;
     padding: 8px 20px;
     border-radius: 100px;
     color: var(--body-text-q);
-    width: calc(100% - 10px);
+    width: 100%;
     background: var(--card-background);
     border: 1px solid var(--card-background-intense);
 }
-input[type=text]:focus, input[type=password]:focus {
+
+input[type=text]:focus,
+input[type=password]:focus {
     background: var(--card-background-selected);
     border: 1px solid var(--card-background-selected-intense);
     outline: 0;
 }
-.captcha, .captcha iframe {
+
+input[type=text]:focus::placeholder,
+input[type=password]:focus::placeholder {
+    color: var(--card-background-selected-intense);
+}
+
+.captcha,
+.captcha iframe {
     margin-top: 5px
+}
+
+.tooltip {
+    position: fixed;
+    border-radius: var(--button-radius);
+    background: var(--card-background-intense);
+    padding: 3px 8px;
+    color: var(--body-text);
+    animation: tooltip 0.5s;
+}
+
+.tooltip.tooltip-dangerous {
+    background: var(--dangerous-button-background);
+}
+
+.tooltip.tooltip-left::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    margin-left: -5px;
+
+    /* vertically center */
+    top: 50%;
+    transform: translateY(-50%);
+
+    /* the arrow */
+    border: 10px solid #000;
+    border-color: transparent transparent transparent var(--card-background-intense);
+
+    display: none;
+}
+
+@keyframes tooltip {
+    from {
+        opacity: 0;
+        transform: translateX(-10px)
+    }
 }

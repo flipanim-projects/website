@@ -1,5 +1,6 @@
 var express = require("express"),
     session = require("express-session"),
+    config = require("./config"),
     app = express(),
     path = require('path'),
     cors = require("cors"),
@@ -8,7 +9,7 @@ var express = require("express"),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FileStore = require('session-file-store')(session),
-    server = app.listen(process.env.PORT || 3000, ()=>'Server is listening'),
+    server = app.listen(process.env.PORT || 3000, ()=>console.log('Server is listening on port 3000')),
     rateLimit = require('express-rate-limit'),
     pug = require('pug')
 
@@ -30,12 +31,11 @@ mongoose.connect(dbUrl, {
 
 
 const genSessionSecret = () => Math.floor(Math.random() * 100 ** 7).toString(16);
-
 let gened = genSessionSecret()
 app.use(
     session({
         store: new FileStore(),
-        secret: 'wow look a secret',
+        secret: config.sessionSecret ? gened : 'wow look a secret',
         resave: false,
         saveUninitialized: false,
         cookie: {
@@ -62,15 +62,17 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'public'));
 
 passport.use(new LocalStrategy(
-    { usernameField: 'username' },
+    { usernameField: 'username', passwordField: 'password' },
     async (username, password, done) => {
+        console.log('Searching for user' + username)
         await User.findOne({
             'name.text': username
         }).then(user => {
-            if (!user) return done(null, false, { message: 'Invalid username or password\n' })
-            if (username === user.name.text && sha256(password) === user.password) {
+            if (!user) return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
+            if (password === user.password) {
                 return done(null, user)
             } else {
+                console.log(password,user.password, 'Incorrect password')
                 return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
             }
         }).catch(err => {
@@ -148,6 +150,6 @@ pageRoute('/editor', ['editor/index', 'FlipAnim | Editor'])
 pageRoute('/settings', { a: ['settings/index', 'FlipAnim | Settings'], ua: ['account/login', 'FlipAnim | Log in'] })
 pageRoute('/info/team', ['info/team/index', 'FlipAnim Team'])
 pageRoute('/info/terms', ['info/terms/index', 'FlipAnim | Terms of Service'])
-pageRoute('/info/privacy', ['info/policy/index', 'FlipAnim | Privacy Policy'])
+pageRoute('/info/privacy', ['info/privacy/index', 'FlipAnim | Privacy Policy'])
 pageRoute('/search', ['search/index', 'FlipAnim | Search'])
 pageRoute('/anim', ['anim/index', 'FlipAnim | Anim'])
