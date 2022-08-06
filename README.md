@@ -12,6 +12,6 @@ FlipAnim V2 Official Repository
 
 
 ## API & Modal Documentation
-Hosted in a separate repository and there's no way you'll get to see it >:)
+~~Hosted in a separate repository and there's no way you'll get to see it >:)~~
 
-*(...yet)*
+These docs are outdated. I'll update them soon™
