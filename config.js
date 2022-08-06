@@ -1,4 +1,5 @@
 module.exports = {
     captcha: false,
-    sessionSecret: false
+    sessionSecret: false,
+    minify: false
 }

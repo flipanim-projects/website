@@ -1,16 +1,13 @@
 doctype html
 head
-    title= title
     block styles
         link(rel='stylesheet', href='/public/css/main.chunk.css')
         link(rel='stylesheet', href='/public/css/font.chunk.css')
+    title= title
     link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
     link(rel='preconnect', href='https://fonts.googleapis.com')
     link(rel="icon" type="image/ico" href="/public/favicon.ico")
     link(href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,118.3,100;8..144,118.3,344;8..144,118.3,488;8..144,118.3,618;8..144,118.3,735;8..144,118.3,900&display=swap" rel="stylesheet")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    meta(name="description" content="FlipAnim V2 Public Beta 2")
-    meta(name="title" content="FlipAnim V2")
 body(class=user ? JSON.parse(user).preferences.theme : 'dark')
     if user
         input#userID(type="text" value=JSON.parse(user).name.id style="pointer-events: none; display: none")
@@ -29,3 +26,4 @@ body(class=user ? JSON.parse(user).preferences.theme : 'dark')
 
     block scripts 
     script. 
+    

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require("express"),
     session = require("express-session"),
     config = require("./config"),
@@ -9,7 +11,7 @@ var express = require("express"),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FileStore = require('session-file-store')(session),
-    server = app.listen(process.env.PORT || 3000, ()=>console.log('Server is listening on port 3000')),
+    server = app.listen(process.env.PORT || 3000, () => console.log('Server is listening on port 3000')),
     rateLimit = require('express-rate-limit'),
     pug = require('pug')
 
@@ -17,7 +19,7 @@ var api = require('./api/index'),
     User = require('./models/User'),
     sha256 = require('./api/sha256')
 
-const dbUrl = /*process.env.MONGODB_URI*/ 'mongodb+srv://root:flipanimapipass@flipanim.z85ki.mongodb.net/flipanim?retryWrites=true&w=majority'
+const dbUrl = process.env.MONGODB_URI;
 
 // Connect to data server
 mongoose.connect(dbUrl, {
@@ -53,6 +55,16 @@ app.use(
         extended: true,
     })
 );
+
+if (config.minify) {
+    var minify = require('express-minify');
+    app.use((req, res, next) => {
+        res.minifyOptions = { js: { mangle: { properties: {builtins:false,reserved: ['createElement', 'setAttribute','classList','append', 'querySelector']} } } };
+        next()
+    })
+    app.use(minify());
+}
+
 app.use(express.static(path.join(__dirname + "/")));
 
 // view engine
@@ -68,12 +80,12 @@ passport.use(new LocalStrategy(
         await User.findOne({
             'name.text': username
         }).then(user => {
-            if (!user) return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
+            if (!user) return done(null, false, { status: 400, message: 'Username or password is incorrect' })
             if (password === user.password) {
                 return done(null, user)
             } else {
-                console.log(password,user.password, 'Incorrect password')
-                return done(null, false, { status: 401, message: 'Username or password is incorrect\n' })
+                console.log(password, user.password, 'Incorrect password')
+                return done(null, false, { status: 400, message: 'Username or password is incorrect' })
             }
         }).catch(err => {
             console.error(err)

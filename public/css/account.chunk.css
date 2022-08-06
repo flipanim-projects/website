@@ -96,6 +96,51 @@
     width: 15px;
     background-size: contain;
 }
+
 #showPassword:hover {
-    opacity:1;
+    opacity: 1;
+}
+
+.account-box#create {
+    position: relative;
+    transition: .5s cubic-bezier(.81, -0.24, 0, 1.25) !important;
+}
+
+.account-box#create>div {
+    position: absolute;
+    transition: .5s cubic-bezier(.81, -0.24, 0, 1.25);
+    top: 20px;
+}
+.account-box#create>div>h1 {
+    margin-bottom: 6px;
+}
+.account-box#create>div>p,.account-box#create>div>ul>li {
+    font-size: 13px;
+    color: var(--body-text-q);
+}
+
+.account-create-box-inner {
+    width: calc(100% - 40px)
+}
+
+.is-right {
+    transform: translateX(calc(100% + 20px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+.is-left {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(calc(-100% - 20px));
+}
+
+.account-create-box-inner .skip {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+    margin-left:auto;
+    cursor: pointer;
+    margin-right:auto;
+    display:block;
 }

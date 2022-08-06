@@ -7,6 +7,13 @@
     font-family: Circular, Roboto Flex !important;
 }
 
+h1,h2,h3,h4,h5,h6 {
+    font-family: Roboto Flex, Roboto !important;
+}
+.subtitle {
+    font-size: 17px;
+    opacity: 0.7;
+}
 html {
     scroll-behavior: smooth;
 }
@@ -57,6 +64,8 @@ body.sync {
     --button-background-hover: var(--card-background-selected-intense);
     --dangerous-button-background: #ff0000;
     --dangerous-button-background-hover: #bd0000;
+    --grey-button-background: var(--card-background);
+    --grey-button-background-hover: var(--card-background-intense);
     --button-padding: 10px 17px;
     --button-radius: 170px;
 }
@@ -219,6 +228,8 @@ nav .linktitle {
     transform: translateZ(0);
 }
 
+main {margin: 30px}
+
 a {
     color: var(--body-text-q);
     text-decoration: none;
@@ -293,6 +304,7 @@ input[type=submit] {
     border: 0;
     color: var(--body-text-q);
     cursor: pointer;
+    font-size: 14px;
 }
 
 button:hover,
@@ -309,6 +321,14 @@ input[type=submit]:active {
 button.fullwidth,
 input[type=submit].fullwidth {
     width: 100%;
+}
+
+button.grey {
+    background: var(--grey-button-background);
+}
+
+button.grey:hover {
+    background: var(--grey-button-background-hover)
 }
 
 nav button {
@@ -373,9 +393,28 @@ input[type=password]:focus::placeholder {
     display: none;
 }
 
+/* button container, used for buttons in the account creation wizard */
+.button-container {
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+}
+.button-container button:last-child {
+    margin-left: 5px;
+}
+.button-container button.full-width {
+    width: 100%;
+}
 @keyframes tooltip {
     from {
         opacity: 0;
         transform: translateX(-10px)
     }
 }
+.animate-in {transition: 1s !important;}
+
+.animate-in.left {transform: translateX(-20px);  opacity:0;}
+.animate-in.top {transform:  translateY(-20px);   opacity:0;}
+.animate-in.bottom {transform:translateY(20px); opacity:0;}
+.animate-in.right {transform: translateX(20px);  opacity:0;}

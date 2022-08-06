@@ -6,13 +6,14 @@
 }
 
 .toast {
-    padding: 17px 33px;
-    border-radius: 10px;
+    padding: 17px 53px 17px 17px;
+    border-radius: 20px;
     margin: 10px;
     display: flex;
     flex-direction: column;
     background: var(--popup-background);
     color: var(--popup-text-color);
+    border: var(--border);
     backdrop-filter: blur(10px) opacity(0);
     -webkit-backdrop-filter: blur(10px) opacity(0);
     transform: translateX(calc(100% + 20px));
