@@ -1,25 +1,25 @@
 footer {
-    width: 100vw;
-    height: 100px;
-    margin-top: auto;
-    justify-content: space-evenly !important;
-    align-items: unset !important;
-    padding: var(--footer-padding);
-    background: var(--body-background-lighter);
-    box-shadow: var(--footer-shadow);
+	width: 100vw;
+	height: 100px;
+	margin-top: auto;
+	justify-content: space-evenly !important;
+	align-items: unset !important;
+	padding: var(--footer-padding);
+	background: var(--body-background-lighter);
+	box-shadow: var(--footer-shadow);
 }
 
-footer>div {
-    display: flex;
-    flex-direction: column;
+footer > div {
+	display: flex;
+	flex-direction: column;
 }
 
 footer a {
-    color: var(--body-text);
-    font-weight: 300;
-    text-decoration: none;
+	color: var(--body-text);
+	font-weight: 300;
+	text-decoration: none;
 }
 
 footer a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }

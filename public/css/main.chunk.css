@@ -1,420 +1,460 @@
-@import 'https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,700,800,900&display=swap';
+@import "https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,700,800,900&display=swap";
 
 * {
-    box-sizing: border-box !important;
-    margin: 0;
-    transition: 0.2s;
-    font-family: Circular, Roboto Flex !important;
+	box-sizing: border-box !important;
+	margin: 0;
+	transition: 0.2s;
+	font-family: Circular, Roboto Flex !important;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: Roboto Flex, Roboto !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Roboto Flex, Roboto !important;
 }
+
 .subtitle {
-    font-size: 17px;
-    opacity: 0.7;
+	font-size: 17px;
+	opacity: 0.7;
 }
+
 html {
-    scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body,
 body.sync {
-    /* Globals */
-    --body-background: #060c1b;
-    --body-background-lighter: #0b152b;
-    --body-background-lightest: #0f1c37;
-    /* Text */
-    --body-text: #eee;
-    --body-text-alternate: #eee;
-    --body-text-l: #fff;
-    --body-text-q: rgba(255, 255, 255, 0.715);
-    /* Usually inverse of --body-text */
+	/* Globals */
+	--body-background: #060c1b;
+	--body-background-lighter: #0b152b;
+	--body-background-lightest: #0f1c37;
+	/* Text */
+	--body-text: #eee;
+	--body-text-alternate: #eee;
+	--body-text-l: #fff;
+	--body-text-q: rgba(255, 255, 255, 0.715);
+	/* Usually inverse of --body-text */
 
-    /* Elements "floating" above the main page, such as navbar and anims */
-    --card-background: #c4c8ff1a;
-    --card-background-intense: #e1ebff28;
-    --card-background-selected: #9aa0ff67;
-    --card-background-selected-intense: rgba(123, 132, 255, 0.897);
-    --card-blur: blur(17px);
-    /* Dark Cards */
-    --dcard-background: #1c1f3777;
-    --dcard-background-intense: #0f1821b4;
-    /* Nav Background */
-    --nav-background: var(--card-background);
-    --nav-shadow: unset;
-    --nav-position: static;
-    --nav-blur: blur(30px);
-    --nav-margin: 5px;
-    /* Borders */
-    --border: 1px solid rgba(255, 255, 255, 0.2);
-    --border-hover: 1px solid rgba(255, 255, 255, 0.9);
-    /* Footer */
-    --footer-background: var(--body-background-lighter);
-    --footer-margin: 40px;
-    --footer-padding: 20px;
-    --footer-shadow: 0;
-    /* Tooltips */
-    --tooltip-background: var(--card-background);
-    /* Popups */
-    --popup-background: var(--card-background);
-    --popup-text-color: var(--body-text);
-    /* Buttons */
-    --button-background: var(--card-background-selected);
-    --button-background-hover: var(--card-background-selected-intense);
-    --dangerous-button-background: #ff0000;
-    --dangerous-button-background-hover: #bd0000;
-    --grey-button-background: var(--card-background);
-    --grey-button-background-hover: var(--card-background-intense);
-    --button-padding: 10px 17px;
-    --button-radius: 170px;
+	/* Elements "floating" above the main page, such as navbar and anims */
+	--card-background: #c4c8ff1a;
+	--card-background-intense: #e1ebff28;
+	--card-background-selected: #9aa0ff67;
+	--card-background-selected-intense: rgba(123, 132, 255, 0.897);
+	--card-blur: blur(17px);
+	/* Dark Cards */
+	--dcard-background: #1c1f3777;
+	--dcard-background-intense: #0f1821b4;
+	/* Nav Background */
+	--nav-background: var(--card-background);
+	--nav-shadow: unset;
+	--nav-position: static;
+	--nav-blur: blur(30px);
+	--nav-margin: 5px;
+	/* Borders */
+	--border: 1px solid rgba(255, 255, 255, 0.2);
+	--border-hover: 1px solid rgba(255, 255, 255, 0.9);
+	/* Footer */
+	--footer-background: var(--body-background-lighter);
+	--footer-margin: 40px;
+	--footer-padding: 20px;
+	--footer-shadow: 0;
+	/* Tooltips */
+	--tooltip-background: var(--card-background);
+	/* Popups */
+	--popup-background: var(--card-background);
+	--popup-text-color: var(--body-text);
+	/* Buttons */
+	--button-background: var(--card-background-selected);
+	--button-background-hover: var(--card-background-selected-intense);
+	--dangerous-button-background: #ff0000;
+	--dangerous-button-background-hover: #bd0000;
+	--grey-button-background: var(--card-background);
+	--grey-button-background-hover: var(--card-background-intense);
+	--button-padding: 10px 17px;
+	--button-radius: 170px;
 }
 
 /* Classic Mode */
 body.classic {
-    --body-background: #2cce6f;
-    --body-background-lighter: #219e55;
-    --body-background-lightest: #168042;
-    --body-text: rgb(37, 37, 37);
-    --body-text-alternate: rgb(240, 240, 240);
-    /* Nav Background */
-    --nav-background: rgb(60, 113, 187);
-    --nav-shadow: inset -2px -5px 10px rgba(0, 0, 0, 0.7);
-    --nav-position: absolute;
+	--body-background: #2cce6f;
+	--body-background-lighter: #219e55;
+	--body-background-lightest: #168042;
+	--body-text: rgb(37, 37, 37);
+	--body-text-alternate: rgb(240, 240, 240);
+	/* Nav Background */
+	--nav-background: rgb(60, 113, 187);
+	--nav-shadow: inset -2px -5px 10px rgba(0, 0, 0, 0.7);
+	--nav-position: absolute;
 }
 
 body.light {
-    --body-background: #f6f6f6;
-    --body-background-lighter: #dfdfdf;
-    --body-background-lightest: #cacaca;
-    --body-text: rgb(37, 37, 37);
-    --body-text-q: rgb(50, 50, 50);
-    --body-text-l: rgb(14, 14, 14);
-    --body-text-alternate: rgb(240, 240, 240);
-    /* Elements "floating" above the main page, such as navbar and anims */
-    --card-background: #00000028;
-    --card-background-intense: #00000048;
-    --card-background-selected: #7b84ff28;
-    --card-background-selected-intense: #7b84ff48;
-    --card-blur: blur(17px);
-    /* Dark Cards */
-    --dcard-background: #ffffff28;
-    --dcard-background-intense: #ffffff48;
-    --tooltip-background: var(--card-background);
+	--body-background: #f6f6f6;
+	--body-background-lighter: #dfdfdf;
+	--body-background-lightest: #cacaca;
+	--body-text: rgb(37, 37, 37);
+	--body-text-q: rgb(50, 50, 50);
+	--body-text-l: rgb(14, 14, 14);
+	--body-text-alternate: rgb(240, 240, 240);
+	/* Elements "floating" above the main page, such as navbar and anims */
+	--card-background: #00000028;
+	--card-background-intense: #00000048;
+	--card-background-selected: #7b84ff28;
+	--card-background-selected-intense: #7b84ff48;
+	--card-blur: blur(17px);
+	/* Dark Cards */
+	--dcard-background: #ffffff28;
+	--dcard-background-intense: #ffffff48;
+	--tooltip-background: var(--card-background);
 }
 
 @media (prefers-color-scheme: light) {
-    body.sync {
-        --body-background: #f6f6f6;
-        --body-background-lighter: #dfdfdf;
-        --body-background-lightest: #cacaca;
-        --body-text: rgb(37, 37, 37);
-        --body-text-q: rgb(50, 50, 50);
-        --body-text-q: rgb(14, 14, 14);
-        --body-text-alternate: rgb(240, 240, 240);
-        /* Elements "floating" above the main page, such as navbar and anims */
-        --card-background: #00000028;
-        --card-background-intense: #00000048;
-        --card-background-selected: #7b84ff28;
-        --card-background-selected-intense: #7b84ff48;
-        --card-blur: blur(17px);
-        /* Dark Cards */
-        --dcard-background: #ffffff28;
-        --dcard-background-intense: #ffffff48;
-        --tooltip-background: var(--card-background);
-    }
+	body.sync {
+		--body-background: #f6f6f6;
+		--body-background-lighter: #dfdfdf;
+		--body-background-lightest: #cacaca;
+		--body-text: rgb(37, 37, 37);
+		--body-text-q: rgb(50, 50, 50);
+		--body-text-q: rgb(14, 14, 14);
+		--body-text-alternate: rgb(240, 240, 240);
+		/* Elements "floating" above the main page, such as navbar and anims */
+		--card-background: #00000028;
+		--card-background-intense: #00000048;
+		--card-background-selected: #7b84ff28;
+		--card-background-selected-intense: #7b84ff48;
+		--card-blur: blur(17px);
+		/* Dark Cards */
+		--dcard-background: #ffffff28;
+		--dcard-background-intense: #ffffff48;
+		--tooltip-background: var(--card-background);
+	}
 }
 
 @supports (backdrop-filter: blur(10px)) {
-    :root {
-        /* Elements "floating" above the main page, such as navbar and anims */
-        --card-background: #ffffff28;
-        --card-background-intense: #ffffff48;
-        --card-background-selected: #7b84ff28;
-        --card-background-selected-intense: #7b84ff48;
-        --card-blur: blur(17px);
-        /* Dark Cards */
-        --dcard-background: #00000028;
-        --dcard-background-intense: #00000048;
-    }
+	:root {
+		/* Elements "floating" above the main page, such as navbar and anims */
+		--card-background: #ffffff28;
+		--card-background-intense: #ffffff48;
+		--card-background-selected: #7b84ff28;
+		--card-background-selected-intense: #7b84ff48;
+		--card-blur: blur(17px);
+		/* Dark Cards */
+		--dcard-background: #00000028;
+		--dcard-background-intense: #00000048;
+	}
 
-    :root.light {
-        /* Elements "floating" above the main page, such as navbar and anims */
-        --card-background: #ffffff28;
-        --card-background-intense: #ffffff48;
-        --card-background-selected: #7b84ff28;
-        --card-background-selected-intense: #7b84ff48;
-        --card-blur: blur(17px);
-        /* Dark Cards */
-        --dcard-background: #00000028;
-        --dcard-background-intense: #00000048;
-    }
+	:root.light {
+		/* Elements "floating" above the main page, such as navbar and anims */
+		--card-background: #ffffff28;
+		--card-background-intense: #ffffff48;
+		--card-background-selected: #7b84ff28;
+		--card-background-selected-intense: #7b84ff48;
+		--card-blur: blur(17px);
+		/* Dark Cards */
+		--dcard-background: #00000028;
+		--dcard-background-intense: #00000048;
+	}
 }
 
 body {
-    background-color: var(--body-background);
-    color: var(--body-text);
-    margin: 0;
-    /*background-image: url('https://flipanim.com/gfx/noise.png');*/
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow-x: hidden;
+	background-color: var(--body-background);
+	color: var(--body-text);
+	margin: 0;
+	/*background-image: url('https://flipanim.com/gfx/noise.png');*/
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow-x: hidden;
 }
 
 .flex {
-    display: flex;
+	display: flex;
 }
 
 hr {
-    margin: 15px 0;
-    opacity: 0.5;
+	margin: 15px 0;
+	opacity: 0.5;
 }
 
 nav {
-    background: var(--nav-background);
-    backdrop-filter: var(--nav-blur);
-    -webkit-backdrop-filter: var(--nav-blur);
-    box-shadow: var(--nav-shadow);
-    padding: 10px;
-    margin: var(--nav-margin);
-    margin-right: calc(var(--nav-margin) + 1px);
-    border-radius: 20px;
-    margin-bottom: 60px;
-    z-index: 2;
-    position: var(--nav-position);
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	background: var(--nav-background);
+	backdrop-filter: var(--nav-blur);
+	-webkit-backdrop-filter: var(--nav-blur);
+	box-shadow: var(--nav-shadow);
+	padding: 10px;
+	margin: var(--nav-margin);
+	margin-right: calc(var(--nav-margin) + 1px);
+	border-radius: 20px;
+	margin-bottom: 60px;
+	z-index: 2;
+	position: var(--nav-position);
+	padding-left: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 nav .linktitle:not(img),
 .profile-options .profile-option {
-    margin: 0 10px 0px 0px;
-    display: block;
-    text-decoration: none;
-    max-height: min-content;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: 0.1s;
-    border-radius: 10px;
+	margin: 0 10px 0px 0px;
+	display: block;
+	text-decoration: none;
+	max-height: min-content;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: 0.1s;
+	border-radius: 10px;
 }
 
 @media only screen and (max-width: 700px) {
-    nav .linktitle:not(img) {
-        padding: 10px 6px;
-    }
+	nav .linktitle:not(img) {
+		padding: 10px 6px;
+	}
 }
 
 @media only screen and (max-width: 500px) {
-    nav .linktitle:not(img) {
-        display: none;
-    }
+	nav .linktitle:not(img) {
+		display: none;
+	}
 }
 
 nav .linktitle {
-    vertical-align: bottom;
-    margin-right: 5px;
-    max-height: 40px;
-    color: var(--body-text-q);
+	vertical-align: bottom;
+	margin-right: 5px;
+	max-height: 40px;
+	color: var(--body-text-q);
 }
 
 .nav-logo {
-    image-rendering: -webkit-optimize-contrast;
-    vertical-align: bottom;
-    margin-right: 5px;
-    transform: translateZ(0);
+	image-rendering: -webkit-optimize-contrast;
+	vertical-align: bottom;
+	margin-right: 5px;
+	transform: translateZ(0);
 }
 
-main {margin: 30px}
+main {
+	margin: 30px;
+}
+
+label {
+	margin-left: 5px;
+}
 
 a {
-    color: var(--body-text-q);
-    text-decoration: none;
+	color: var(--body-text-q);
+	text-decoration: none;
 }
 
 nav h1:hover,
 nav .linktitle:hover,
 a:hover {
-    text-decoration: underline;
-    color: var(--body-text-l)
+	text-decoration: underline;
+	color: var(--body-text-l);
 }
 
 .profile {
-    position: static;
-    z-index: 2;
-    margin-right: 20px;
+	position: static;
+	z-index: 2;
+	margin-right: 20px;
 }
 
 .profile img {
-    height: 57px;
-    border-radius: 50%;
-    border: 1px solid rgba(164, 171, 255, 0.4);
+	height: 57px;
+	border-radius: 50%;
+	border: 1px solid rgba(164, 171, 255, 0.4);
 }
 
 .profile img:hover {
-    cursor: pointer;
-    transform: translateY(-1px);
-    box-shadow: 0 0px 10px rgba(255, 255, 255, 0.278);
+	cursor: pointer;
+	transform: translateY(-1px);
+	box-shadow: 0 0px 10px rgba(255, 255, 255, 0.278);
 }
 
 .profile-options {
-    position: fixed;
-    top: 70px;
-    left: calc(100% - 160px);
-    z-index: 2;
-    padding: 10px;
-    border: var(--border);
-    backdrop-filter: var(--card-blur);
-    -webkit-backdrop-filter: var(--card-blur);
-    height: fit-content;
-    transform: translateY(5px);
-    border-radius: 20px;
-    pointer-events: none;
-    opacity: 0;
-    transition: 0.2s;
-    background: var(--dcard-background-intense);
+	position: fixed;
+	top: 70px;
+	left: calc(100% - 160px);
+	z-index: 2;
+	padding: 10px;
+	border: var(--border);
+	backdrop-filter: var(--card-blur);
+	-webkit-backdrop-filter: var(--card-blur);
+	height: fit-content;
+	transform: translateY(5px);
+	border-radius: 20px;
+	pointer-events: none;
+	opacity: 0;
+	transition: 0.2s;
+	background: var(--dcard-background-intense);
 }
 
 .logged-in-as {
-    pointer-events: none;
-    padding-bottom: 3px;
-    opacity: 0.5;
-    margin: 5px;
-    border-bottom: 1px solid rgba(255, 255, 255), 0.5;
+	pointer-events: none;
+	padding-bottom: 3px;
+	opacity: 0.5;
+	margin: 5px;
+	border-bottom: 1px solid rgba(255, 255, 255), 0.5;
 }
 
 .profile-options .profile-option:hover {
-    background: var(--card-background);
+	background: var(--card-background);
 }
 
 .profile-options.open {
-    transform: translateY(0px);
-    opacity: 1;
-    pointer-events: all;
+	transform: translateY(0px);
+	opacity: 1;
+	pointer-events: all;
 }
 
 button,
-input[type=submit] {
-    padding: var(--button-padding);
-    border-radius: var(--button-radius);
-    background: var(--button-background);
-    border: 0;
-    color: var(--body-text-q);
-    cursor: pointer;
-    font-size: 14px;
+input[type="submit"] {
+	padding: var(--button-padding);
+	border-radius: var(--button-radius);
+	background: var(--button-background);
+	border: 0;
+	color: var(--body-text-q);
+	cursor: pointer;
+	font-size: 14px;
 }
 
 button:hover,
-input[type=submit]:hover {
-    background: var(--button-background-hover);
-    color: var(--body-text-l);
+input[type="submit"]:hover {
+	background: var(--button-background-hover);
+	color: var(--body-text-l);
+}
+
+button[disabled],
+input[type="submit"][disabled] {
+	opacity: 0.5;
+	pointer-events: none
 }
 
 button:active,
-input[type=submit]:active {
-    transform: scale(0.98);
+input[type="submit"]:active {
+	transform: scale(0.98);
 }
 
 button.fullwidth,
-input[type=submit].fullwidth {
-    width: 100%;
+input[type="submit"].fullwidth {
+	width: 100%;
 }
 
 button.grey {
-    background: var(--grey-button-background);
+	background: var(--grey-button-background);
 }
 
 button.grey:hover {
-    background: var(--grey-button-background-hover)
+	background: var(--grey-button-background-hover);
 }
 
 nav button {
-    margin: 0 3px;
+	margin: 0 3px;
 }
 
-input[type=text],
-input[type=password] {
-    margin: 5px 0;
-    padding: 8px 20px;
-    border-radius: 100px;
-    color: var(--body-text-q);
-    width: 100%;
-    background: var(--card-background);
-    border: 1px solid var(--card-background-intense);
+input[type="text"],
+input[type="password"] {
+	margin: 5px 0;
+	padding: 8px 20px;
+	border-radius: 100px;
+	color: var(--body-text-q);
+	width: 100%;
+	background: var(--card-background);
+	border: 1px solid var(--card-background-intense);
 }
 
-input[type=text]:focus,
-input[type=password]:focus {
-    background: var(--card-background-selected);
-    border: 1px solid var(--card-background-selected-intense);
-    outline: 0;
+input[type="text"]:focus,
+input[type="password"]:focus {
+	background: var(--card-background-selected);
+	border: 1px solid var(--card-background-selected-intense);
+	outline: 0;
 }
 
-input[type=text]:focus::placeholder,
-input[type=password]:focus::placeholder {
-    color: var(--card-background-selected-intense);
+input[type="text"]:focus::placeholder,
+input[type="password"]:focus::placeholder {
+	color: var(--card-background-selected-intense);
 }
 
 .captcha,
 .captcha iframe {
-    margin-top: 5px
+	margin-top: 5px;
 }
 
 .tooltip {
-    position: fixed;
-    border-radius: var(--button-radius);
-    background: var(--card-background-intense);
-    padding: 3px 8px;
-    color: var(--body-text);
-    animation: tooltip 0.5s;
+	position: fixed;
+	border-radius: var(--button-radius);
+	background: var(--card-background-intense);
+	padding: 3px 8px;
+	color: var(--body-text);
+	animation: tooltip 0.5s;
 }
 
 .tooltip.tooltip-dangerous {
-    background: var(--dangerous-button-background);
+	background: var(--dangerous-button-background);
 }
 
 .tooltip.tooltip-left::after {
-    content: "";
-    position: absolute;
-    left: 100%;
-    margin-left: -5px;
+	content: "";
+	position: absolute;
+	left: 100%;
+	margin-left: -5px;
 
-    /* vertically center */
-    top: 50%;
-    transform: translateY(-50%);
+	/* vertically center */
+	top: 50%;
+	transform: translateY(-50%);
 
-    /* the arrow */
-    border: 10px solid #000;
-    border-color: transparent transparent transparent var(--card-background-intense);
+	/* the arrow */
+	border: 10px solid #000;
+	border-color: transparent transparent transparent var(--card-background-intense);
 
-    display: none;
+	display: none;
 }
 
 /* button container, used for buttons in the account creation wizard */
 .button-container {
-    width: 100%;
-    display: flex;
-    margin-top: 15px;
-    align-items: center;
+	width: 100%;
+	display: flex;
+	margin-top: 15px;
+	align-items: center;
 }
-.button-container button:last-child {
-    margin-left: 5px;
-}
-.button-container button.full-width {
-    width: 100%;
-}
-@keyframes tooltip {
-    from {
-        opacity: 0;
-        transform: translateX(-10px)
-    }
-}
-.animate-in {transition: 1s !important;}
 
-.animate-in.left {transform: translateX(-20px);  opacity:0;}
-.animate-in.top {transform:  translateY(-20px);   opacity:0;}
-.animate-in.bottom {transform:translateY(20px); opacity:0;}
-.animate-in.right {transform: translateX(20px);  opacity:0;}
+.button-container button:last-child {
+	margin-left: 5px;
+}
+
+.button-container button.full-width {
+	width: 100%;
+}
+
+@keyframes tooltip {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+}
+
+.animate-in {
+	transition: 1s !important;
+}
+
+.animate-in.left {
+	transform: translateX(-20px);
+	opacity: 0;
+}
+
+.animate-in.top {
+	transform: translateY(-20px);
+	opacity: 0;
+}
+
+.animate-in.bottom {
+	transform: translateY(20px);
+	opacity: 0;
+}
+
+.animate-in.right {
+	transform: translateX(20px);
+	opacity: 0;
+}

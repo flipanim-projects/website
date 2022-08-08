@@ -1,146 +1,176 @@
 .account-box {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    border-radius: 20px;
-    background: var(--card-background);
-    width: 350px;
-    position: relative;
-    overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	border-radius: 20px;
+	background: var(--card-background);
+	width: 400px;
+	position: relative;
+	overflow: hidden;
 }
 
 #login::after {
-    height: 100%;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 2;
-    position: absolute;
-    content: 'Logging you in...';
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.2s;
-    justify-content: center;
-    margin-bottom: calc(50% - 40px);
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: opacity(0) blur(10px);
-    pointer-events: none;
-    opacity: 0;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 2;
+	position: absolute;
+	content: "Logging you in...";
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: 0.2s;
+	justify-content: center;
+	margin-bottom: calc(50% - 40px);
+	background: rgba(0, 0, 0, 0.1);
+	backdrop-filter: opacity(0) blur(10px);
+	pointer-events: none;
+	opacity: 0;
 }
 
 #login::before {
-    position: absolute;
-    transition: 0.2s;
-    content: '';
-    left: 50%;
-    transform: translate(-50%, -150%);
-    top: 50%;
-    height: 30px;
-    width: 30px;
-    background: 0;
-    border: 3px solid transparent;
-    border-top: 3px solid white;
-    border-radius: 50%;
-    opacity: 0;
-    z-index: 3;
-    animation: spin 0.6s infinite cubic-bezier(.84, .33, .22, .75);
+	position: absolute;
+	transition: 0.2s;
+	content: "";
+	left: 50%;
+	transform: translate(-50%, -150%);
+	top: 50%;
+	height: 30px;
+	width: 30px;
+	background: 0;
+	border: 3px solid transparent;
+	border-top: 3px solid white;
+	border-radius: 50%;
+	opacity: 0;
+	z-index: 3;
+	animation: spin 0.6s infinite cubic-bezier(0.84, 0.33, 0.22, 0.75);
 }
 
 @keyframes spin {
-    to {
-        transform: translate(-50%, -150%) rotate(360deg)
-    }
+	to {
+		transform: translate(-50%, -150%) rotate(360deg);
+	}
 }
 
 #login.logging-in::after,
 #login.logged-in::after {
-    pointer-events: all;
-    opacity: 1;
-    backdrop-filter: opacity(1) blur(10px);
+	pointer-events: all;
+	opacity: 1;
+	backdrop-filter: opacity(1) blur(10px);
 }
 
 #login.logging-in::before {
-    opacity: 1;
+	opacity: 1;
 }
 
 #login.logged-in::before {
-    display: inline-block;
-    transform: translate(-50%, -150%) rotate(0deg);
-    border-top: 2px solid transparent;
-    animation: 0;
-    opacity: 1;
-    font-size: 30px;
-    color: lime;
-    content: '\2713';
+	display: inline-block;
+	transform: translate(-50%, -150%) rotate(0deg);
+	border-top: 2px solid transparent;
+	animation: 0;
+	opacity: 1;
+	font-size: 30px;
+	color: lime;
+	content: "\2713";
 }
 
 #login.logged-in::after {
-    content: 'Logged in! Redirecting...';
+	content: "Logged in! Redirecting...";
 }
 
 .password-container {
-    position: relative
+	position: relative;
 }
 
 #showPassword {
-    position: absolute;
-    right: 10px;
-    height: 15px;
-    opacity: 0.6;
-    top: 15px;
-    background-image: url(../imgs/icon/icons8-hide-96.png);
-    cursor: pointer;
-    width: 15px;
-    background-size: contain;
+	position: absolute;
+	right: 10px;
+	height: 15px;
+	opacity: 0.6;
+	top: 15px;
+	background-image: url(../imgs/icon/icons8-hide-96.png);
+	cursor: pointer;
+	width: 15px;
+	background-size: contain;
 }
 
 #showPassword:hover {
-    opacity: 1;
+	opacity: 1;
 }
 
 .account-box#create {
-    position: relative;
-    transition: .5s cubic-bezier(.81, -0.24, 0, 1.25) !important;
+	position: relative;
+	transition: 0.5s cubic-bezier(0.81, -0.24, 0, 1.25) !important;
 }
 
-.account-box#create>div {
-    position: absolute;
-    transition: .5s cubic-bezier(.81, -0.24, 0, 1.25);
-    top: 20px;
+.account-box#create > div {
+	position: absolute;
+	transition: 0.5s cubic-bezier(0.81, -0.24, 0, 1.25);
+	top: 20px;
 }
-.account-box#create>div>h1 {
-    margin-bottom: 6px;
+.account-box#create > div > h1 {
+	margin-bottom: 6px;
 }
-.account-box#create>div>p,.account-box#create>div>ul>li {
-    font-size: 13px;
-    color: var(--body-text-q);
+.account-box#create > div p,
+.account-box#create > div > ul > li {
+	font-size: 14px;
+	color: var(--body-text-q);
+}
+.account-box#create > div > ul > li::after {
+	content: " ✓";
+	margin-left: 5px;
+	display: inline-block;
+	transform: scale(0);
+	color: var(--body-text-q);
+	transition: 0.5s  cubic-bezier(0.81, -0.24, 0, 1.25);
+}
+.account-box#create > div > ul > li.invalid {
+	color: red;
+}
+.account-box#create > div > ul > li.valid {
+	color: var(--body-text-q);
+}
+.account-box#create > div > ul > li.valid::after {
+	transform: scale(1)
 }
 
 .account-create-box-inner {
-    width: calc(100% - 40px)
+	width: calc(100% - 40px);
 }
 
 .is-right {
-    transform: translateX(calc(100% + 20px));
-    opacity: 0;
-    pointer-events: none;
+	transform: translateX(calc(100% + 20px));
+	opacity: 0;
+	pointer-events: none;
 }
 
 .is-left {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(calc(-100% - 20px));
+	opacity: 0;
+	pointer-events: none;
+	transform: translateX(calc(-100% - 20px));
 }
 
 .account-create-box-inner .skip {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 15px;
-    margin-left:auto;
-    cursor: pointer;
-    margin-right:auto;
-    display:block;
+	text-align: center;
+	font-size: 12px;
+	margin-top: 15px;
+	margin-left: auto;
+	cursor: pointer;
+	margin-right: auto;
+	display: block;
+}
+label {
+	color: var(--body-text-q);
+	font-size: 14px;
+}
+.preference-wrap {
+	margin: 5px;
+	padding: 5px;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.preference-wrap:last-child {
+	border-bottom: 0;
 }
