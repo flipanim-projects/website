@@ -1,7 +1,7 @@
 const sha256 = require("../utils/sha256"),
 	User = require("../../models/User"),
 	CaptchaHandler = require("../utils/captcha"),
-	idGen = require("../utils/idGen")
+	idGen = require("../utils/idGen");
 async function createUser(req, res) {
 	if (require("../../config").captcha) {
 		new CaptchaHandler().send({
@@ -12,7 +12,7 @@ async function createUser(req, res) {
 					message: "400 Bad Request: Invalid Captcha",
 				});
 			},
-			next: sendToAPI
+			next: sendToAPI,
 		});
 	}
 
@@ -22,7 +22,6 @@ async function createUser(req, res) {
 			message: "413 Payload Too Large: Username too long",
 		});
 
-	
 	async function sendToAPI() {
 		let date = new Date();
 		let userOpts = generateUserField();

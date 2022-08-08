@@ -1,6 +1,6 @@
 const User = require("../../models/User"),
 	Anim = require("../../models/Anim"),
-	idGen = require('../utils/idGen')
+	idGen = require("../utils/idGen");
 
 async function post(req, res) {
 	if (!req.isAuthenticated())
@@ -8,7 +8,7 @@ async function post(req, res) {
 			status: "401",
 			message: "401 Unauthorized",
 		});
-	
+
 	let animName = req.body.name,
 		animAuthor = req.body.author,
 		animAuthorId = req.body.id,

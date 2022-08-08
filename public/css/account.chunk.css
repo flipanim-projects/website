@@ -125,7 +125,7 @@
 	display: inline-block;
 	transform: scale(0);
 	color: var(--body-text-q);
-	transition: 0.5s  cubic-bezier(0.81, -0.24, 0, 1.25);
+	transition: 0.5s cubic-bezier(0.81, -0.24, 0, 1.25);
 }
 .account-box#create > div > ul > li.invalid {
 	color: red;
@@ -134,7 +134,7 @@
 	color: var(--body-text-q);
 }
 .account-box#create > div > ul > li.valid::after {
-	transform: scale(1)
+	transform: scale(1);
 }
 
 .account-create-box-inner {
@@ -169,7 +169,7 @@ label {
 .preference-wrap {
 	margin: 5px;
 	padding: 5px;
-	border-bottom: 1px solid rgba(255,255,255,0.2);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 .preference-wrap:last-child {
 	border-bottom: 0;

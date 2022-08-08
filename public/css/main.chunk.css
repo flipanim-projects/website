@@ -329,7 +329,7 @@ input[type="submit"]:hover {
 button[disabled],
 input[type="submit"][disabled] {
 	opacity: 0.5;
-	pointer-events: none
+	pointer-events: none;
 }
 
 button:active,
@@ -407,7 +407,8 @@ input[type="password"]:focus::placeholder {
 
 	/* the arrow */
 	border: 10px solid #000;
-	border-color: transparent transparent transparent var(--card-background-intense);
+	border-color: transparent transparent transparent
+		var(--card-background-intense);
 
 	display: none;
 }

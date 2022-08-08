@@ -1,7 +1,10 @@
+//TODO mirror .username()'s structure in .password() (namespace Validator)
+
+
 (function () {
 	const $ = document.querySelector.bind(document);
 	class Validator {
-		init() {}
+		init() { }
 		username(str) {
 			let res = [],
 				invres = [0, 1, 2, 3];
@@ -16,13 +19,13 @@
 			console.log(ret);
 			return ret;
 		}
-		usernameServer(str) {
-            
-        }
+		usernameServer(str) { }
 		password(str) {
-			if (str.length <= 8) return 0;
-			if (str.length >= 32) return 1;
-			if (str.match(/[0-9]/g) !== null) return 2;
+			let res = [],
+				invres = [0, 1, 2, 3];
+			if (str.length <= 8) res.push(0);
+			if (str.length >= 32) res.push(1);
+			if (str.match(/[0-9]/g) !== null) res.push(2);
 		}
 	}
 	let v = new Validator();
@@ -114,8 +117,7 @@
 						this.element(
 							"input",
 							null,
-							`type:${opt.type === "true" ? "checkbox" : "radio"};name:${
-								el.setting
+							`type:${opt.type === "true" ? "checkbox" : "radio"};name:${el.setting
 							};id:${el.setting}${i}${j};checked:${false || opt.checked};`
 						),
 						this.element(
@@ -156,16 +158,16 @@
 								let [code, invcode] = v.username(inputs.username.value);
 								if (!code) return;
 								else if (code.constructor === Array) {
-									if (code.length > 0) $('#buttonOk').disabled = true;
-									else $('#buttonOk').disabled = false
-									invcode.forEach((el) =>{
-										$(`#validate${el}`).classList.remove("invalid")
-										$(`#validate${el}`).classList.add("valid")
-                                    });
-									code.forEach((el) =>{
-                                        $(`#validate${el}`).classList.remove("valid")
-										$(`#validate${el}`).classList.add("invalid")
-                                    });
+									if (code.length > 0) $("#buttonOk").disabled = true;
+									else $("#buttonOk").disabled = false;
+									invcode.forEach((el) => {
+										$(`#validate${el}`).classList.remove("invalid");
+										$(`#validate${el}`).classList.add("valid");
+									});
+									code.forEach((el) => {
+										$(`#validate${el}`).classList.remove("valid");
+										$(`#validate${el}`).classList.add("invalid");
+									});
 								}
 							},
 						},
@@ -210,9 +212,8 @@
 			setTimeout(() =>
 				this.pages[0].querySelector("h1").classList.remove("right")
 			);
-			this.root.style.height = `${
-				this.pages[0].getBoundingClientRect().height + 40
-			}px`;
+			this.root.style.height = `${this.pages[0].getBoundingClientRect().height + 40
+				}px`;
 		}
 		element(tag, value, attrs) {
 			// shorthand element function
@@ -257,9 +258,8 @@
 					// to move to = center
 					inner.toMoveTo.classList.remove(`is-${right}`);
 					// Adjust height
-					this.root.style.height = `${
-						inner.toMoveTo.getBoundingClientRect().height + 40
-					}px`;
+					this.root.style.height = `${inner.toMoveTo.getBoundingClientRect().height + 40
+						}px`;
 					// Animate in the title
 					inner.toMoveTo.querySelector("h1").classList.remove("right");
 					setTimeout(function () {
@@ -271,7 +271,7 @@
 			);
 			this.curPage += rev ? -1 : 1;
 		}
-		finish() {}
+		finish() { }
 		page(obj) {
 			// Destructure some objects so we don't have to type out "this.element" or similar
 			let { element, nextPage } = this;
@@ -308,11 +308,11 @@
 				if (buttonStruct.action)
 					buttonel.addEventListener("click", buttonStruct.action);
 				// If the bitfield action is 0, go backwards 1 page
-				else if (!(buttonStruct.info & bitfield.action)) 
+				else if (!(buttonStruct.info & bitfield.action))
 					buttonel.onclick = nextPage.bind(this, true);
 				// If it's not 0 go forwards 1 page
 				else {
-					buttonel.id = 'buttonOk';
+					buttonel.id = "buttonOk";
 					buttonel.onclick = nextPage.bind(this, null); // null is required because MouseEvent gets sent otherwise, and that's truthy
 				}
 				buttonContainer.append(buttonel);
