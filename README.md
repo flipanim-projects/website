@@ -18,4 +18,6 @@ As of now this project is put aside — if there are updates I'll remove this te
 
 ~~Hosted in a separate repository and there's no way you'll get to see it >:)~~
 
-These docs are outdated. I'll update them soon™
+~~These docs are outdated. I'll update them soon™~~
+
+They're still outdated, but there now is a way you get to see it! [Here](https://github.com/flipanim-projects/docs-outdated)
