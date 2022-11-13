@@ -2,6 +2,9 @@
 
 FlipAnim V2 Official Repository
 
+## Update
+As of now this project is put aside — if there are updates I'll remove this text
+
 ## Directory
 
 `/public` actual pages, site is stored here<br>
