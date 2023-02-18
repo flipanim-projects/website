@@ -24,7 +24,7 @@ var api = require("./api/index"),
 const dbUrl = process.env.MONGODB_URI;
 
 // Connect to data server
-/*mongoose.connect(
+mongoose.connect(
 	dbUrl,
 	{
 		keepAlive: true,
@@ -36,7 +36,7 @@ const dbUrl = process.env.MONGODB_URI;
 		else console.log("Connected to MongoDB");
 	}
 );
-*/
+
 const genSessionSecret = () =>
 	Math.floor(Math.random() * 100 ** 7).toString(16);
 let gened = genSessionSecret();
