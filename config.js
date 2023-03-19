@@ -1,5 +1,5 @@
 module.exports = {
-	captcha: false,
+	captcha: true,
 	sessionSecret: false,
 	minify: false,
 };

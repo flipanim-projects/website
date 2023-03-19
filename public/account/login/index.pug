@@ -1,8 +1,6 @@
 extends ../../components/base
-block append styles 
     link(rel="stylesheet" href="/public/css/toast.chunk.css")
     link(rel="stylesheet" href="/public/css/account.chunk.css")
-block content
     .account-box#login
         h1.title.animate-in.right Log In
         small Don't have an account? <a href="/account/create">Create one</a>
@@ -21,7 +19,6 @@ block content
             //-     })
             br
             input(type='submit', id="submit", value='Log in').fullwidth
-block scripts
     script(src='/public/index.js')
     script(src='/public/utils/toast.js')
     script(src='/public/account/login/index.js')
