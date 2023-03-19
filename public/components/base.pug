@@ -1,6 +1,5 @@
 doctype html
 head
-    block styles
         link(rel='stylesheet', href='/public/css/main.chunk.css')
         link(rel='stylesheet', href='/public/css/font.chunk.css')
     title= title
@@ -11,19 +10,12 @@ head
 body(class=user ? JSON.parse(user).preferences.theme : 'dark')
     if user
         input#userID(type="text" value=JSON.parse(user).name.id style="pointer-events: none; display: none")
-
-    block nav
-        include nav
-    main 
-        block content 
-
-    block footer 
-        include footer
-
+    include nav
+    include content 
+    include footer 
     .popup-container 
         .modal-container
         .toast-container
 
-    block scripts 
-    script. 
+    
     

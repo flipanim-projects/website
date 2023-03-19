@@ -19,7 +19,7 @@ const team = [
 		name: "PichuTheCreeper", // Fill this in with your name / display name
 		username: "thepichu", // Your FAv2 username
 		role: "Admin, Designer", // Role in the project
-		image: "false", // Will fill in later
+		image: false, // Will fill in later
 		link: "/profile?user=d723b-", // my profile page doesnt work lmao
 	},
 	{

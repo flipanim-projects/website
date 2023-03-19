@@ -1,5 +1,4 @@
 extends ../components/base.pug
-block content
     h1 Error
     p You're already logged in as @#{JSON.parse(user).name.text} (#{JSON.parse(user).name.display})
     a(onclick="window.history.go(-1)" href="#") &larr; Back
